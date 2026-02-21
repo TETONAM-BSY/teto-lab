@@ -1,0 +1,78 @@
+{
+  "version": "4.0",
+  "title": "ENG·WIKI",
+  "subtitle": "Engineering Knowledge Base",
+  "lastUpdated": "2026-02-18",
+  "categories": [
+    {
+      "id": "foundation",
+      "name": "기초 과학",
+      "icon": "🔬",
+      "color": "#6366f1",
+      "subjects": [
+        { "id": "math-basics", "name": "기초수학", "icon": "➕", "chapters": 12, "file": "data/foundation/math-basics.json" },
+        { "id": "calculus", "name": "미적분학", "icon": "∫", "chapters": 10, "file": "data/foundation/calculus.json" },
+        { "id": "linear-algebra", "name": "선형대수학", "icon": "⊞", "chapters": 9, "file": "data/foundation/linear-algebra.json" },
+        { "id": "probability", "name": "확률과통계", "icon": "🎲", "chapters": 10, "file": "data/foundation/probability.json" },
+        { "id": "physics", "name": "물리학", "icon": "⚛️", "chapters": 12, "file": "data/foundation/physics.json" },
+        { "id": "chemistry", "name": "화학", "icon": "🧪", "chapters": 10, "file": "data/foundation/chemistry.json" }
+      ]
+    },
+    {
+      "id": "core",
+      "name": "핵심 공학",
+      "icon": "⚙️",
+      "color": "#0ea5e9",
+      "subjects": [
+        { "id": "mechanics", "name": "재료역학", "icon": "🏗️", "chapters": 10, "file": "data/core/mechanics.json" },
+        { "id": "fluid", "name": "유체역학", "icon": "💧", "chapters": 9, "file": "data/core/fluid.json" },
+        { "id": "thermodynamics", "name": "열역학", "icon": "🔥", "chapters": 10, "file": "data/core/thermodynamics.json" },
+        { "id": "dynamics", "name": "동역학", "icon": "🌀", "chapters": 9, "file": "data/core/dynamics.json" },
+        { "id": "statics", "name": "정역학", "icon": "⚖️", "chapters": 9, "file": "data/core/statics.json" },
+        { "id": "vibration", "name": "기계진동학", "icon": "〰️", "chapters": 8, "file": "data/core/vibration.json" }
+      ]
+    },
+    {
+      "id": "electrical",
+      "name": "전기·전자",
+      "icon": "⚡",
+      "color": "#f59e0b",
+      "subjects": [
+        { "id": "circuits", "name": "회로이론", "icon": "🔌", "chapters": 10, "file": "data/electrical/circuits.json" },
+        { "id": "electromagnetics", "name": "전자기학", "icon": "🧲", "chapters": 9, "file": "data/electrical/electromagnetics.json" },
+        { "id": "electronics", "name": "전자회로", "icon": "💡", "chapters": 10, "file": "data/electrical/electronics.json" },
+        { "id": "signals", "name": "신호및시스템", "icon": "📡", "chapters": 9, "file": "data/electrical/signals.json" },
+        { "id": "control", "name": "제어공학", "icon": "🎮", "chapters": 10, "file": "data/electrical/control.json" }
+      ]
+    },
+    {
+      "id": "computing",
+      "name": "컴퓨팅",
+      "icon": "💻",
+      "color": "#10b981",
+      "subjects": [
+        { "id": "algorithms", "name": "알고리즘", "icon": "🔄", "chapters": 12, "file": "data/computing/algorithms.json" },
+        { "id": "data-structures", "name": "자료구조", "icon": "🌳", "chapters": 10, "file": "data/computing/data-structures.json" },
+        { "id": "os", "name": "운영체제", "icon": "🖥️", "chapters": 10, "file": "data/computing/os.json" },
+        { "id": "networks", "name": "컴퓨터네트워크", "icon": "🌐", "chapters": 9, "file": "data/computing/networks.json" },
+        { "id": "databases", "name": "데이터베이스", "icon": "🗄️", "chapters": 9, "file": "data/computing/databases.json" }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "심화·응용",
+      "icon": "🚀",
+      "color": "#ec4899",
+      "subjects": [
+        { "id": "machine-learning", "name": "머신러닝", "icon": "🤖", "chapters": 12, "file": "data/advanced/machine-learning.json" },
+        { "id": "numerical", "name": "수치해석", "icon": "🔢", "chapters": 9, "file": "data/advanced/numerical.json" },
+        { "id": "optimization", "name": "최적화이론", "icon": "📈", "chapters": 8, "file": "data/advanced/optimization.json" },
+        { "id": "fem", "name": "유한요소법", "icon": "🕸️", "chapters": 9, "file": "data/advanced/fem.json" },
+        { "id": "cad-cam", "name": "CAD/CAM", "icon": "📐", "chapters": 8, "file": "data/advanced/cad-cam.json" },
+        { "id": "robotics", "name": "로보틱스", "icon": "🦾", "chapters": 10, "file": "data/advanced/robotics.json" },
+        { "id": "manufacturing", "name": "생산공학", "icon": "🏭", "chapters": 9, "file": "data/advanced/manufacturing.json" },
+        { "id": "materials", "name": "재료공학", "icon": "🔩", "chapters": 9, "file": "data/advanced/materials.json" }
+      ]
+    }
+  ]
+}
