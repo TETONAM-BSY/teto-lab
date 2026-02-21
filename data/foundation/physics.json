@@ -1,0 +1,966 @@
+{
+  "id": "physics",
+  "title": "물리학 기초",
+  "subtitle": "역학·전자기·파동·열역학·현대물리·광학",
+  "chapters": [
+    {
+      "id": "ch1",
+      "number": "1",
+      "title": "고전 역학 기초",
+      "subtitle": "Classical Mechanics",
+      "sections": [
+        {
+          "id": "1.1",
+          "title": "뉴턴의 운동 법칙",
+          "content": [
+            {
+              "type": "definition",
+              "term": "뉴턴의 3대 운동 법칙",
+              "latex": "\\mathbf{F} = m\\mathbf{a} = m\\frac{d^2\\mathbf{r}}{dt^2}",
+              "body": "제1법칙(관성): 힘이 없으면 등속 직선 운동. 제2법칙(가속도): F=ma. 제3법칙(작용반작용): 힘은 쌍으로 존재."
+            },
+            {
+              "type": "formula-grid",
+              "title": "운동학 기본 공식 (등가속도)",
+              "cols": 2,
+              "items": [
+                { "name": "속도", "latex": "v = v_0 + at" },
+                { "name": "변위", "latex": "x = v_0t + \\frac{1}{2}at^2" },
+                { "name": "속도-변위", "latex": "v^2 = v_0^2 + 2ax" },
+                { "name": "평균 속도", "latex": "\\bar{v} = \\frac{v_0+v}{2}" }
+              ]
+            },
+            {
+              "type": "formula-grid",
+              "title": "운동량과 충격량",
+              "cols": 2,
+              "items": [
+                { "name": "운동량", "latex": "\\mathbf{p} = m\\mathbf{v}" },
+                { "name": "충격량", "latex": "\\mathbf{J} = \\int \\mathbf{F}\\,dt = \\Delta\\mathbf{p}" },
+                { "name": "운동량 보존", "latex": "\\sum\\mathbf{p}_i = \\text{const} \\;(\\text{외력}=0)" },
+                { "name": "뉴턴 2법칙 일반형", "latex": "\\mathbf{F} = \\frac{d\\mathbf{p}}{dt}" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "title": "일과 에너지",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "에너지 공식",
+              "cols": 2,
+              "items": [
+                { "name": "일", "latex": "W = \\int \\mathbf{F}\\cdot d\\mathbf{r} = Fd\\cos\\theta" },
+                { "name": "운동 에너지", "latex": "K = \\frac{1}{2}mv^2" },
+                { "name": "중력 퍼텐셜", "latex": "U_g = mgh" },
+                { "name": "탄성 퍼텐셜", "latex": "U_s = \\frac{1}{2}kx^2" },
+                { "name": "일-에너지 정리", "latex": "W_{net} = \\Delta K" },
+                { "name": "에너지 보존", "latex": "K + U = E = \\text{const}" }
+              ]
+            },
+            {
+              "type": "definition",
+              "term": "일률 (Power)",
+              "latex": "P = \\frac{dW}{dt} = \\mathbf{F}\\cdot\\mathbf{v} \\quad [\\text{W} = \\text{J/s}]",
+              "body": "단위 시간당 하는 일. 전기공학에서 전력 P = VI와 같은 개념."
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "title": "회전 운동",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "회전 운동 공식",
+              "cols": 2,
+              "items": [
+                { "name": "토크", "latex": "\\boldsymbol{\\tau} = \\mathbf{r}\\times\\mathbf{F},\\quad \\tau = rF\\sin\\theta" },
+                { "name": "각운동량", "latex": "\\mathbf{L} = \\mathbf{r}\\times\\mathbf{p} = I\\boldsymbol{\\omega}" },
+                { "name": "회전 뉴턴 2법칙", "latex": "\\boldsymbol{\\tau} = I\\boldsymbol{\\alpha} = \\frac{d\\mathbf{L}}{dt}" },
+                { "name": "회전 운동에너지", "latex": "K_{rot} = \\frac{1}{2}I\\omega^2" },
+                { "name": "관성 모멘트 (균일 봉)", "latex": "I = \\frac{1}{12}mL^2" },
+                { "name": "관성 모멘트 (원판)", "latex": "I = \\frac{1}{2}mR^2" }
+              ]
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "전기공학 연결",
+              "title": "전동기 = 회전 역학",
+              "body": "<p>전동기 출력 토크: \\(\\tau = K_t I_a\\) (Kₜ: 토크 상수)</p><p>각속도: \\(\\omega = \\frac{V - I_aR_a}{K_e}\\) (Kₑ: 역기전력 상수)</p><p>기계적 출력: \\(P = \\tau\\omega\\)</p>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "number": "2",
+      "title": "진동과 파동",
+      "subtitle": "Oscillations & Waves",
+      "sections": [
+        {
+          "id": "2.1",
+          "title": "단순 조화 운동 (SHM)",
+          "content": [
+            {
+              "type": "definition",
+              "term": "단순 조화 운동 (Simple Harmonic Motion)",
+              "latex": "\\frac{d^2x}{dt^2} + \\omega_0^2 x = 0, \\quad x(t) = A\\cos(\\omega_0 t + \\phi)",
+              "body": "복원력이 변위에 비례할 때의 진동. 스프링-질량, LC 회로, 단진자 등이 SHM의 예."
+            },
+            {
+              "type": "formula-grid",
+              "title": "SHM 주요 공식",
+              "cols": 2,
+              "items": [
+                { "name": "각진동수", "latex": "\\omega_0 = \\sqrt{\\frac{k}{m}}" },
+                { "name": "주기", "latex": "T = \\frac{2\\pi}{\\omega_0} = 2\\pi\\sqrt{\\frac{m}{k}}" },
+                { "name": "속도", "latex": "v = -A\\omega_0\\sin(\\omega_0 t+\\phi)" },
+                { "name": "최대 속도", "latex": "v_{max} = A\\omega_0" },
+                { "name": "에너지", "latex": "E = \\frac{1}{2}kA^2 = \\frac{1}{2}m\\omega_0^2A^2" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "title": "감쇠 진동과 강제 진동",
+          "content": [
+            {
+              "type": "formula",
+              "name": "감쇠 진동 방정식",
+              "latex": "m\\ddot{x} + b\\dot{x} + kx = 0 \\Rightarrow \\ddot{x} + 2\\zeta\\omega_0\\dot{x} + \\omega_0^2 x = 0",
+              "description": "ζ: 감쇠비. ζ<1: 부족감쇠(진동), ζ=1: 임계감쇠(최속 복귀), ζ>1: 과감쇠"
+            },
+            {
+              "type": "formula",
+              "name": "강제 진동과 공진",
+              "latex": "X(\\omega) = \\frac{F_0/m}{\\sqrt{(\\omega_0^2-\\omega^2)^2+(2\\zeta\\omega_0\\omega)^2}}",
+              "description": "구동 주파수 ω = ω₀일 때 진폭 최대(공진). 공진 진폭 = F₀/(2ζmω₀²). 감쇠가 작을수록 공진 첨두가 날카로움."
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "회로 공진 연결",
+              "title": "RLC 회로 = 감쇠 진동",
+              "body": "<p>RLC 직렬 회로: \\(L\\ddot{q} + R\\dot{q} + \\frac{q}{C} = 0\\)</p><p>감쇠비 \\(\\zeta = \\frac{R}{2}\\sqrt{\\frac{C}{L}}\\), 공진 주파수 \\(\\omega_0 = \\frac{1}{\\sqrt{LC}}\\)</p><p>기계 진동과 수학적으로 완전히 동일한 구조.</p>"
+            }
+          ]
+        },
+        {
+          "id": "2.3",
+          "title": "파동의 기초",
+          "content": [
+            {
+              "type": "definition",
+              "term": "진행파 (Traveling Wave)",
+              "latex": "y(x,t) = A\\cos(kx - \\omega t + \\phi), \\quad v = \\frac{\\omega}{k} = f\\lambda",
+              "body": "k: 파수(wave number) = 2π/λ. 위상 속도 v = ω/k. 군속도 vg = dω/dk."
+            },
+            {
+              "type": "formula-grid",
+              "title": "파동 기본 관계",
+              "cols": 2,
+              "items": [
+                { "name": "파수", "latex": "k = \\frac{2\\pi}{\\lambda}" },
+                { "name": "각진동수", "latex": "\\omega = 2\\pi f = \\frac{2\\pi}{T}" },
+                { "name": "파동 방정식", "latex": "\\frac{\\partial^2 y}{\\partial t^2} = v^2\\frac{\\partial^2 y}{\\partial x^2}" },
+                { "name": "중첩 원리", "latex": "y = y_1 + y_2" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "number": "3",
+      "title": "정전기학",
+      "subtitle": "Electrostatics",
+      "sections": [
+        {
+          "id": "3.1",
+          "title": "쿨롱 법칙과 전기장",
+          "content": [
+            {
+              "type": "formula",
+              "name": "쿨롱 법칙 (Coulomb's Law)",
+              "latex": "\\mathbf{F} = k_e\\frac{q_1 q_2}{r^2}\\hat{r} = \\frac{1}{4\\pi\\varepsilon_0}\\frac{q_1 q_2}{r^2}\\hat{r}",
+              "description": "kₑ = 8.99×10⁹ N·m²/C², ε₀ = 8.85×10⁻¹² F/m (진공 유전율)"
+            },
+            {
+              "type": "formula-grid",
+              "title": "전기장",
+              "cols": 2,
+              "items": [
+                { "name": "점전하 전기장", "latex": "\\mathbf{E} = \\frac{1}{4\\pi\\varepsilon_0}\\frac{q}{r^2}\\hat{r}" },
+                { "name": "전기장-전위 관계", "latex": "\\mathbf{E} = -\\nabla V" },
+                { "name": "전위 (점전하)", "latex": "V = \\frac{1}{4\\pi\\varepsilon_0}\\frac{q}{r}" },
+                { "name": "전기력", "latex": "\\mathbf{F} = q\\mathbf{E}" }
+              ]
+            },
+            {
+              "type": "theorem",
+              "name": "가우스 법칙 (Gauss's Law)",
+              "statement": "임의의 닫힌 곡면을 통과하는 전기 플럭스는 내부 전하량을 ε₀으로 나눈 것과 같다.",
+              "latex": "\\oint_S \\mathbf{E}\\cdot d\\mathbf{A} = \\frac{Q_{enc}}{\\varepsilon_0}"
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "title": "도체와 유전체",
+          "content": [
+            {
+              "type": "table",
+              "title": "도체의 정전기 성질",
+              "headers": ["성질", "내용"],
+              "rows": [
+                ["내부 전기장", "E = 0 (정전 평형 시)"],
+                ["전하 분포", "표면에만 존재"],
+                ["표면 전기장", "E = σ/ε₀ (법선 방향)"],
+                ["전위", "등전위면 (conductor는 등전위체)"]
+              ]
+            },
+            {
+              "type": "formula-grid",
+              "title": "커패시터",
+              "cols": 2,
+              "items": [
+                { "name": "커패시턴스 정의", "latex": "C = \\frac{Q}{V} \\quad [\\text{F} = \\text{C/V}]" },
+                { "name": "평행판 커패시터", "latex": "C = \\frac{\\varepsilon_0 A}{d}" },
+                { "name": "유전체 삽입", "latex": "C = \\frac{\\varepsilon_r\\varepsilon_0 A}{d} = \\kappa C_0" },
+                { "name": "저장 에너지", "latex": "U = \\frac{1}{2}CV^2 = \\frac{Q^2}{2C}" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.3",
+          "title": "전기 쌍극자와 다중극 전개",
+          "content": [
+            {
+              "type": "definition",
+              "term": "전기 쌍극자 (Electric Dipole)",
+              "latex": "\\mathbf{p} = q\\mathbf{d}, \\quad V = \\frac{1}{4\\pi\\varepsilon_0}\\frac{\\mathbf{p}\\cdot\\hat{r}}{r^2}",
+              "body": "+q와 -q가 거리 d만큼 떨어진 쌍. 분자 구조(H₂O 등)와 안테나 이론의 기초."
+            },
+            {
+              "type": "formula",
+              "name": "쌍극자에 작용하는 토크",
+              "latex": "\\boldsymbol{\\tau} = \\mathbf{p}\\times\\mathbf{E}, \\quad U = -\\mathbf{p}\\cdot\\mathbf{E}",
+              "description": "균일 전기장에서 쌍극자는 전기장 방향으로 정렬. 액정 디스플레이(LCD)의 동작 원리."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "number": "4",
+      "title": "직류 회로",
+      "subtitle": "DC Circuits",
+      "sections": [
+        {
+          "id": "4.1",
+          "title": "전류와 저항",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "전류·저항 기본 공식",
+              "cols": 2,
+              "items": [
+                { "name": "전류 정의", "latex": "I = \\frac{dq}{dt} \\quad [\\text{A} = \\text{C/s}]" },
+                { "name": "옴의 법칙", "latex": "V = IR" },
+                { "name": "저항률", "latex": "R = \\rho\\frac{L}{A}" },
+                { "name": "전력 소비", "latex": "P = IV = I^2R = \\frac{V^2}{R}" },
+                { "name": "직렬 합성", "latex": "R_{eq} = R_1+R_2+\\cdots" },
+                { "name": "병렬 합성", "latex": "\\frac{1}{R_{eq}} = \\frac{1}{R_1}+\\frac{1}{R_2}+\\cdots" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.2",
+          "title": "키르히호프 법칙",
+          "content": [
+            {
+              "type": "definition",
+              "term": "키르히호프 법칙 (Kirchhoff's Laws)",
+              "latex": "\\text{KCL: } \\sum I_{in} = \\sum I_{out} \\qquad \\text{KVL: } \\sum V = 0",
+              "body": "KCL (전류 법칙): 노드에서 전류의 합 = 0. 전하 보존 법칙. KVL (전압 법칙): 루프의 전압 합 = 0. 에너지 보존 법칙."
+            },
+            {
+              "type": "example",
+              "title": "브릿지 회로 분석",
+              "problem": "휘트스톤 브릿지에서 평형 조건을 유도하시오.",
+              "solution": "평형 시 검류계 전류 = 0. KVL 적용: V_AB = 0 → R₁/R₂ = R₃/R₄",
+              "answer": "\\(\\dfrac{R_1}{R_2} = \\dfrac{R_3}{R_4}\\)"
+            }
+          ]
+        },
+        {
+          "id": "4.3",
+          "title": "RC·RL 과도 응답",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "RC·RL 회로 과도 응답",
+              "cols": 2,
+              "items": [
+                { "name": "RC 충전", "latex": "v_C(t) = V_s(1-e^{-t/RC})" },
+                { "name": "RC 방전", "latex": "v_C(t) = V_0 e^{-t/RC}" },
+                { "name": "RL 전류 상승", "latex": "i_L(t) = \\frac{V_s}{R}(1-e^{-Rt/L})" },
+                { "name": "시정수 RC", "latex": "\\tau_{RC} = RC" },
+                { "name": "시정수 RL", "latex": "\\tau_{RL} = L/R" },
+                { "name": "5τ 후", "latex": "\\approx 99.3\\% \\text{ 완전 충방전}" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch5",
+      "number": "5",
+      "title": "자기학",
+      "subtitle": "Magnetism",
+      "sections": [
+        {
+          "id": "5.1",
+          "title": "자기장과 로렌츠 힘",
+          "content": [
+            {
+              "type": "formula",
+              "name": "로렌츠 힘 (Lorentz Force)",
+              "latex": "\\mathbf{F} = q(\\mathbf{E} + \\mathbf{v}\\times\\mathbf{B})",
+              "description": "전기력 + 자기력. 자기력은 속도에 수직 → 일을 하지 않음 → 속력 변화 없음."
+            },
+            {
+              "type": "formula-grid",
+              "title": "하전 입자의 자기장 내 운동",
+              "cols": 2,
+              "items": [
+                { "name": "원운동 반지름", "latex": "r = \\frac{mv}{qB}" },
+                { "name": "사이클로트론 주파수", "latex": "f_c = \\frac{qB}{2\\pi m}" },
+                { "name": "전류에 작용하는 힘", "latex": "\\mathbf{F} = I\\mathbf{L}\\times\\mathbf{B}" },
+                { "name": "자기 쌍극자 토크", "latex": "\\boldsymbol{\\tau} = \\mathbf{m}\\times\\mathbf{B}" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.2",
+          "title": "비오-사바르 법칙과 암페어 법칙",
+          "content": [
+            {
+              "type": "formula",
+              "name": "비오-사바르 법칙 (Biot-Savart Law)",
+              "latex": "d\\mathbf{B} = \\frac{\\mu_0}{4\\pi}\\frac{I\\,d\\mathbf{l}\\times\\hat{r}}{r^2}",
+              "description": "μ₀ = 4π×10⁻⁷ T·m/A (진공 투자율). 전류 소자가 만드는 자기장."
+            },
+            {
+              "type": "theorem",
+              "name": "암페어 법칙 (Ampere's Law)",
+              "statement": "닫힌 경로를 따라 자기장을 선 적분한 값은 그 경로가 둘러싸는 전류에 μ₀을 곱한 것과 같다.",
+              "latex": "\\oint_C \\mathbf{B}\\cdot d\\mathbf{l} = \\mu_0 I_{enc}"
+            },
+            {
+              "type": "table",
+              "title": "암페어 법칙 적용 결과",
+              "headers": ["형태", "자기장"],
+              "rows": [
+                ["무한 직선 도선 (거리 r)", "B = μ₀I/(2πr)"],
+                ["솔레노이드 (단위 길이당 n회)", "B = μ₀nI"],
+                ["토로이드 (반지름 r)", "B = μ₀NI/(2πr)"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.3",
+          "title": "전자기 유도",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "패러데이 유도 법칙 (Faraday's Law)",
+              "statement": "회로를 통과하는 자속의 시간적 변화가 기전력을 유도한다.",
+              "latex": "\\mathcal{E} = -\\frac{d\\Phi_B}{dt} = -\\frac{d}{dt}\\int_S \\mathbf{B}\\cdot d\\mathbf{A}"
+            },
+            {
+              "type": "formula-grid",
+              "title": "인덕턴스",
+              "cols": 2,
+              "items": [
+                { "name": "자기 인덕턴스", "latex": "\\mathcal{E} = -L\\frac{dI}{dt}" },
+                { "name": "솔레노이드 L", "latex": "L = \\mu_0 n^2 V = \\frac{\\mu_0 N^2 A}{\\ell}" },
+                { "name": "저장 에너지", "latex": "U_L = \\frac{1}{2}LI^2" },
+                { "name": "상호 인덕턴스", "latex": "\\mathcal{E}_2 = -M\\frac{dI_1}{dt}" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch6",
+      "number": "6",
+      "title": "맥스웰 방정식",
+      "subtitle": "Maxwell's Equations",
+      "sections": [
+        {
+          "id": "6.1",
+          "title": "맥스웰 방정식 완성",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "전자기학의 완성",
+              "title": "맥스웰 방정식 4개",
+              "body": "<p>① 가우스 전기 법칙: \\(\\nabla\\cdot\\mathbf{E} = \\rho/\\varepsilon_0\\)</p><p>② 가우스 자기 법칙: \\(\\nabla\\cdot\\mathbf{B} = 0\\) (자기홀극 없음)</p><p>③ 패러데이 법칙: \\(\\nabla\\times\\mathbf{E} = -\\partial\\mathbf{B}/\\partial t\\)</p><p>④ 앙페르-맥스웰 법칙: \\(\\nabla\\times\\mathbf{B} = \\mu_0\\mathbf{J} + \\mu_0\\varepsilon_0\\partial\\mathbf{E}/\\partial t\\)</p>"
+            },
+            {
+              "type": "formula",
+              "name": "변위 전류 (Displacement Current)",
+              "latex": "\\mathbf{J}_D = \\varepsilon_0\\frac{\\partial\\mathbf{E}}{\\partial t}",
+              "description": "맥스웰이 추가한 항. 커패시터 충전 중에도 자기장이 생기는 이유. 전자기파 예측의 열쇠."
+            }
+          ]
+        },
+        {
+          "id": "6.2",
+          "title": "전자기파",
+          "content": [
+            {
+              "type": "formula",
+              "name": "전자기파 방정식",
+              "latex": "\\nabla^2\\mathbf{E} = \\mu_0\\varepsilon_0\\frac{\\partial^2\\mathbf{E}}{\\partial t^2}, \\quad c = \\frac{1}{\\sqrt{\\mu_0\\varepsilon_0}} \\approx 3\\times10^8\\;\\text{m/s}",
+              "description": "맥스웰 방정식에서 유도. 빛 = 전자기파임을 예측."
+            },
+            {
+              "type": "formula-grid",
+              "title": "전자기파 성질",
+              "cols": 2,
+              "items": [
+                { "name": "E와 B의 관계", "latex": "E = cB" },
+                { "name": "진행 방향", "latex": "\\mathbf{S} = \\frac{1}{\\mu_0}\\mathbf{E}\\times\\mathbf{B}" },
+                { "name": "포인팅 벡터 크기", "latex": "S = \\frac{E^2}{\\mu_0 c} = \\frac{EB}{\\mu_0}" },
+                { "name": "복사 세기(평균)", "latex": "I = \\langle S\\rangle = \\frac{E_0^2}{2\\mu_0 c}" }
+              ]
+            },
+            {
+              "type": "table",
+              "title": "전자기 스펙트럼",
+              "headers": ["종류", "주파수 범위", "응용"],
+              "rows": [
+                ["라디오파", "< 300 MHz", "AM/FM 방송, 레이더"],
+                ["마이크로파", "300 MHz ~ 300 GHz", "WiFi, 5G, 전자레인지"],
+                ["적외선", "300 GHz ~ 430 THz", "열화상, 광통신(1.55μm)"],
+                ["가시광선", "430 ~ 750 THz", "광학 통신, 디스플레이"],
+                ["자외선", "750 THz ~ 30 PHz", "살균, 반도체 노광"],
+                ["X선/감마선", "> 30 PHz", "의료 영상, 암 치료"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.3",
+          "title": "경계 조건과 반사·투과",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "전자기 경계 조건",
+              "cols": 2,
+              "items": [
+                { "name": "접선 E 연속", "latex": "E_{t1} = E_{t2}" },
+                { "name": "법선 D 연속", "latex": "D_{n1} = D_{n2} \\;(\\text{자유전하 없을 때})" },
+                { "name": "접선 H 연속", "latex": "H_{t1} = H_{t2} \\;(\\text{표면전류 없을 때})" },
+                { "name": "법선 B 연속", "latex": "B_{n1} = B_{n2}" }
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "스넬 법칙 (전자기파)",
+              "latex": "n_1\\sin\\theta_1 = n_2\\sin\\theta_2, \\quad n = c/v = \\sqrt{\\varepsilon_r\\mu_r}",
+              "description": "굴절률 n: 매질에서 빛의 속도가 느려지는 비율."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch7",
+      "number": "7",
+      "title": "교류 회로",
+      "subtitle": "AC Circuits",
+      "sections": [
+        {
+          "id": "7.1",
+          "title": "페이저와 임피던스",
+          "content": [
+            {
+              "type": "definition",
+              "term": "페이저 (Phasor)",
+              "latex": "v(t) = V_m\\cos(\\omega t+\\phi) \\leftrightarrow \\mathbf{V} = V_m\\angle\\phi = V_m e^{j\\phi}",
+              "body": "정현파를 복소수로 표현. 미분방정식 → 대수방정식으로 변환. 교류 회로 해석의 핵심 도구."
+            },
+            {
+              "type": "formula-grid",
+              "title": "소자별 임피던스",
+              "cols": 2,
+              "items": [
+                { "name": "저항 R", "latex": "Z_R = R" },
+                { "name": "인덕터 L", "latex": "Z_L = j\\omega L" },
+                { "name": "커패시터 C", "latex": "Z_C = \\frac{1}{j\\omega C} = \\frac{-j}{\\omega C}" },
+                { "name": "임피던스", "latex": "Z = R + jX = |Z|\\angle\\theta" },
+                { "name": "어드미턴스", "latex": "Y = \\frac{1}{Z} = G + jB" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.2",
+          "title": "전력 해석",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "교류 전력",
+              "cols": 2,
+              "items": [
+                { "name": "유효 전력", "latex": "P = V_{rms}I_{rms}\\cos\\theta \\;[\\text{W}]" },
+                { "name": "무효 전력", "latex": "Q = V_{rms}I_{rms}\\sin\\theta \\;[\\text{VAR}]" },
+                { "name": "피상 전력", "latex": "S = V_{rms}I_{rms} \\;[\\text{VA}]" },
+                { "name": "복소 전력", "latex": "\\mathbf{S} = \\mathbf{V}\\mathbf{I}^* = P+jQ" },
+                { "name": "역률", "latex": "\\text{PF} = \\cos\\theta = \\frac{P}{S}" },
+                { "name": "전력 삼각형", "latex": "S^2 = P^2 + Q^2" }
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "역률 개선 (Power Factor Correction)",
+              "body": "역률이 낮으면 같은 유효 전력을 위해 더 큰 전류가 필요 → 손실 증가. 유도성 부하(전동기)에 커패시터 병렬 연결로 역률 개선. 산업 현장의 전기 요금 절감 핵심."
+            }
+          ]
+        },
+        {
+          "id": "7.3",
+          "title": "공진 회로",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "직렬 RLC 공진",
+              "cols": 2,
+              "items": [
+                { "name": "공진 주파수", "latex": "\\omega_0 = \\frac{1}{\\sqrt{LC}},\\quad f_0 = \\frac{1}{2\\pi\\sqrt{LC}}" },
+                { "name": "Q 인수", "latex": "Q = \\frac{\\omega_0 L}{R} = \\frac{1}{\\omega_0 RC}" },
+                { "name": "대역폭", "latex": "BW = \\frac{\\omega_0}{Q} = \\frac{R}{L}" },
+                { "name": "공진 시 임피던스", "latex": "Z_{min} = R \\;(\\text{직렬})" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch8",
+      "number": "8",
+      "title": "광학",
+      "subtitle": "Optics",
+      "sections": [
+        {
+          "id": "8.1",
+          "title": "기하 광학",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "반사와 굴절",
+              "cols": 2,
+              "items": [
+                { "name": "반사 법칙", "latex": "\\theta_i = \\theta_r" },
+                { "name": "스넬 법칙", "latex": "n_1\\sin\\theta_1 = n_2\\sin\\theta_2" },
+                { "name": "전반사 임계각", "latex": "\\sin\\theta_c = \\frac{n_2}{n_1} \\;(n_1>n_2)" },
+                { "name": "광섬유 수치 개구", "latex": "\\text{NA} = n\\sin\\theta_{max} = \\sqrt{n_1^2-n_2^2}" }
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "얇은 렌즈 방정식",
+              "latex": "\\frac{1}{f} = \\frac{1}{d_o} + \\frac{1}{d_i}, \\quad m = -\\frac{d_i}{d_o}",
+              "description": "f: 초점거리, dₒ: 물체 거리, dᵢ: 상 거리, m: 배율. 렌즈 설계, 카메라, 현미경 기초."
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "광통신 핵심",
+              "title": "광섬유 = 전반사 원리",
+              "body": "<p>코어(n₁) > 클래딩(n₂)이면 전반사 발생 → 빛이 광섬유 안에 갇혀 전파</p><p>단일 모드 광섬유(SMF): 코어 직경 ~8μm, 1310/1550 nm 파장 사용</p><p>손실 ~0.2 dB/km → 수십 km 이상 신호 전달 가능</p>"
+            }
+          ]
+        },
+        {
+          "id": "8.2",
+          "title": "파동 광학 — 간섭과 회절",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "이중 슬릿 간섭 (영의 실험)",
+              "cols": 2,
+              "items": [
+                { "name": "보강 간섭", "latex": "d\\sin\\theta = m\\lambda, \\;m=0,\\pm1,\\pm2,\\ldots" },
+                { "name": "상쇄 간섭", "latex": "d\\sin\\theta = (m+\\tfrac{1}{2})\\lambda" },
+                { "name": "간섭무늬 간격", "latex": "\\Delta y = \\frac{\\lambda L}{d}" }
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "단일 슬릿 회절",
+              "latex": "\\sin\\theta = \\frac{m\\lambda}{a} \\;(\\text{어두운 무늬}), \\quad m = \\pm1,\\pm2,\\ldots",
+              "description": "a: 슬릿 폭. 회절 한계: θ_min = 1.22λ/D (원형 개구, 레일리 기준)."
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "반도체 노광 (Lithography) — 회절 한계",
+              "body": "반도체 공정의 최소 선폭 = k₁λ/NA. λ를 줄이기 위해 193nm(ArF 레이저) → EUV(13.5nm) 사용. NA를 높이기 위해 액침(immersion) 기술. 현재 TSMC 2nm 공정에 EUV 사용."
+            }
+          ]
+        },
+        {
+          "id": "8.3",
+          "title": "편광과 레이저",
+          "content": [
+            {
+              "type": "formula",
+              "name": "말뤼스 법칙 (Malus's Law)",
+              "latex": "I = I_0\\cos^2\\theta",
+              "description": "편광판을 통과한 빛의 세기. θ: 편광 방향과 편광판 투과축 사이의 각."
+            },
+            {
+              "type": "table",
+              "title": "레이저 특성",
+              "headers": ["특성", "의미", "응용"],
+              "rows": [
+                ["단색성", "단일 파장", "분광, 리소그래피"],
+                ["가간섭성", "위상 일치", "홀로그래피, 간섭계"],
+                ["지향성", "낮은 발산각", "광통신, 거리측정"],
+                ["고출력 밀도", "에너지 집중", "절삭, 수술, 핵융합"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch9",
+      "number": "9",
+      "title": "열역학",
+      "subtitle": "Thermodynamics",
+      "sections": [
+        {
+          "id": "9.1",
+          "title": "열역학 법칙",
+          "content": [
+            {
+              "type": "table",
+              "title": "열역학 4대 법칙",
+              "headers": ["법칙", "내용", "의미"],
+              "rows": [
+                ["제0법칙", "열평형의 전이성", "온도 개념의 기초"],
+                ["제1법칙", "ΔU = Q - W", "에너지 보존"],
+                ["제2법칙", "엔트로피는 증가", "과정의 방향성"],
+                ["제3법칙", "T→0 시 S→0", "절대 영도 불달성"]
+              ]
+            },
+            {
+              "type": "formula-grid",
+              "title": "열역학 제1법칙",
+              "cols": 2,
+              "items": [
+                { "name": "내부에너지 변화", "latex": "\\Delta U = Q - W" },
+                { "name": "등적 과정", "latex": "W=0,\\; Q=\\Delta U = nC_v\\Delta T" },
+                { "name": "등압 과정", "latex": "W=P\\Delta V,\\; Q=nC_p\\Delta T" },
+                { "name": "등온 과정", "latex": "\\Delta U=0,\\; Q=W=nRT\\ln\\frac{V_2}{V_1}" },
+                { "name": "단열 과정", "latex": "Q=0,\\; PV^\\gamma=\\text{const}" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.2",
+          "title": "엔트로피와 열역학 제2법칙",
+          "content": [
+            {
+              "type": "definition",
+              "term": "엔트로피 (Entropy)",
+              "latex": "dS = \\frac{\\delta Q_{rev}}{T}, \\quad \\Delta S \\ge 0 \\;(\\text{고립계})",
+              "body": "무질서도의 척도. 가역과정: ΔS=0, 비가역과정: ΔS>0. 우주의 엔트로피는 항상 증가."
+            },
+            {
+              "type": "formula",
+              "name": "카르노 효율 (Carnot Efficiency)",
+              "latex": "\\eta_{Carnot} = 1 - \\frac{T_C}{T_H}",
+              "description": "온도 TH(고온)와 TC(저온) 사이에서 작동하는 열기관의 최대 효율. 이론적 상한값."
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "반도체 발열 — 열역학의 실전",
+              "body": "CPU/GPU의 전력 소비 = 열 발생. 열저항 Rθ = ΔT/P [℃/W]. 방열판 설계: P × Rθ_ja ≤ T_j(max) - T_a. TDP 관리는 현대 반도체 설계의 핵심 제약."
+            }
+          ]
+        },
+        {
+          "id": "9.3",
+          "title": "기체 운동론",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "이상 기체와 운동론",
+              "cols": 2,
+              "items": [
+                { "name": "이상 기체 법칙", "latex": "PV = nRT = Nk_BT" },
+                { "name": "평균 운동에너지", "latex": "\\langle K\\rangle = \\frac{3}{2}k_BT" },
+                { "name": "rms 속도", "latex": "v_{rms} = \\sqrt{\\frac{3k_BT}{m}} = \\sqrt{\\frac{3RT}{M}}" },
+                { "name": "볼츠만 상수", "latex": "k_B = 1.38\\times10^{-23}\\;\\text{J/K}" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10",
+      "number": "10",
+      "title": "현대 물리학",
+      "subtitle": "Modern Physics",
+      "sections": [
+        {
+          "id": "10.1",
+          "title": "특수 상대성 이론",
+          "content": [
+            {
+              "type": "definition",
+              "term": "아인슈타인의 두 가지 공리",
+              "latex": "c = 2.998\\times10^8\\;\\text{m/s} = \\text{const}",
+              "body": "① 물리 법칙은 모든 관성계에서 동일. ② 빛의 속도는 광원의 속도에 관계없이 일정."
+            },
+            {
+              "type": "formula-grid",
+              "title": "특수 상대성 효과",
+              "cols": 2,
+              "items": [
+                { "name": "로런츠 인수", "latex": "\\gamma = \\frac{1}{\\sqrt{1-v^2/c^2}} \\ge 1" },
+                { "name": "시간 팽창", "latex": "\\Delta t = \\gamma\\Delta t_0" },
+                { "name": "길이 수축", "latex": "L = \\frac{L_0}{\\gamma}" },
+                { "name": "질량-에너지", "latex": "E = \\gamma mc^2,\\quad E_0 = mc^2" },
+                { "name": "상대론적 운동량", "latex": "\\mathbf{p} = \\gamma m\\mathbf{v}" },
+                { "name": "에너지-운동량", "latex": "E^2 = (pc)^2 + (mc^2)^2" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.2",
+          "title": "양자 역학 입문",
+          "content": [
+            {
+              "type": "formula",
+              "name": "드브로이 파장 (de Broglie Wavelength)",
+              "latex": "\\lambda = \\frac{h}{p} = \\frac{h}{mv}",
+              "description": "물질도 파동성을 가짐. h = 6.626×10⁻³⁴ J·s (플랑크 상수). 전자현미경의 원리."
+            },
+            {
+              "type": "formula",
+              "name": "하이젠베르크 불확정성 원리",
+              "latex": "\\Delta x \\cdot \\Delta p \\ge \\frac{\\hbar}{2}, \\quad \\Delta E \\cdot \\Delta t \\ge \\frac{\\hbar}{2}",
+              "description": "위치와 운동량을 동시에 정확히 알 수 없다. ℏ = h/2π = 1.055×10⁻³⁴ J·s"
+            },
+            {
+              "type": "formula",
+              "name": "슈뢰딩거 방정식",
+              "latex": "i\\hbar\\frac{\\partial\\Psi}{\\partial t} = -\\frac{\\hbar^2}{2m}\\nabla^2\\Psi + V\\Psi = \\hat{H}\\Psi",
+              "description": "양자역학의 기본 방정식. |Ψ|²은 확률 밀도."
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "반도체 핵심",
+              "title": "터널링 효과 → Flash 메모리",
+              "body": "<p>고전역학: 퍼텐셜 장벽 넘을 에너지 없으면 통과 불가</p><p>양자역학: 파동함수가 장벽을 통과 → 터널링 확률 존재</p><p>Flash 메모리의 쓰기/지우기 = 전자가 얇은 산화막을 터널링하여 플로팅 게이트에 저장.</p>"
+            }
+          ]
+        },
+        {
+          "id": "10.3",
+          "title": "고체 물리 기초",
+          "content": [
+            {
+              "type": "table",
+              "title": "에너지 띠 이론",
+              "headers": ["구분", "띠 구조", "예"],
+              "rows": [
+                ["도체", "가전자대와 전도대 겹침 또는 반만 참", "Cu, Al"],
+                ["반도체", "밴드갭 ~1eV", "Si(1.1eV), GaAs(1.4eV)"],
+                ["절연체", "밴드갭 >>1eV (>5eV)", "SiO₂(~9eV), 다이아몬드(5.5eV)"]
+              ]
+            },
+            {
+              "type": "formula-grid",
+              "title": "반도체 기본 공식",
+              "cols": 2,
+              "items": [
+                { "name": "진성 반도체", "latex": "n_i = \\sqrt{n\\cdot p},\\quad np = n_i^2" },
+                { "name": "도핑 (n형)", "latex": "n \\approx N_D,\\quad p = n_i^2/N_D" },
+                { "name": "전류 밀도", "latex": "J = q(n\\mu_e + p\\mu_h)E" },
+                { "name": "아인슈타인 관계", "latex": "D = \\mu k_BT/q" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11",
+      "number": "11",
+      "title": "파동 전파와 안테나",
+      "subtitle": "Wave Propagation & Antennas",
+      "sections": [
+        {
+          "id": "11.1",
+          "title": "전송선 이론",
+          "content": [
+            {
+              "type": "formula",
+              "name": "전송선 방정식 (Telegrapher's Equations)",
+              "latex": "\\frac{\\partial V}{\\partial z} = -L'\\frac{\\partial I}{\\partial t}, \\quad \\frac{\\partial I}{\\partial z} = -C'\\frac{\\partial V}{\\partial t}",
+              "description": "L', C': 단위 길이당 인덕턴스, 커패시턴스. 동축 케이블, PCB 트레이스 모두 전송선."
+            },
+            {
+              "type": "formula-grid",
+              "title": "전송선 특성 임피던스",
+              "cols": 2,
+              "items": [
+                { "name": "특성 임피던스", "latex": "Z_0 = \\sqrt{L'/C'}" },
+                { "name": "동축 케이블", "latex": "Z_0 = \\frac{60}{\\sqrt{\\varepsilon_r}}\\ln\\frac{b}{a}" },
+                { "name": "반사 계수", "latex": "\\Gamma = \\frac{Z_L - Z_0}{Z_L + Z_0}" },
+                { "name": "VSWR", "latex": "\\text{VSWR} = \\frac{1+|\\Gamma|}{1-|\\Gamma|}" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "11.2",
+          "title": "안테나 기초",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "안테나 기본 파라미터",
+              "cols": 2,
+              "items": [
+                { "name": "복사 저항", "latex": "R_{rad} = 80\\pi^2\\left(\\frac{L}{\\lambda}\\right)^2", "desc": "헤르츠 다이폴" },
+                { "name": "이득 (dBi)", "latex": "G[\\text{dBi}] = 10\\log_{10}(G/G_{iso})" },
+                { "name": "유효 개구면적", "latex": "A_e = \\frac{G\\lambda^2}{4\\pi}" },
+                { "name": "프리스 전송 공식", "latex": "P_r = P_t G_t G_r \\left(\\frac{\\lambda}{4\\pi d}\\right)^2" }
+              ]
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "이동통신 핵심",
+              "title": "링크 버짓 (Link Budget)",
+              "body": "<p>수신 전력 = 송신 전력 + 안테나 이득 - 경로 손실</p><p>자유공간 경로 손실: \\(L_{fs} = 20\\log(d) + 20\\log(f) + 92.4\\) [dB]</p><p>5G 기지국 배치 계획의 핵심 계산.</p>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12",
+      "number": "12",
+      "title": "물리와 공학의 연결",
+      "subtitle": "Physics in Engineering",
+      "sections": [
+        {
+          "id": "12.1",
+          "title": "물리 상수와 단위계",
+          "content": [
+            {
+              "type": "table",
+              "title": "주요 물리 상수",
+              "headers": ["상수", "기호", "값"],
+              "rows": [
+                ["빛의 속도", "c", "2.998 × 10⁸ m/s"],
+                ["플랑크 상수", "h", "6.626 × 10⁻³⁴ J·s"],
+                ["전자 전하", "e", "1.602 × 10⁻¹⁹ C"],
+                ["전자 질량", "mₑ", "9.109 × 10⁻³¹ kg"],
+                ["볼츠만 상수", "k_B", "1.381 × 10⁻²³ J/K"],
+                ["진공 유전율", "ε₀", "8.854 × 10⁻¹² F/m"],
+                ["진공 투자율", "μ₀", "4π × 10⁻⁷ H/m"],
+                ["아보가드로 수", "Nₐ", "6.022 × 10²³ mol⁻¹"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "12.2",
+          "title": "차원 해석",
+          "content": [
+            {
+              "type": "table",
+              "title": "SI 기본 단위",
+              "headers": ["물리량", "단위", "기호"],
+              "rows": [
+                ["길이", "미터", "m"],
+                ["질량", "킬로그램", "kg"],
+                ["시간", "초", "s"],
+                ["전류", "암페어", "A"],
+                ["온도", "켈빈", "K"],
+                ["물질량", "몰", "mol"],
+                ["광도", "칸델라", "cd"]
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "차원 해석으로 오류 검출",
+              "body": "공식의 양변 차원이 일치하는지 확인하면 계산 오류를 잡을 수 있다. 예: F = ma → [N] = [kg·m/s²] 확인. 화성 탐사선 소실 사고(1999)도 단위 혼용(lbf vs N)이 원인이었다."
+            }
+          ]
+        },
+        {
+          "id": "12.3",
+          "title": "물리 → 공학 로드맵",
+          "content": [
+            {
+              "type": "table",
+              "title": "물리 개념 ↔ 공학 응용",
+              "headers": ["물리 개념", "공학 응용"],
+              "rows": [
+                ["쿨롱 법칙, 가우스 법칙", "전기장 해석, 커패시터 설계"],
+                ["패러데이 법칙, 암페어 법칙", "변압기, 인덕터, 발전기 설계"],
+                ["맥스웰 방정식", "안테나, 전자기 호환성(EMC)"],
+                ["양자 터널링", "Flash 메모리, 터널 다이오드"],
+                ["에너지 띠 이론", "MOSFET, BJT, LED, 태양전지"],
+                ["파동 간섭·회절", "반도체 노광, 광센서, 레이더"],
+                ["열역학 법칙", "전력 반도체 열설계, 냉각 시스템"],
+                ["특수 상대성", "GPS 시간 보정, 사이클로트론"]
+              ]
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "통합 메시지",
+              "title": "물리학 = 공학의 언어",
+              "body": "<p>모든 전기·전자·통신 공학의 핵심 원리는 물리학에 뿌리를 둔다.</p><p>수학(미적분·선형대수) → 물리(전자기·양자) → 공학(회로·반도체·통신)</p><p>이 흐름을 이해하면 새로운 기술도 빠르게 습득할 수 있다.</p>"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
