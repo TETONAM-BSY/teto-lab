@@ -1,0 +1,266 @@
+{
+  "id": "engineering-math",
+  "title": "공학수학",
+  "subtitle": "미분방정식·복소함수·벡터해석",
+  "chapters": [
+    {
+      "id": "ch1",
+      "number": "1",
+      "title": "1계 미분방정식",
+      "sections": [
+        {
+          "id": "1.1",
+          "title": "미분방정식 개요",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "Why it matters",
+              "title": "왜 공학자는 미분방정식을 배워야 하나?",
+              "body": "<p>전기 회로의 전류·전압 변화, 기계 진동, 열 전달, 유체 흐름 등 <strong>물리 현상의 시간적 변화</strong>는 모두 미분방정식으로 기술된다.</p>"
+            },
+            {
+              "type": "formula",
+              "name": "미분방정식 일반형",
+              "latex": "F\\left(x,\\, y,\\, y',\\, y'',\\, \\ldots,\\, y^{(n)}\\right) = 0",
+              "description": "n계 미분방정식. 공학에서는 주로 1·2계를 다룬다."
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "title": "변수분리법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "변수분리형 ODE",
+              "latex": "\\frac{dy}{dx} = f(x)g(y) \\implies \\int \\frac{dy}{g(y)} = \\int f(x)\\,dx",
+              "description": "y 관련 항과 x 관련 항을 각 변으로 분리하여 적분"
+            },
+            {
+              "type": "note-card",
+              "class": "tip",
+              "label": "예시",
+              "title": "RC 회로 방전",
+              "body": "<p>RC 회로에서 전압 감소: <strong>dV/dt = -V/(RC)</strong><br/>변수분리 → <strong>V(t) = V₀ e^{-t/RC}</strong><br/>지수 감쇠가 자연스럽게 도출된다.</p>"
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "title": "1계 선형 ODE",
+          "content": [
+            {
+              "type": "formula",
+              "name": "표준형",
+              "latex": "y' + P(x)y = Q(x)",
+              "description": "적분인자 μ(x)를 곱해 풀 수 있다"
+            },
+            {
+              "type": "formula",
+              "name": "적분인자",
+              "latex": "\\mu(x) = e^{\\int P(x)\\,dx}, \\quad y = \\frac{1}{\\mu}\\int \\mu Q\\,dx + C",
+              "description": "μ를 양변에 곱하면 좌변이 (μy)' 꼴로 정리됨"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "number": "2",
+      "title": "2계 선형 미분방정식",
+      "sections": [
+        {
+          "id": "2.1",
+          "title": "상수계수 동차 ODE",
+          "content": [
+            {
+              "type": "formula",
+              "name": "표준형",
+              "latex": "ay'' + by' + cy = 0",
+              "description": "특성방정식 ar² + br + c = 0의 근의 형태에 따라 해가 달라짐"
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "세 가지 경우",
+              "title": "특성근에 따른 일반해",
+              "body": "<p>① <strong>두 실근 r₁ ≠ r₂</strong>: y = C₁e^{r₁x} + C₂e^{r₂x}<br/>② <strong>중근 r₁ = r₂</strong>: y = (C₁ + C₂x)e^{r₁x}<br/>③ <strong>켤레 복소근 α ± βi</strong>: y = e^{αx}(C₁cosβx + C₂sinβx)</p>"
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "title": "비동차 ODE와 특수해",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "tip",
+              "label": "풀이법",
+              "title": "미정계수법 vs 매개변수 변환법",
+              "body": "<p><strong>미정계수법</strong>: 우변이 다항식·지수함수·삼각함수 조합일 때 특수해 형태를 가정하고 계수를 결정<br/><strong>매개변수 변환법</strong>: 우변이 복잡할 때 일반적으로 적용 가능</p>"
+            },
+            {
+              "type": "formula",
+              "name": "일반해 구조",
+              "latex": "y = y_h + y_p",
+              "description": "y_h: 동차 일반해(보완해), y_p: 특수해(특정해)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "number": "3",
+      "title": "라플라스 변환",
+      "sections": [
+        {
+          "id": "3.1",
+          "title": "라플라스 변환 정의와 기본 공식",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "Why it matters",
+              "title": "미분방정식을 대수 방정식으로 바꾸는 마법",
+              "body": "<p>라플라스 변환을 쓰면 미분·적분 연산이 <strong>s 영역의 곱셈·나눗셈</strong>으로 바뀐다. 초기조건을 자동으로 포함하며, 제어공학·신호처리의 핵심 도구다.</p>"
+            },
+            {
+              "type": "formula",
+              "name": "라플라스 변환 정의",
+              "latex": "\\mathcal{L}\\{f(t)\\} = F(s) = \\int_0^{\\infty} e^{-st} f(t)\\,dt",
+              "description": "시간 영역 → s 영역(복소 주파수 영역) 변환"
+            },
+            {
+              "type": "formula",
+              "name": "주요 변환 쌍",
+              "latex": "\\mathcal{L}\\{1\\}=\\frac{1}{s},\\quad \\mathcal{L}\\{e^{at}\\}=\\frac{1}{s-a},\\quad \\mathcal{L}\\{\\sin\\omega t\\}=\\frac{\\omega}{s^2+\\omega^2}",
+              "description": "자주 사용되는 라플라스 변환 쌍"
+            },
+            {
+              "type": "formula",
+              "name": "미분의 라플라스 변환",
+              "latex": "\\mathcal{L}\\{f'(t)\\} = sF(s) - f(0)",
+              "description": "미분 → s 영역에서 s 곱하기 (초기값 포함)"
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "title": "역 라플라스 변환과 응용",
+          "content": [
+            {
+              "type": "formula",
+              "name": "부분분수 분해",
+              "latex": "F(s) = \\frac{N(s)}{D(s)} = \\sum_k \\frac{A_k}{s - r_k}",
+              "description": "역변환 전에 F(s)를 부분분수로 분해하여 각 항을 개별 역변환"
+            },
+            {
+              "type": "note-card",
+              "class": "tip",
+              "label": "응용",
+              "title": "전달함수 (Transfer Function)",
+              "body": "<p>제어공학에서 시스템 응답은 <strong>Y(s) = H(s)·X(s)</strong> 로 표현된다. H(s)가 전달함수이며, 라플라스 변환이 없으면 정의조차 불가능하다.</p>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "number": "4",
+      "title": "복소함수론",
+      "sections": [
+        {
+          "id": "4.1",
+          "title": "복소수와 복소평면",
+          "content": [
+            {
+              "type": "formula",
+              "name": "복소수 극형식",
+              "latex": "z = r e^{i\\theta} = r(\\cos\\theta + i\\sin\\theta), \\quad r=|z|,\\ \\theta=\\arg(z)",
+              "description": "오일러 공식을 이용한 극형식 표현"
+            },
+            {
+              "type": "formula",
+              "name": "오일러 공식",
+              "latex": "e^{i\\theta} = \\cos\\theta + i\\sin\\theta",
+              "description": "공학수학에서 가장 중요한 공식 중 하나"
+            }
+          ]
+        },
+        {
+          "id": "4.2",
+          "title": "코시-리만 방정식과 해석함수",
+          "content": [
+            {
+              "type": "formula",
+              "name": "코시-리만 방정식",
+              "latex": "\\frac{\\partial u}{\\partial x} = \\frac{\\partial v}{\\partial y}, \\qquad \\frac{\\partial u}{\\partial y} = -\\frac{\\partial v}{\\partial x}",
+              "description": "f(z)=u+iv가 해석적(정칙)이기 위한 필요조건"
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "응용",
+              "title": "코시 적분 공식",
+              "body": "<p>폐경로 안에 있는 점 z₀에서의 함숫값을 경로 적분으로 구할 수 있다: <strong>f(z₀) = (1/2πi) ∮ f(z)/(z-z₀) dz</strong><br/>이를 통해 유수(residue) 계산 및 실수 적분 계산에 응용한다.</p>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch5",
+      "number": "5",
+      "title": "벡터 해석",
+      "sections": [
+        {
+          "id": "5.1",
+          "title": "기울기·발산·회전",
+          "content": [
+            {
+              "type": "formula",
+              "name": "기울기 (Gradient)",
+              "latex": "\\nabla f = \\frac{\\partial f}{\\partial x}\\mathbf{i} + \\frac{\\partial f}{\\partial y}\\mathbf{j} + \\frac{\\partial f}{\\partial z}\\mathbf{k}",
+              "description": "스칼라 함수의 최대 증가 방향과 크기"
+            },
+            {
+              "type": "formula",
+              "name": "발산 (Divergence)",
+              "latex": "\\nabla \\cdot \\mathbf{F} = \\frac{\\partial F_x}{\\partial x} + \\frac{\\partial F_y}{\\partial y} + \\frac{\\partial F_z}{\\partial z}",
+              "description": "벡터장에서 점 주변의 유량 발산 정도"
+            },
+            {
+              "type": "formula",
+              "name": "회전 (Curl)",
+              "latex": "\\nabla \\times \\mathbf{F} = \\begin{vmatrix} \\mathbf{i} & \\mathbf{j} & \\mathbf{k} \\\\ \\partial_x & \\partial_y & \\partial_z \\\\ F_x & F_y & F_z \\end{vmatrix}",
+              "description": "벡터장의 회전성, 전자기학의 맥스웰 방정식에 핵심"
+            }
+          ]
+        },
+        {
+          "id": "5.2",
+          "title": "적분 정리",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "3대 정리",
+              "title": "벡터 해석의 핵심 적분 정리",
+              "body": "<p>① <strong>그린 정리</strong>: 2D 영역의 이중적분 ↔ 경계 선적분<br/>② <strong>발산 정리(가우스)</strong>: 3D 체적 적분 ↔ 폐곡면 면적분<br/>③ <strong>스토크스 정리</strong>: 곡면 적분 ↔ 경계 선적분</p>"
+            },
+            {
+              "type": "formula",
+              "name": "발산 정리",
+              "latex": "\\iiint_V (\\nabla \\cdot \\mathbf{F})\\,dV = \\oiint_S \\mathbf{F} \\cdot d\\mathbf{S}",
+              "description": "전자기학에서 가우스 법칙의 수학적 기반"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

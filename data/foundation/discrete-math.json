@@ -1,0 +1,274 @@
+{
+  "id": "discrete-math",
+  "title": "이산수학",
+  "subtitle": "논리·집합·그래프·알고리즘 수학",
+  "chapters": [
+    {
+      "id": "ch1",
+      "number": "1",
+      "title": "논리와 명제",
+      "sections": [
+        {
+          "id": "1.1",
+          "title": "명제와 논리 연산",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "Why it matters",
+              "title": "왜 논리가 컴퓨터 과학의 기초인가?",
+              "body": "<p>디지털 회로, 프로그래밍 조건문, 알고리즘 증명 모두 <strong>명제 논리</strong>를 기반으로 한다. AND/OR/NOT 게이트는 곧 논리 연산이다.</p>"
+            },
+            {
+              "type": "formula",
+              "name": "논리 연산자",
+              "latex": "p \\land q, \\quad p \\lor q, \\quad \\lnot p, \\quad p \\Rightarrow q, \\quad p \\Leftrightarrow q",
+              "description": "AND(∧), OR(∨), NOT(¬), 함의(⇒), 동치(⟺)"
+            },
+            {
+              "type": "note-card",
+              "class": "tip",
+              "label": "핵심 법칙",
+              "title": "드모르간의 법칙",
+              "body": "<p><strong>¬(p ∧ q) ≡ ¬p ∨ ¬q</strong><br/><strong>¬(p ∨ q) ≡ ¬p ∧ ¬q</strong><br/>프로그래밍에서 조건 반전 시 자주 사용된다.</p>"
+            },
+            {
+              "type": "formula",
+              "name": "진리표 예시 (함의)",
+              "latex": "p \\Rightarrow q \\equiv \\lnot p \\lor q",
+              "description": "p가 거짓이면 q에 관계없이 함의는 참"
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "title": "술어 논리와 한정자",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "개념",
+              "title": "전칭·존재 한정자",
+              "body": "<p><strong>∀x P(x)</strong>: 모든 x에 대해 P(x) 성립<br/><strong>∃x P(x)</strong>: P(x)를 만족하는 x가 존재<br/>알고리즘의 정확성·완전성 증명에 필수적이다.</p>"
+            },
+            {
+              "type": "formula",
+              "name": "한정자 부정",
+              "latex": "\\lnot(\\forall x\\, P(x)) \\equiv \\exists x\\, \\lnot P(x)",
+              "description": "'모든 x에서 성립' 의 부정은 '성립 안 하는 x가 존재'"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "number": "2",
+      "title": "집합과 관계",
+      "sections": [
+        {
+          "id": "2.1",
+          "title": "집합 연산",
+          "content": [
+            {
+              "type": "formula",
+              "name": "집합 기본 연산",
+              "latex": "A \\cup B,\\quad A \\cap B,\\quad A - B,\\quad A^c,\\quad A \\times B",
+              "description": "합집합, 교집합, 차집합, 여집합, 데카르트 곱"
+            },
+            {
+              "type": "formula",
+              "name": "포함-배제 원리",
+              "latex": "|A \\cup B| = |A| + |B| - |A \\cap B|",
+              "description": "두 집합 합집합의 원소 개수 계산"
+            },
+            {
+              "type": "note-card",
+              "class": "tip",
+              "label": "응용",
+              "title": "데이터베이스 JOIN과 집합 연산",
+              "body": "<p>SQL의 UNION, INTERSECT, EXCEPT는 각각 합집합, 교집합, 차집합에 대응된다.</p>"
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "title": "관계와 함수",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "개념",
+              "title": "동치 관계의 세 조건",
+              "body": "<p>반사성(a R a), 대칭성(a R b → b R a), 추이성(a R b, b R c → a R c)을 만족하는 관계를 <strong>동치 관계</strong>라 한다.</p>"
+            },
+            {
+              "type": "formula",
+              "name": "함수의 단사·전사·전단사",
+              "latex": "f: A \\to B \\text{ 단사} \\iff f(a_1)=f(a_2) \\Rightarrow a_1=a_2",
+              "description": "단사(injection), 전사(surjection), 전단사(bijection)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "number": "3",
+      "title": "수론과 귀납법",
+      "sections": [
+        {
+          "id": "3.1",
+          "title": "정수론 기초",
+          "content": [
+            {
+              "type": "formula",
+              "name": "나눗셈 알고리즘",
+              "latex": "a = bq + r, \\quad 0 \\le r < b",
+              "description": "정수 a를 b로 나누면 몫 q와 나머지 r이 유일하게 결정됨"
+            },
+            {
+              "type": "formula",
+              "name": "최대공약수 (유클리드 알고리즘)",
+              "latex": "\\gcd(a, b) = \\gcd(b,\\, a \\mod b)",
+              "description": "나머지가 0이 될 때까지 반복 → 마지막 나누는 수가 GCD"
+            },
+            {
+              "type": "formula",
+              "name": "모듈러 산술",
+              "latex": "a \\equiv b \\pmod{n} \\iff n \\mid (a - b)",
+              "description": "암호학, 해시 함수, 컴퓨터 주소 계산에 핵심적으로 사용"
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "title": "수학적 귀납법",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "증명 기법",
+              "title": "수학적 귀납법 절차",
+              "body": "<p>① <strong>기저 단계</strong>: n=1(또는 n=0)에서 성립 확인<br/>② <strong>귀납 단계</strong>: n=k에서 성립 가정 → n=k+1에서 성립 증명<br/>알고리즘의 루프 불변식 증명과 동일한 구조다.</p>"
+            },
+            {
+              "type": "formula",
+              "name": "귀납법 예시: 등차수열 합",
+              "latex": "\\sum_{k=1}^{n} k = \\frac{n(n+1)}{2}",
+              "description": "귀납법으로 증명 가능한 대표적 공식"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "number": "4",
+      "title": "조합론",
+      "sections": [
+        {
+          "id": "4.1",
+          "title": "순열과 조합",
+          "content": [
+            {
+              "type": "formula",
+              "name": "순열",
+              "latex": "P(n, r) = \\frac{n!}{(n-r)!}",
+              "description": "n개 중 r개를 순서 있게 선택하는 경우의 수"
+            },
+            {
+              "type": "formula",
+              "name": "조합",
+              "latex": "C(n, r) = \\binom{n}{r} = \\frac{n!}{r!(n-r)!}",
+              "description": "n개 중 r개를 순서 없이 선택하는 경우의 수"
+            },
+            {
+              "type": "formula",
+              "name": "이항 정리",
+              "latex": "(x+y)^n = \\sum_{k=0}^{n} \\binom{n}{k} x^k y^{n-k}",
+              "description": "이항 계수의 핵심 응용"
+            }
+          ]
+        },
+        {
+          "id": "4.2",
+          "title": "비둘기집 원리와 점화식",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "tip",
+              "label": "원리",
+              "title": "비둘기집 원리",
+              "body": "<p>n+1개의 물건을 n개의 상자에 넣으면 적어도 하나의 상자에는 2개 이상이 들어간다. 알고리즘 분석, 해시 충돌 증명에 활용된다.</p>"
+            },
+            {
+              "type": "formula",
+              "name": "피보나치 점화식",
+              "latex": "F_n = F_{n-1} + F_{n-2}, \\quad F_0=0,\\ F_1=1",
+              "description": "점화식의 대표 예시, 동적 프로그래밍의 기초"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch5",
+      "number": "5",
+      "title": "그래프 이론",
+      "sections": [
+        {
+          "id": "5.1",
+          "title": "그래프 기초",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "Why it matters",
+              "title": "그래프가 공학에서 쓰이는 곳",
+              "body": "<p>네트워크 라우팅, 소셜 네트워크 분석, 회로 설계, 일정 스케줄링 등 수많은 공학 문제가 <strong>그래프 문제</strong>로 모델링된다.</p>"
+            },
+            {
+              "type": "formula",
+              "name": "그래프 표기",
+              "latex": "G = (V, E), \\quad |V|=n,\\ |E|=m",
+              "description": "V: 정점(vertex) 집합, E: 간선(edge) 집합"
+            },
+            {
+              "type": "formula",
+              "name": "핸드쉐이킹 보조정리",
+              "latex": "\\sum_{v \\in V} \\deg(v) = 2|E|",
+              "description": "모든 정점의 차수 합 = 간선 수의 2배"
+            }
+          ]
+        },
+        {
+          "id": "5.2",
+          "title": "트리와 경로",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "tip",
+              "label": "개념",
+              "title": "트리의 정의",
+              "body": "<p>연결되어 있고 사이클이 없는 그래프. n개의 정점을 가진 트리는 정확히 n-1개의 간선을 갖는다.</p>"
+            },
+            {
+              "type": "formula",
+              "name": "트리 간선 수",
+              "latex": "|E| = |V| - 1",
+              "description": "트리의 필요충분 조건 중 하나"
+            },
+            {
+              "type": "note-card",
+              "class": "tip",
+              "label": "응용",
+              "title": "오일러 경로와 해밀턴 경로",
+              "body": "<p><strong>오일러 경로</strong>: 모든 간선을 정확히 한 번 지나는 경로 → 홀수 차수 정점이 0개 또는 2개일 때 존재<br/><strong>해밀턴 경로</strong>: 모든 정점을 정확히 한 번 방문하는 경로</p>"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
