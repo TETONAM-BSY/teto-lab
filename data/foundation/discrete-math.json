@@ -1,0 +1,855 @@
+{
+  "id": "discrete-math",
+  "title": "이산수학",
+  "subtitle": "Discrete Mathematics",
+  "chapters": [
+    {
+      "id": "ch01-logic",
+      "number": 1,
+      "title": "논리와 명제",
+      "subtitle": "Logic and Propositions",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "명제와 진리값",
+          "content": [
+            {
+              "type": "definition",
+              "term": "명제 (Proposition)",
+              "body": "참(True) 또는 거짓(False)으로 명확하게 판단할 수 있는 문장 또는 식. 명제의 진리값은 T 또는 F로 표기한다."
+            },
+            {
+              "type": "definition",
+              "term": "부정 (Negation)",
+              "latex": "\\lnot p",
+              "body": "명제 p의 부정. p가 참이면 ¬p는 거짓, p가 거짓이면 ¬p는 참이다."
+            },
+            {
+              "type": "table",
+              "title": "기본 논리 연산 진리표",
+              "headers": ["p", "q", "¬p", "p∧q", "p∨q", "p→q", "p↔q"],
+              "rows": [
+                ["T", "T", "F", "T", "T", "T", "T"],
+                ["T", "F", "F", "F", "T", "F", "F"],
+                ["F", "T", "T", "F", "T", "T", "F"],
+                ["F", "F", "T", "F", "F", "T", "T"]
+              ]
+            },
+            {
+              "type": "definition",
+              "term": "연언·선언·함의·쌍조건",
+              "latex": "p \\land q,\\quad p \\lor q,\\quad p \\to q,\\quad p \\leftrightarrow q",
+              "body": "AND(∧), OR(∨), 조건문(→), 쌍조건문(↔). 조건문 p→q는 p가 참일 때만 거짓이 될 수 있다."
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "논리적 동치와 항진명제",
+          "content": [
+            {
+              "type": "definition",
+              "term": "논리적 동치 (Logical Equivalence)",
+              "latex": "p \\equiv q \\iff (p \\leftrightarrow q) \\text{는 항진명제}",
+              "body": "두 명제 p, q가 모든 진리값 조합에서 같은 진리값을 가질 때 논리적으로 동치라고 한다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "드모르간 법칙 및 주요 동치",
+              "cols": 2,
+              "items": [
+                {"name": "드모르간 1", "latex": "\\lnot(p \\land q) \\equiv \\lnot p \\lor \\lnot q", "desc": "AND의 부정"},
+                {"name": "드모르간 2", "latex": "\\lnot(p \\lor q) \\equiv \\lnot p \\land \\lnot q", "desc": "OR의 부정"},
+                {"name": "함의 변환", "latex": "p \\to q \\equiv \\lnot p \\lor q", "desc": "조건문의 동치"},
+                {"name": "대우", "latex": "p \\to q \\equiv \\lnot q \\to \\lnot p", "desc": "대우명제"},
+                {"name": "흡수법칙", "latex": "p \\lor (p \\land q) \\equiv p", "desc": "흡수"},
+                {"name": "분배법칙", "latex": "p \\land (q \\lor r) \\equiv (p \\land q) \\lor (p \\land r)", "desc": "AND의 분배"}
+              ]
+            },
+            {
+              "type": "example",
+              "title": "동치 증명",
+              "problem": "p→q ≡ ¬p∨q 임을 진리표로 확인하라.",
+              "solution": "p=T,q=T: T→T=T, ¬T∨T=T ✓\np=T,q=F: T→F=F, ¬T∨F=F ✓\np=F,q=T: F→T=T, ¬F∨T=T ✓\np=F,q=F: F→F=T, ¬F∨F=T ✓",
+              "answer": "모든 경우에서 동일하므로 동치."
+            }
+          ]
+        },
+        {
+          "id": "ch01-s03",
+          "title": "술어 논리와 한정자",
+          "content": [
+            {
+              "type": "definition",
+              "term": "전칭 한정자 (Universal Quantifier)",
+              "latex": "\\forall x\\, P(x)",
+              "body": "정의역의 모든 원소 x에 대해 P(x)가 참임을 의미한다."
+            },
+            {
+              "type": "definition",
+              "term": "존재 한정자 (Existential Quantifier)",
+              "latex": "\\exists x\\, P(x)",
+              "body": "정의역에 P(x)를 참으로 만드는 원소 x가 적어도 하나 존재함을 의미한다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "한정자의 부정",
+              "cols": 2,
+              "items": [
+                {"name": "전칭 부정", "latex": "\\lnot \\forall x\\, P(x) \\equiv \\exists x\\, \\lnot P(x)", "desc": "∀의 부정"},
+                {"name": "존재 부정", "latex": "\\lnot \\exists x\\, P(x) \\equiv \\forall x\\, \\lnot P(x)", "desc": "∃의 부정"}
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "한정자 순서 주의",
+              "body": "∀x ∃y P(x,y)와 ∃y ∀x P(x,y)는 일반적으로 다르다. 전자는 x마다 y가 달라도 되지만 후자는 모든 x에 대해 같은 y가 존재해야 한다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-sets",
+      "number": 2,
+      "title": "집합론",
+      "subtitle": "Set Theory",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "집합의 정의와 표현",
+          "content": [
+            {
+              "type": "definition",
+              "term": "집합 (Set)",
+              "body": "서로 구별되는 대상들의 모임. 원소(element)들로 구성되며, a∈A는 a가 집합 A의 원소임을 나타낸다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "집합 연산",
+              "cols": 2,
+              "items": [
+                {"name": "합집합", "latex": "A \\cup B = \\{x \\mid x \\in A \\lor x \\in B\\}", "desc": "Union"},
+                {"name": "교집합", "latex": "A \\cap B = \\{x \\mid x \\in A \\land x \\in B\\}", "desc": "Intersection"},
+                {"name": "차집합", "latex": "A - B = \\{x \\mid x \\in A \\land x \\notin B\\}", "desc": "Difference"},
+                {"name": "여집합", "latex": "\\bar{A} = U - A", "desc": "Complement"},
+                {"name": "대칭차", "latex": "A \\oplus B = (A-B) \\cup (B-A)", "desc": "Symmetric Difference"},
+                {"name": "거듭제곱집합", "latex": "\\mathcal{P}(A) = \\{S \\mid S \\subseteq A\\}", "desc": "Power Set"}
+              ]
+            },
+            {
+              "type": "theorem",
+              "name": "집합의 항등법칙",
+              "statement": "∅은 교집합의 항등원, U는 합집합의 항등원이다.",
+              "latex": "A \\cup \\emptyset = A,\\quad A \\cap U = A"
+            }
+          ]
+        },
+        {
+          "id": "ch02-s02",
+          "title": "집합의 크기와 포함-배제 원리",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "포함-배제 원리 (Inclusion-Exclusion)",
+              "statement": "유한 집합 A, B에 대해 합집합의 원소 수는 다음과 같다.",
+              "latex": "|A \\cup B| = |A| + |B| - |A \\cap B|"
+            },
+            {
+              "type": "formula",
+              "name": "세 집합의 포함-배제",
+              "latex": "|A \\cup B \\cup C| = |A|+|B|+|C| - |A\\cap B| - |B\\cap C| - |A\\cap C| + |A\\cap B\\cap C|",
+              "description": "세 집합의 합집합 원소 수"
+            },
+            {
+              "type": "example",
+              "title": "포함-배제 원리 적용",
+              "problem": "1~100 중 3의 배수 또는 5의 배수의 개수를 구하라.",
+              "solution": "|A|=⌊100/3⌋=33, |B|=⌊100/5⌋=20, |A∩B|=⌊100/15⌋=6\n|A∪B| = 33+20-6 = 47",
+              "answer": "47개"
+            },
+            {
+              "type": "formula",
+              "name": "거듭제곱집합의 크기",
+              "latex": "|\\mathcal{P}(A)| = 2^{|A|}",
+              "description": "n개 원소를 가진 집합의 부분집합 수는 2ⁿ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-relations-functions",
+      "number": 3,
+      "title": "관계와 함수",
+      "subtitle": "Relations and Functions",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "이항 관계",
+          "content": [
+            {
+              "type": "definition",
+              "term": "이항 관계 (Binary Relation)",
+              "latex": "R \\subseteq A \\times B",
+              "body": "집합 A에서 B로의 이항 관계 R은 카테시안 곱 A×B의 부분집합이다. (a,b)∈R이면 aRb로 표기한다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "관계의 성질",
+              "cols": 2,
+              "items": [
+                {"name": "반사성", "latex": "\\forall a \\in A,\\ (a,a) \\in R", "desc": "Reflexive"},
+                {"name": "대칭성", "latex": "(a,b)\\in R \\Rightarrow (b,a)\\in R", "desc": "Symmetric"},
+                {"name": "추이성", "latex": "(a,b),(b,c)\\in R \\Rightarrow (a,c)\\in R", "desc": "Transitive"},
+                {"name": "반대칭성", "latex": "(a,b),(b,a)\\in R \\Rightarrow a=b", "desc": "Antisymmetric"}
+              ]
+            },
+            {
+              "type": "definition",
+              "term": "동치 관계 (Equivalence Relation)",
+              "body": "반사적, 대칭적, 추이적인 관계. 동치 관계는 집합을 동치류(equivalence class)로 분할한다."
+            },
+            {
+              "type": "definition",
+              "term": "편순서 관계 (Partial Order)",
+              "body": "반사적, 반대칭적, 추이적인 관계. (A,≤)를 편순서 집합(poset)이라 한다."
+            }
+          ]
+        },
+        {
+          "id": "ch03-s02",
+          "title": "함수",
+          "content": [
+            {
+              "type": "definition",
+              "term": "함수 (Function)",
+              "latex": "f: A \\to B",
+              "body": "집합 A(정의역)에서 B(공역)로의 함수는 A의 각 원소에 B의 원소를 정확히 하나 대응시키는 관계."
+            },
+            {
+              "type": "formula-grid",
+              "title": "함수의 분류",
+              "cols": 2,
+              "items": [
+                {"name": "단사함수 (Injection)", "latex": "f(a)=f(b) \\Rightarrow a=b", "desc": "One-to-one: 서로 다른 입력은 서로 다른 출력"},
+                {"name": "전사함수 (Surjection)", "latex": "\\forall b\\in B,\\ \\exists a\\in A,\\ f(a)=b", "desc": "Onto: 공역=치역"},
+                {"name": "전단사함수 (Bijection)", "latex": "f\\text{ 단사} \\land f\\text{ 전사}", "desc": "One-to-one correspondence"},
+                {"name": "역함수", "latex": "f^{-1}: B \\to A", "desc": "전단사일 때 존재"}
+              ]
+            },
+            {
+              "type": "theorem",
+              "name": "비둘기집 원리 (Pigeonhole Principle)",
+              "statement": "k+1개 이상의 물건을 k개의 상자에 넣으면 적어도 한 상자에는 2개 이상이 들어간다.",
+              "latex": "n > k \\Rightarrow \\exists \\text{ 상자에 } \\geq 2\\text{개}"
+            },
+            {
+              "type": "example",
+              "title": "비둘기집 원리",
+              "problem": "367명 중 생일이 같은 두 사람이 반드시 존재함을 보여라.",
+              "solution": "1년은 최대 366일(윤년). 367명을 366개의 날에 배정하면 비둘기집 원리에 의해 적어도 하나의 날에 2명 이상이 존재한다.",
+              "answer": "반드시 생일이 같은 두 사람이 존재한다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-induction",
+      "number": 4,
+      "title": "수학적 귀납법",
+      "subtitle": "Mathematical Induction",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "수학적 귀납법의 원리",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "수학적 귀납법 (Mathematical Induction)",
+              "statement": "P(n)이 자연수에 대한 명제일 때, (1) P(1)이 참이고, (2) P(k)가 참이면 P(k+1)도 참이면, 모든 자연수 n에 대해 P(n)이 참이다.",
+              "latex": "[P(1) \\land (P(k) \\Rightarrow P(k+1))] \\Rightarrow \\forall n \\in \\mathbb{N},\\ P(n)"
+            },
+            {
+              "type": "example",
+              "title": "등차급수 합 증명",
+              "problem": "∑(k=1 to n) k = n(n+1)/2 임을 수학적 귀납법으로 증명하라.",
+              "solution": "기저: n=1일 때 1 = 1·2/2 = 1 ✓\n귀납: P(k): 1+2+…+k = k(k+1)/2 가정\n1+2+…+k+(k+1) = k(k+1)/2 + (k+1) = (k+1)(k+2)/2 ✓",
+              "answer": "모든 자연수 n에 대해 성립."
+            },
+            {
+              "type": "theorem",
+              "name": "강한 귀납법 (Strong Induction)",
+              "statement": "P(1),…,P(k)가 모두 참이면 P(k+1)도 참임을 보이면 모든 n에 대해 P(n)이 참이다.",
+              "latex": "[\\forall j \\leq k,\\ P(j)] \\Rightarrow P(k+1)"
+            }
+          ]
+        },
+        {
+          "id": "ch04-s02",
+          "title": "점화식과 재귀",
+          "content": [
+            {
+              "type": "definition",
+              "term": "점화식 (Recurrence Relation)",
+              "body": "수열의 n번째 항을 이전 항들로 표현하는 식. 초기 조건과 함께 수열을 완전히 정의한다."
+            },
+            {
+              "type": "formula",
+              "name": "피보나치 수열",
+              "latex": "F_n = F_{n-1} + F_{n-2},\\quad F_1=F_2=1",
+              "description": "F_n = (φⁿ - ψⁿ)/√5, φ=(1+√5)/2 (황금비)"
+            },
+            {
+              "type": "formula",
+              "name": "선형 점화식의 일반해 (특성방정식)",
+              "latex": "a_n = c_1 r_1^n + c_2 r_2^n \\quad (r_1 \\neq r_2 \\text{일 때})",
+              "description": "2차 선형 동차 점화식의 일반해. r₁, r₂는 특성방정식의 근."
+            },
+            {
+              "type": "example",
+              "title": "점화식 풀기",
+              "problem": "aₙ = 5aₙ₋₁ - 6aₙ₋₂, a₀=1, a₁=4 풀기",
+              "solution": "특성방정식: r²-5r+6=0 → (r-2)(r-3)=0 → r=2,3\naₙ = c₁·2ⁿ + c₂·3ⁿ\na₀=1: c₁+c₂=1\na₁=4: 2c₁+3c₂=4 → c₁=-1, c₂=2",
+              "answer": "aₙ = -2ⁿ + 2·3ⁿ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-graph",
+      "number": 5,
+      "title": "그래프 이론",
+      "subtitle": "Graph Theory",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "그래프의 기본 개념",
+          "content": [
+            {
+              "type": "definition",
+              "term": "그래프 (Graph)",
+              "latex": "G = (V, E)",
+              "body": "정점(Vertex) 집합 V와 간선(Edge) 집합 E로 이루어진 구조. E ⊆ {{u,v} | u,v ∈ V}."
+            },
+            {
+              "type": "formula-grid",
+              "title": "그래프 주요 용어",
+              "cols": 2,
+              "items": [
+                {"name": "차수 (Degree)", "latex": "\\deg(v) = |\\{e \\in E \\mid v \\in e\\}|", "desc": "정점에 연결된 간선 수"},
+                {"name": "핸드셰이킹 보조정리", "latex": "\\sum_{v \\in V} \\deg(v) = 2|E|", "desc": "모든 차수의 합 = 간선 수의 2배"},
+                {"name": "완전그래프", "latex": "K_n:\\quad |E|=\\binom{n}{2}", "desc": "모든 정점이 연결된 그래프"},
+                {"name": "이분그래프", "latex": "G=(V_1 \\cup V_2, E)", "desc": "V를 두 독립집합으로 분할 가능"}
+              ]
+            },
+            {
+              "type": "theorem",
+              "name": "오일러 경로/회로 조건",
+              "statement": "연결 그래프에서 오일러 회로(모든 간선을 정확히 한 번 지나는 회로)는 모든 정점의 차수가 짝수일 때 존재한다.",
+              "latex": "\\text{오일러 회로 존재} \\iff \\forall v,\\ \\deg(v) \\equiv 0 \\pmod{2}"
+            }
+          ]
+        },
+        {
+          "id": "ch05-s02",
+          "title": "그래프 알고리즘",
+          "content": [
+            {
+              "type": "definition",
+              "term": "최단 경로 (Shortest Path)",
+              "body": "두 정점 사이의 가중치 합이 최소인 경로. 다익스트라(Dijkstra) 알고리즘은 음수 가중치가 없을 때 O((V+E)logV)에 해결한다."
+            },
+            {
+              "type": "theorem",
+              "name": "그래프 채색 정리 (4색 정리)",
+              "statement": "평면 그래프는 4가지 색으로 인접한 지역이 다른 색이 되도록 채색할 수 있다.",
+              "latex": "\\chi(G) \\leq 4 \\text{ (평면 그래프)}"
+            },
+            {
+              "type": "formula-grid",
+              "title": "그래프 불변량",
+              "cols": 2,
+              "items": [
+                {"name": "채색수", "latex": "\\chi(G)", "desc": "인접 정점이 다른 색이 되는 최소 색 수"},
+                {"name": "독립수", "latex": "\\alpha(G)", "desc": "최대 독립 집합의 크기"},
+                {"name": "클리크수", "latex": "\\omega(G)", "desc": "최대 완전 부분그래프의 크기"},
+                {"name": "오일러 지표", "latex": "V - E + F = 2", "desc": "연결 평면 그래프 (오일러 공식)"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-trees",
+      "number": 6,
+      "title": "트리",
+      "subtitle": "Trees",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "트리의 정의와 성질",
+          "content": [
+            {
+              "type": "definition",
+              "term": "트리 (Tree)",
+              "body": "사이클이 없는 연결 그래프. n개의 정점을 가진 트리는 정확히 n-1개의 간선을 가진다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "트리 기본 성질",
+              "cols": 2,
+              "items": [
+                {"name": "간선 수", "latex": "|E| = |V| - 1", "desc": "트리의 간선-정점 관계"},
+                {"name": "임의 두 정점", "latex": "\\exists! \\text{ path}(u,v)", "desc": "임의 두 정점 사이 경로 유일"},
+                {"name": "리프 노드", "latex": "\\deg(v) = 1", "desc": "차수가 1인 정점"},
+                {"name": "루트 트리", "latex": "\\text{높이 } h,\\; \\leq 2^h \\text{ 리프}", "desc": "이진트리 기준"}
+              ]
+            },
+            {
+              "type": "theorem",
+              "name": "스패닝 트리 (Spanning Tree)",
+              "statement": "연결 그래프 G의 스패닝 트리는 G의 모든 정점을 포함하는 트리 부분그래프이다. 최소 스패닝 트리는 가중치 합이 최소인 스패닝 트리이다.",
+              "latex": "\\text{MST}: \\min \\sum_{e \\in T} w(e)"
+            }
+          ]
+        },
+        {
+          "id": "ch06-s02",
+          "title": "이진트리와 순회",
+          "content": [
+            {
+              "type": "definition",
+              "term": "이진트리 (Binary Tree)",
+              "body": "각 노드가 최대 2개의 자식(왼쪽, 오른쪽)을 가지는 루트 트리."
+            },
+            {
+              "type": "formula-grid",
+              "title": "이진트리 순회",
+              "cols": 2,
+              "items": [
+                {"name": "전위순회 (Preorder)", "latex": "\\text{Root} \\to L \\to R", "desc": "루트 → 왼쪽 → 오른쪽"},
+                {"name": "중위순회 (Inorder)", "latex": "L \\to \\text{Root} \\to R", "desc": "왼쪽 → 루트 → 오른쪽 (BST: 정렬순)"},
+                {"name": "후위순회 (Postorder)", "latex": "L \\to R \\to \\text{Root}", "desc": "왼쪽 → 오른쪽 → 루트"},
+                {"name": "완전이진트리 높이", "latex": "h = \\lfloor \\log_2 n \\rfloor", "desc": "n개 노드 기준 높이"}
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "카탈란 수 (이진트리 수)",
+              "latex": "C_n = \\frac{1}{n+1}\\binom{2n}{n}",
+              "description": "n개의 내부 노드를 가진 서로 다른 이진트리의 수"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-combinatorics",
+      "number": 7,
+      "title": "조합론",
+      "subtitle": "Combinatorics",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "순열과 조합",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "기본 계수 공식",
+              "cols": 2,
+              "items": [
+                {"name": "순열", "latex": "P(n,r) = \\frac{n!}{(n-r)!}", "desc": "n개에서 r개를 순서있게 선택"},
+                {"name": "조합", "latex": "C(n,r) = \\binom{n}{r} = \\frac{n!}{r!(n-r)!}", "desc": "n개에서 r개를 순서없이 선택"},
+                {"name": "중복순열", "latex": "n^r", "desc": "n가지에서 r개를 중복허용 순서있게"},
+                {"name": "중복조합", "latex": "H(n,r) = \\binom{n+r-1}{r}", "desc": "n가지에서 r개를 중복허용 순서없이"}
+              ]
+            },
+            {
+              "type": "theorem",
+              "name": "이항정리 (Binomial Theorem)",
+              "statement": "이항식의 거듭제곱 전개식",
+              "latex": "(x+y)^n = \\sum_{k=0}^{n} \\binom{n}{k} x^k y^{n-k}"
+            },
+            {
+              "type": "formula-grid",
+              "title": "이항계수 항등식",
+              "cols": 2,
+              "items": [
+                {"name": "파스칼 항등식", "latex": "\\binom{n}{k} = \\binom{n-1}{k-1} + \\binom{n-1}{k}", "desc": "파스칼 삼각형"},
+                {"name": "대칭성", "latex": "\\binom{n}{k} = \\binom{n}{n-k}", "desc": "대칭 항등식"},
+                {"name": "합", "latex": "\\sum_{k=0}^{n}\\binom{n}{k} = 2^n", "desc": "전체 합"},
+                {"name": "반더몬드", "latex": "\\sum_{k=0}^{r}\\binom{m}{k}\\binom{n}{r-k} = \\binom{m+n}{r}", "desc": "Vandermonde"}
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch07-s02",
+          "title": "생성함수와 분할",
+          "content": [
+            {
+              "type": "definition",
+              "term": "생성함수 (Generating Function)",
+              "latex": "G(x) = \\sum_{n=0}^{\\infty} a_n x^n",
+              "body": "수열 {aₙ}의 생성함수. 점화식 풀기, 조합 계산에 활용된다."
+            },
+            {
+              "type": "formula",
+              "name": "분할수 (Partition Number)",
+              "latex": "p(n) = \\text{자연수 } n \\text{을 자연수의 합으로 나타내는 방법의 수}",
+              "description": "p(1)=1, p(2)=2, p(3)=3, p(4)=5, p(5)=7, ..."
+            },
+            {
+              "type": "example",
+              "title": "생성함수 활용",
+              "problem": "동전 1원, 5원, 10원으로 20원을 만드는 방법의 수를 구하라.",
+              "solution": "생성함수: G(x) = (1+x+x²+…)(1+x⁵+x¹⁰+…)(1+x¹⁰+x²⁰+…)\nx²⁰의 계수를 구하면 된다. 직접 계산: 10원짜리 0,1,2개 각 경우 나열하여 합산.",
+              "answer": "4가지"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-algorithm-analysis",
+      "number": 8,
+      "title": "알고리즘 분석",
+      "subtitle": "Algorithm Analysis",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "점근 표기법",
+          "content": [
+            {
+              "type": "definition",
+              "term": "빅오 표기법 O(g(n))",
+              "latex": "f(n) = O(g(n)) \\iff \\exists c>0, n_0:\\; f(n) \\leq c\\cdot g(n),\\; \\forall n\\geq n_0",
+              "body": "상한(Upper Bound). f(n)이 g(n)보다 충분히 큰 n에서 상수배 이하로 증가함을 의미한다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "주요 점근 표기법",
+              "cols": 2,
+              "items": [
+                {"name": "빅오 O", "latex": "f \\leq c\\cdot g", "desc": "상한 (Worst case)"},
+                {"name": "빅오메가 Ω", "latex": "f \\geq c\\cdot g", "desc": "하한 (Best case)"},
+                {"name": "세타 Θ", "latex": "c_1 g \\leq f \\leq c_2 g", "desc": "정확한 차수"},
+                {"name": "리틀오 o", "latex": "\\lim_{n\\to\\infty}\\frac{f(n)}{g(n)}=0", "desc": "진성 상한 (Strict)"}
+              ]
+            },
+            {
+              "type": "table",
+              "title": "주요 알고리즘 복잡도",
+              "headers": ["알고리즘", "최선", "평균", "최악"],
+              "rows": [
+                ["버블 정렬", "O(n)", "O(n²)", "O(n²)"],
+                ["합병 정렬", "O(n log n)", "O(n log n)", "O(n log n)"],
+                ["퀵 정렬", "O(n log n)", "O(n log n)", "O(n²)"],
+                ["이진 탐색", "O(1)", "O(log n)", "O(log n)"],
+                ["다익스트라", "-", "O((V+E)log V)", "O((V+E)log V)"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch08-s02",
+          "title": "마스터 정리",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "마스터 정리 (Master Theorem)",
+              "statement": "T(n) = aT(n/b) + f(n) 형태의 점화식에 대해 세 가지 경우로 해를 구한다.",
+              "latex": "T(n) = aT\\!\\left(\\frac{n}{b}\\right) + f(n),\\quad a\\geq1,\\; b>1"
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "마스터 정리 세 경우",
+              "body": "<b>Case 1:</b> f(n) = O(n^{log_b a - ε}) → T(n) = Θ(n^{log_b a})<br><b>Case 2:</b> f(n) = Θ(n^{log_b a}) → T(n) = Θ(n^{log_b a} log n)<br><b>Case 3:</b> f(n) = Ω(n^{log_b a + ε}) → T(n) = Θ(f(n))"
+            },
+            {
+              "type": "example",
+              "title": "마스터 정리 적용",
+              "problem": "합병 정렬의 점화식 T(n)=2T(n/2)+n을 풀어라.",
+              "solution": "a=2, b=2, f(n)=n\nn^{log_b a} = n^{log₂2} = n\nf(n)=n = Θ(n) → Case 2\nT(n) = Θ(n log n)",
+              "answer": "T(n) = Θ(n log n)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-boolean-algebra",
+      "number": 9,
+      "title": "부울대수",
+      "subtitle": "Boolean Algebra",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "부울대수의 공리와 법칙",
+          "content": [
+            {
+              "type": "definition",
+              "term": "부울대수 (Boolean Algebra)",
+              "body": "집합 B={0,1}과 연산 +(OR), ·(AND), '(NOT)으로 구성되는 대수 구조. 디지털 회로 설계의 수학적 기반."
+            },
+            {
+              "type": "formula-grid",
+              "title": "부울 항등법칙",
+              "cols": 2,
+              "items": [
+                {"name": "항등원", "latex": "x+0=x,\\quad x\\cdot1=x", "desc": "Identity"},
+                {"name": "영원소", "latex": "x+1=1,\\quad x\\cdot0=0", "desc": "Null"},
+                {"name": "멱등법칙", "latex": "x+x=x,\\quad x\\cdot x=x", "desc": "Idempotent"},
+                {"name": "드모르간", "latex": "(x+y)'=x'\\cdot y',\\quad (x\\cdot y)'=x'+y'", "desc": "De Morgan"},
+                {"name": "보원소", "latex": "x+x'=1,\\quad x\\cdot x'=0", "desc": "Complement"},
+                {"name": "이중부정", "latex": "(x')'=x", "desc": "Involution"}
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch09-s02",
+          "title": "논리 함수와 카르노맵",
+          "content": [
+            {
+              "type": "definition",
+              "term": "민텀과 맥스텀",
+              "body": "민텀(minterm): 각 변수가 정확히 한 번 나타나는 AND 항. 맥스텀(maxterm): 각 변수가 정확히 한 번 나타나는 OR 항."
+            },
+            {
+              "type": "definition",
+              "term": "카르노맵 (Karnaugh Map)",
+              "body": "부울 함수를 시각적으로 단순화하는 도구. 인접한 1들을 그룹(2ⁿ개)으로 묶어 최소 SOP(Sum of Products) 표현을 얻는다."
+            },
+            {
+              "type": "example",
+              "title": "카르노맵 간소화",
+              "problem": "F(A,B,C)=Σm(1,3,5,7)을 간소화하라.",
+              "solution": "진리표: F=1인 경우 C=1인 모든 경우\n카르노맵에서 m(1,3,5,7) 그룹 → C=1\nF = C",
+              "answer": "F = C"
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "NAND/NOR 완전성",
+              "body": "NAND 게이트 하나만으로 NOT, AND, OR을 모두 구현할 수 있다. NOR도 마찬가지. 이를 함수적 완전성(Functional Completeness)이라 한다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-automata",
+      "number": 10,
+      "title": "오토마타",
+      "subtitle": "Automata Theory",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "유한 오토마타",
+          "content": [
+            {
+              "type": "definition",
+              "term": "결정적 유한 오토마타 (DFA)",
+              "latex": "M = (Q, \\Sigma, \\delta, q_0, F)",
+              "body": "Q: 상태 집합, Σ: 입력 알파벳, δ: Q×Σ→Q 전이함수, q₀: 초기 상태, F⊆Q: 수락 상태 집합."
+            },
+            {
+              "type": "definition",
+              "term": "비결정적 유한 오토마타 (NFA)",
+              "latex": "\\delta: Q \\times (\\Sigma \\cup \\{\\varepsilon\\}) \\to 2^Q",
+              "body": "한 상태에서 같은 입력에 대해 여러 전이가 가능하고 ε-전이도 허용. DFA와 동등한 인식 능력을 가진다."
+            },
+            {
+              "type": "theorem",
+              "name": "DFA-NFA 등가성",
+              "statement": "모든 NFA는 동등한 DFA로 변환할 수 있다. (부분집합 구성법 사용)",
+              "latex": "\\mathcal{L}(\\text{NFA}) = \\mathcal{L}(\\text{DFA})"
+            }
+          ]
+        },
+        {
+          "id": "ch10-s02",
+          "title": "정규 언어와 문맥자유 언어",
+          "content": [
+            {
+              "type": "definition",
+              "term": "정규 표현식 (Regular Expression)",
+              "body": "정규 언어를 기술하는 표현식. 기본 연산: 연결(·), 합(∪), 클리니 스타(*)."
+            },
+            {
+              "type": "theorem",
+              "name": "펌핑 보조정리 (Pumping Lemma)",
+              "statement": "정규 언어 L에 대해, 충분히 긴 문자열 w∈L은 w=xyz로 분해되어 xyⁿz∈L (n≥0)이 된다.",
+              "latex": "\\forall w \\in L,\\ |w|\\geq p :\\; w=xyz,\\ |xy|\\leq p,\\ |y|\\geq 1,\\ \\forall n\\geq 0:\\ xy^nz \\in L"
+            },
+            {
+              "type": "table",
+              "title": "촘스키 계층 (Chomsky Hierarchy)",
+              "headers": ["유형", "언어", "오토마타", "문법"],
+              "rows": [
+                ["Type 0", "재귀열거 언어", "튜링 기계", "무제한 문법"],
+                ["Type 1", "문맥의존 언어", "선형유계 오토마타", "문맥의존 문법"],
+                ["Type 2", "문맥자유 언어", "푸시다운 오토마타", "CFG"],
+                ["Type 3", "정규 언어", "유한 오토마타", "정규 문법"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-cryptography",
+      "number": 11,
+      "title": "암호론 기초",
+      "subtitle": "Introduction to Cryptography",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "정수론 기초",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "페르마의 소정리",
+              "statement": "p가 소수이고 gcd(a,p)=1이면 aᵖ⁻¹ ≡ 1 (mod p)이다.",
+              "latex": "a^{p-1} \\equiv 1 \\pmod{p}"
+            },
+            {
+              "type": "theorem",
+              "name": "오일러 정리",
+              "statement": "gcd(a,n)=1이면 aφ(n) ≡ 1 (mod n). 여기서 φ(n)은 오일러 피 함수.",
+              "latex": "a^{\\varphi(n)} \\equiv 1 \\pmod{n}"
+            },
+            {
+              "type": "formula",
+              "name": "오일러 피 함수",
+              "latex": "\\varphi(n) = n \\prod_{p|n}\\left(1 - \\frac{1}{p}\\right)",
+              "description": "n과 서로소인 1~n의 정수 개수"
+            },
+            {
+              "type": "formula",
+              "name": "중국인의 나머지 정리 (CRT)",
+              "latex": "x \\equiv a_i \\pmod{m_i},\\; \\gcd(m_i,m_j)=1 \\Rightarrow \\exists! x \\pmod{M}",
+              "description": "M = m₁m₂…mₖ"
+            }
+          ]
+        },
+        {
+          "id": "ch11-s02",
+          "title": "RSA 암호",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "RSA 키 생성",
+              "title": "RSA 알고리즘",
+              "body": "<b>키 생성:</b><br>1. 큰 소수 p, q 선택, n = pq<br>2. φ(n) = (p-1)(q-1) 계산<br>3. gcd(e, φ(n))=1인 e 선택 (공개키)<br>4. ed ≡ 1 (mod φ(n)) 만족하는 d 계산 (개인키)<br><b>암호화:</b> C = Mᵉ mod n<br><b>복호화:</b> M = Cᵈ mod n"
+            },
+            {
+              "type": "formula-grid",
+              "title": "RSA 수식 요약",
+              "cols": 2,
+              "items": [
+                {"name": "암호화", "latex": "C \\equiv M^e \\pmod{n}", "desc": "공개키 (e, n) 사용"},
+                {"name": "복호화", "latex": "M \\equiv C^d \\pmod{n}", "desc": "개인키 (d, n) 사용"},
+                {"name": "키 관계", "latex": "ed \\equiv 1 \\pmod{\\varphi(n)}", "desc": "확장 유클리드로 계산"},
+                {"name": "안전성", "latex": "n = pq \\text{ 인수분해 어려움}", "desc": "인수분해 어려움에 기반"}
+              ]
+            },
+            {
+              "type": "example",
+              "title": "소규모 RSA 예제",
+              "problem": "p=11, q=13으로 RSA를 설정하고 M=7을 암호화/복호화하라.",
+              "solution": "n=143, φ(n)=120\ne=7 (gcd(7,120)=1)\ned≡1(mod120): d=103 (7×103=721=6×120+1)\n암호화: C=7⁷ mod 143 = 6\n복호화: M=6¹⁰³ mod 143 = 7 ✓",
+              "answer": "C=6, 복호화 결과 M=7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "이산수학 공학 응용",
+      "subtitle": "Engineering Applications of Discrete Mathematics",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "네트워크 흐름과 최적화",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "최대 흐름-최소 절단 정리 (Max-Flow Min-Cut)",
+              "statement": "네트워크에서 소스 s에서 싱크 t로의 최대 흐름값은 최소 s-t 절단 용량과 같다.",
+              "latex": "\\max \\text{flow}(s,t) = \\min \\text{cut}(s,t)"
+            },
+            {
+              "type": "definition",
+              "term": "매칭 (Matching)",
+              "body": "그래프에서 공통 정점을 가지지 않는 간선들의 집합. 최대 매칭은 크기가 최대인 매칭이다."
+            },
+            {
+              "type": "theorem",
+              "name": "홀의 결혼 정리 (Hall's Marriage Theorem)",
+              "statement": "이분그래프 G=(X∪Y, E)에서 X를 완전히 매칭하는 포화 매칭이 존재 ↔ X의 모든 부분집합 S에 대해 |N(S)|≥|S|.",
+              "latex": "\\forall S \\subseteq X:\\; |N(S)| \\geq |S|"
+            }
+          ]
+        },
+        {
+          "id": "ch12-s02",
+          "title": "코딩 이론과 오류 정정",
+          "content": [
+            {
+              "type": "definition",
+              "term": "해밍 거리 (Hamming Distance)",
+              "latex": "d_H(x,y) = |\\{i : x_i \\neq y_i\\}|",
+              "body": "두 비트열 x, y 사이에서 다른 비트의 수. 오류 정정 코드의 성능을 나타내는 핵심 지표."
+            },
+            {
+              "type": "formula",
+              "name": "오류 검출/정정 능력",
+              "latex": "d_{\\min} \\geq 2t+1 \\Rightarrow t \\text{개 오류 정정 가능}",
+              "description": "최소 해밍 거리와 오류 정정 능력의 관계"
+            },
+            {
+              "type": "formula",
+              "name": "해밍 (7,4) 코드",
+              "latex": "[n,k,d] = [7, 4, 3] \\Rightarrow 1 \\text{비트 오류 정정}",
+              "description": "7비트 코드워드, 4비트 데이터, 최소 거리 3"
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "이산수학의 공학 응용 분야",
+              "body": "• <b>컴퓨터 네트워크:</b> 그래프 이론 → 라우팅, 최적 경로<br>• <b>데이터베이스:</b> 관계 이론 → 관계형 DB 설계<br>• <b>컴파일러:</b> 오토마타 → 어휘 분석, 파서<br>• <b>정보보안:</b> 암호론 → 공개키 암호, 전자서명<br>• <b>통신공학:</b> 코딩 이론 → 오류 정정 코드"
+            },
+            {
+              "type": "formula-grid",
+              "title": "정보 이론 핵심",
+              "cols": 2,
+              "items": [
+                {"name": "섀넌 엔트로피", "latex": "H(X) = -\\sum_i p_i \\log_2 p_i", "desc": "정보 불확실성 측도"},
+                {"name": "채널 용량", "latex": "C = \\max_{p(x)} I(X;Y)", "desc": "채널의 최대 전송률"},
+                {"name": "허프만 코드", "latex": "\\text{최적 무손실 압축}", "desc": "평균 부호길이 최소화"},
+                {"name": "나이퀴스트 정리", "latex": "f_s \\geq 2B", "desc": "표본화 주파수 ≥ 2×대역폭"}
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "🔗",
+              "title": "이산수학은 디지털 세계의 언어",
+              "body": "이산수학은 연속적인 물리 세계와 달리 '끊어진(discrete)' 디지털 세계를 기술하는 언어다. 0과 1로 이루어진 컴퓨터 세계의 모든 알고리즘, 네트워크, 암호, 데이터 구조의 이론적 토대가 바로 이산수학이다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
