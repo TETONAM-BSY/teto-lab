@@ -1,0 +1,397 @@
+{
+  "id": "maxwell",
+  "title": "맥스웰 방정식",
+  "subtitle": "Maxwell's Equations",
+  "chapters": [
+    {
+      "id": "ch01-four-equations",
+      "number": 1,
+      "title": "맥스웰 방정식 4식",
+      "subtitle": "The Four Maxwell's Equations",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "미분형과 적분형",
+          "content": [
+            {
+              "type": "table",
+              "title": "맥스웰 방정식 전체",
+              "headers": ["이름", "미분형", "적분형"],
+              "rows": [
+                ["가우스 전기 법칙", "∇·D = ρv", "∮D·dA = Qenc"],
+                ["가우스 자기 법칙", "∇·B = 0", "∮B·dA = 0"],
+                ["패러데이 법칙", "∇×E = -∂B/∂t", "∮E·dl = -dΦB/dt"],
+                ["앙페르-맥스웰 법칙", "∇×H = J + ∂D/∂t", "∮H·dl = Ienc + ∂ΦD/∂t"]
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "변위 전류의 의미",
+              "body": "맥스웰의 최대 업적: 앙페르 법칙에 변위 전류 ∂D/∂t 항 추가. 이로 인해 변화하는 전기장이 자기장을 만들고(패러데이 역방향), 이것이 전자기파 예측으로 이어진다."
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "구성 관계식",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "매질의 구성 관계",
+              "cols": 2,
+              "items": [
+                {"name": "전속 밀도", "latex": "\\mathbf{D} = \\varepsilon\\mathbf{E} = \\varepsilon_0\\varepsilon_r\\mathbf{E}", "desc": "전기 구성 관계"},
+                {"name": "자속 밀도", "latex": "\\mathbf{B} = \\mu\\mathbf{H} = \\mu_0\\mu_r\\mathbf{H}", "desc": "자기 구성 관계"},
+                {"name": "전류 밀도 (옴의 법칙)", "latex": "\\mathbf{J} = \\sigma\\mathbf{E}", "desc": "σ: 전기 전도율"},
+                {"name": "연속 방정식", "latex": "\\nabla\\cdot\\mathbf{J} = -\\frac{\\partial\\rho_v}{\\partial t}", "desc": "전하 보존 법칙"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-wave-equation",
+      "number": 2,
+      "title": "전자기파 방정식",
+      "subtitle": "Electromagnetic Wave Equation",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "파동 방정식 유도",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "전자기파 방정식",
+              "statement": "자유 공간에서 맥스웰 방정식으로부터 E와 H 모두 파동 방정식을 만족한다.",
+              "latex": "\\nabla^2\\mathbf{E} = \\mu\\varepsilon\\frac{\\partial^2\\mathbf{E}}{\\partial t^2},\\quad \\nabla^2\\mathbf{H} = \\mu\\varepsilon\\frac{\\partial^2\\mathbf{H}}{\\partial t^2}"
+            },
+            {
+              "type": "formula",
+              "name": "빛의 속도",
+              "latex": "c = \\frac{1}{\\sqrt{\\mu_0\\varepsilon_0}} = 2.998\\times10^8\\;\\text{m/s}",
+              "description": "맥스웰이 예측한 전자기파의 속도 = 빛의 속도. 전자기파 = 빛임을 증명."
+            },
+            {
+              "type": "formula",
+              "name": "매질에서의 위상 속도",
+              "latex": "v_p = \\frac{1}{\\sqrt{\\mu\\varepsilon}} = \\frac{c}{\\sqrt{\\mu_r\\varepsilon_r}} = \\frac{c}{n}",
+              "description": "n=√(μrεr): 굴절률"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-plane-wave",
+      "number": 3,
+      "title": "평면파",
+      "subtitle": "Plane Waves",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "균일 평면파",
+          "content": [
+            {
+              "type": "formula",
+              "name": "균일 평면파 (z 방향 진행)",
+              "latex": "\\mathbf{E}(z,t) = E_0\\cos(\\omega t - \\beta z)\\hat{x}",
+              "description": "β=ω/vp=ω√(με): 위상 상수 [rad/m]"
+            },
+            {
+              "type": "formula",
+              "name": "TEM파의 E-H 관계",
+              "latex": "\\mathbf{H} = \\frac{1}{\\eta}\\hat{k}\\times\\mathbf{E},\\quad \\eta = \\sqrt{\\frac{\\mu}{\\varepsilon}}",
+              "description": "η: 매질 고유 임피던스. 자유공간 η₀=377Ω. E⊥H⊥k."
+            },
+            {
+              "type": "formula",
+              "name": "포인팅 벡터",
+              "latex": "\\mathbf{S} = \\mathbf{E}\\times\\mathbf{H}\\quad [\\text{W/m}^2]",
+              "description": "전자기파 에너지 흐름 밀도. 방향은 파 진행 방향."
+            }
+          ]
+        },
+        {
+          "id": "ch03-s02",
+          "title": "손실 매질에서의 전파",
+          "content": [
+            {
+              "type": "formula",
+              "name": "손실 매질 전파 상수",
+              "latex": "\\gamma = \\alpha + j\\beta = \\sqrt{j\\omega\\mu(\\sigma+j\\omega\\varepsilon)}",
+              "description": "α: 감쇠 상수[Np/m], β: 위상 상수[rad/m]"
+            },
+            {
+              "type": "formula",
+              "name": "표피 깊이 (Skin Depth)",
+              "latex": "\\delta_s = \\frac{1}{\\alpha} = \\sqrt{\\frac{2}{\\omega\\mu\\sigma}}",
+              "description": "전기장이 e⁻¹(≈37%)로 감쇠하는 깊이. 고주파에서 작아짐."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-polarization",
+      "number": 4,
+      "title": "편파",
+      "subtitle": "Wave Polarization",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "편파의 종류",
+          "content": [
+            {
+              "type": "table",
+              "title": "편파 종류",
+              "headers": ["편파", "E 벡터 궤적", "조건"],
+              "rows": [
+                ["선형 편파", "직선", "Ey/Ex = 실수 상수"],
+                ["원형 편파 (RHCP)", "원 (시계 반대)", "|Ex|=|Ey|, 위상차 +90°"],
+                ["원형 편파 (LHCP)", "원 (시계)", "|Ex|=|Ey|, 위상차 -90°"],
+                ["타원 편파", "타원", "일반적인 경우"]
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "편파의 응용",
+              "body": "위성통신: RHCP/LHCP로 주파수 재사용. LCD: 두 편광판으로 빛 차단. 레이더: 강우량 측정 (원형 편파). 5G 안테나: 이중 편파로 용량 증대."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-reflection-transmission",
+      "number": 5,
+      "title": "반사와 투과",
+      "subtitle": "Reflection and Transmission",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "프레넬 계수",
+          "content": [
+            {
+              "type": "formula",
+              "name": "수직 입사 반사·투과 계수",
+              "latex": "\\Gamma = \\frac{\\eta_2-\\eta_1}{\\eta_2+\\eta_1},\\quad \\tau = \\frac{2\\eta_2}{\\eta_2+\\eta_1}",
+              "description": "Γ: 반사계수, τ: 투과계수. |Γ|²+|τ|²·η₁/η₂=1 (에너지 보존)"
+            },
+            {
+              "type": "formula",
+              "name": "스넬의 법칙",
+              "latex": "n_1\\sin\\theta_i = n_2\\sin\\theta_t",
+              "description": "경사 입사 시 굴절 각도 관계. θi: 입사각, θt: 굴절각"
+            },
+            {
+              "type": "formula",
+              "name": "전반사 조건 (임계각)",
+              "latex": "\\theta_c = \\sin^{-1}\\!\\left(\\frac{n_2}{n_1}\\right),\\quad n_1 > n_2",
+              "description": "광섬유의 원리. θ>θc이면 전반사."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-guided-waves",
+      "number": 6,
+      "title": "도파관",
+      "subtitle": "Waveguides",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "직사각형 도파관",
+          "content": [
+            {
+              "type": "definition",
+              "term": "도파관 모드",
+              "body": "TE(Transverse Electric): E가 전파 방향에 수직. TM(Transverse Magnetic): H가 전파 방향에 수직. TEM: 전파 불가(도파관 내)."
+            },
+            {
+              "type": "formula",
+              "name": "차단 주파수",
+              "latex": "f_{c,mn} = \\frac{1}{2\\sqrt{\\mu\\varepsilon}}\\sqrt{\\left(\\frac{m}{a}\\right)^2+\\left(\\frac{n}{b}\\right)^2}",
+              "description": "a×b 직사각형 도파관. f<fc이면 차단(evanescent)."
+            },
+            {
+              "type": "formula",
+              "name": "지배 모드 TE₁₀",
+              "latex": "f_{c,10} = \\frac{c}{2a},\\quad \\lambda_{c} = 2a",
+              "description": "가장 낮은 차단 주파수. 단일 모드 동작의 기준."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-potentials",
+      "number": 7,
+      "title": "전자기 퍼텐셜",
+      "subtitle": "Electromagnetic Potentials",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "스칼라·벡터 퍼텐셜",
+          "content": [
+            {
+              "type": "formula",
+              "name": "벡터 퍼텐셜",
+              "latex": "\\mathbf{B} = \\nabla\\times\\mathbf{A},\\quad \\mathbf{E} = -\\nabla V - \\frac{\\partial\\mathbf{A}}{\\partial t}",
+              "description": "A: 자기 벡터 퍼텐셜. ∇·B=0을 자동 만족."
+            },
+            {
+              "type": "formula",
+              "name": "로렌츠 게이지",
+              "latex": "\\nabla\\cdot\\mathbf{A} + \\mu\\varepsilon\\frac{\\partial V}{\\partial t} = 0",
+              "description": "이 조건에서 A와 V 모두 파동 방정식 만족"
+            },
+            {
+              "type": "formula",
+              "name": "지연 퍼텐셜",
+              "latex": "V(\\mathbf{r},t) = \\frac{1}{4\\pi\\varepsilon}\\int\\frac{\\rho(\\mathbf{r}',t_r)}{|\\mathbf{r}-\\mathbf{r}'|}dV',\\quad t_r = t - \\frac{|\\mathbf{r}-\\mathbf{r}'|}{c}",
+              "description": "전파 시간 tᵣ을 고려한 지연 퍼텐셜"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-radiation",
+      "number": 8,
+      "title": "복사와 안테나 기초",
+      "subtitle": "Radiation and Antennas",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "헤르츠 쌍극자",
+          "content": [
+            {
+              "type": "formula",
+              "name": "헤르츠 쌍극자 복사 전력",
+              "latex": "P_{rad} = \\frac{\\pi}{3}\\eta\\left(\\frac{I_0 l}{\\lambda}\\right)^2",
+              "description": "I₀: 전류 진폭, l: 쌍극자 길이, λ: 파장"
+            },
+            {
+              "type": "formula",
+              "name": "복사 저항",
+              "latex": "R_{rad} = \\frac{2P_{rad}}{I_0^2} = 80\\pi^2\\left(\\frac{l}{\\lambda}\\right)^2\\;[\\Omega]",
+              "description": "전력을 저항으로 표현. 안테나 효율 계산에 사용."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-special-relativity",
+      "number": 9,
+      "title": "맥스웰 방정식과 상대성 이론",
+      "subtitle": "Maxwell and Special Relativity",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "로렌츠 불변성",
+          "content": [
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "맥스웰 방정식의 로렌츠 불변성",
+              "body": "맥스웰 방정식은 갈릴레이 변환이 아닌 로렌츠 변환에서 불변. 이것이 아인슈타인이 특수 상대성 이론을 개발한 동기였다. 전기장과 자기장은 서로 다른 관성계에서 다르게 보이는 하나의 전자기장이다."
+            },
+            {
+              "type": "formula",
+              "name": "전자기 4-텐서",
+              "latex": "F^{\\mu\\nu} = \\begin{pmatrix}0&-E_x/c&-E_y/c&-E_z/c\\\\E_x/c&0&-B_z&B_y\\\\\\cdots&\\cdots&\\cdots&\\cdots\\end{pmatrix}",
+              "description": "전기장과 자기장을 통합하는 반대칭 4-텐서"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-numerical-em",
+      "number": 10,
+      "title": "전자기 수치해석",
+      "subtitle": "Computational Electromagnetics",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "수치 방법",
+          "content": [
+            {
+              "type": "table",
+              "title": "전자기 수치해석 방법",
+              "headers": ["방법", "영역", "강점"],
+              "rows": [
+                ["FDTD", "시간 영역", "광대역, 비선형 매질"],
+                ["FEM", "주파수 영역", "복잡한 형상, 불균일 매질"],
+                ["MoM", "표면 적분", "안테나, 산란"],
+                ["BEM", "경계 적분", "균일 매질 내부 문제"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-em-compatibility",
+      "number": 11,
+      "title": "전자기 호환성",
+              "subtitle": "Electromagnetic Compatibility",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "EMI·EMC",
+          "content": [
+            {
+              "type": "definition",
+              "term": "EMI / EMC",
+              "body": "EMI(Electromagnetic Interference): 전자기 장해. EMC(Electromagnetic Compatibility): 전자기 호환성. 기기가 다른 기기에 장해를 주지 않고 정상 동작해야 한다."
+            },
+            {
+              "type": "formula",
+              "name": "차폐 효과 (Shielding Effectiveness)",
+              "latex": "SE = 20\\log_{10}\\frac{E_i}{E_t}\\;[\\text{dB}]",
+              "description": "SE>40dB: 우수 차폐. 표피 깊이와 반사 손실로 결정."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "맥스웰 방정식의 응용",
+          "content": [
+            {
+              "type": "table",
+              "title": "맥스웰 방정식 응용 분야",
+              "headers": ["분야", "관련 방정식", "응용"],
+              "rows": [
+                ["광통신", "전자기파, 전반사", "광섬유, WDM"],
+                ["무선통신", "복사, 전파", "5G, 위성통신"],
+                ["레이더", "반사, 도플러", "항공, 자율주행"],
+                ["MRI", "정자기, NMR", "의료 영상"],
+                ["반도체", "전자기 간섭", "EMI 설계"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "✨",
+              "title": "물리학 역사상 가장 우아한 방정식",
+              "body": "맥스웰의 4개 방정식은 전기·자기·빛을 하나로 통합했다. 리처드 파인만은 '인류 역사를 1만 년 후에서 돌아볼 때, 맥스웰 방정식 발견이 19세기 가장 중요한 사건으로 기록될 것'이라 했다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,409 @@
+{
+  "id": "power",
+  "title": "전력전자",
+  "subtitle": "Power Electronics",
+  "chapters": [
+    {
+      "id": "ch01-intro",
+      "number": 1,
+      "title": "전력전자 개론",
+      "subtitle": "Introduction to Power Electronics",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "전력전자 시스템",
+          "content": [
+            {
+              "type": "definition",
+              "term": "전력전자 (Power Electronics)",
+              "body": "전력용 반도체 스위치를 이용하여 전기 에너지의 형태(AC↔DC, 전압·전류·주파수)를 고효율로 변환하는 기술. 전동기 드라이브, 신재생 에너지, 전기차, 스위칭 전원 장치에 필수."
+            },
+            {
+              "type": "table",
+              "title": "전력변환 종류",
+              "headers": ["변환", "명칭", "대표 응용"],
+              "rows": [
+                ["AC→DC", "정류기 (Rectifier)", "전원공급장치, 충전기"],
+                ["DC→DC", "초퍼 (Chopper/Converter)", "SMPS, 배터리 관리"],
+                ["DC→AC", "인버터 (Inverter)", "모터 드라이브, 태양광"],
+                ["AC→AC", "사이클로컨버터 / 매트릭스", "주파수 변환, AC 드라이브"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-power-switches",
+      "number": 2,
+      "title": "전력 반도체 스위치",
+      "subtitle": "Power Semiconductor Switches",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "스위치 특성",
+          "content": [
+            {
+              "type": "table",
+              "title": "전력 스위치 비교",
+              "headers": ["소자", "전압 (V)", "전류 (A)", "주파수", "특징"],
+              "rows": [
+                ["Power MOSFET", "~1000", "~100", "수백 kHz", "고속, 전압 구동, 저압"],
+                ["IGBT", "~6500", "~3000", "수 kHz~수십 kHz", "중·대용량, 전압 구동"],
+                ["GTO", "~8000", "~6000", "수백 Hz", "대용량, 전류 구동"],
+                ["SiC MOSFET", "~3300", "~100", "수백 kHz", "고온·고효율, EV·태양광"],
+                ["GaN HEMT", "~650", "~100", "수 MHz", "최고속, 소형화"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "스위칭 손실",
+              "latex": "P_{sw} = \\frac{1}{2}V_{off}I_{on}(t_r+t_f)f_s",
+              "description": "tr: 상승 시간, tf: 하강 시간, fs: 스위칭 주파수. 고주파→손실 증가."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-rectifier",
+      "number": 3,
+      "title": "정류 회로",
+      "subtitle": "Rectifier Circuits",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "다이오드 정류기",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "정류 회로 특성",
+              "cols": 2,
+              "items": [
+                {"name": "반파 정류 Vdc", "latex": "V_{dc} = \\frac{V_m}{\\pi}", "desc": "단상 반파. 맥동 큼."},
+                {"name": "전파 정류 Vdc", "latex": "V_{dc} = \\frac{2V_m}{\\pi}\\approx0.636V_m", "desc": "단상 전파(브릿지)"},
+                {"name": "3상 전파 정류", "latex": "V_{dc} = \\frac{3\\sqrt{3}}{\\pi}V_{m,line}\\approx1.35V_{L,rms}", "desc": "맥동 작음, 산업용"},
+                {"name": "맥동률", "latex": "r = \\frac{V_{rms,ac}}{V_{dc}} = \\frac{\\sqrt{V_{rms}^2-V_{dc}^2}}{V_{dc}}", "desc": "낮을수록 좋음"}
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "역률 개선 (PFC)",
+              "latex": "\\text{PF} = \\frac{P}{S} = \\frac{I_{1,rms}}{I_{rms}}\\cos\\phi_1",
+              "description": "다이오드 정류기의 PF≈0.6~0.9. Boost PFC 회로로 PF→0.99 달성."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-dcdc",
+      "number": 4,
+      "title": "DC-DC 변환기",
+      "subtitle": "DC-DC Converters",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "비절연형 변환기",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "비절연 DC-DC 변환기",
+              "cols": 2,
+              "items": [
+                {"name": "Buck 강압", "latex": "V_{out}=D\\cdot V_{in},\\; I_L=I_{out}/D", "desc": "D: 듀티비 (0~1)"},
+                {"name": "Boost 승압", "latex": "V_{out}=\\frac{V_{in}}{1-D}", "desc": "태양광 MPPT, PFC"},
+                {"name": "Buck-Boost 반전", "latex": "V_{out}=-\\frac{D}{1-D}V_{in}", "desc": "출력 극성 반전"},
+                {"name": "Cuk 변환기", "latex": "V_{out}=-\\frac{D}{1-D}V_{in}", "desc": "입출력 전류 연속"}
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "Buck 변환기 인덕터 전류 리플",
+              "latex": "\\Delta i_L = \\frac{V_{in}-V_{out}}{L}\\cdot DT_s = \\frac{(1-D)V_{out}}{Lf_s}",
+              "description": "Ts=1/fs: 스위칭 주기. 리플 감소: L↑ 또는 fs↑"
+            }
+          ]
+        },
+        {
+          "id": "ch04-s02",
+          "title": "절연형 변환기",
+          "content": [
+            {
+              "type": "table",
+              "title": "절연형 DC-DC 변환기",
+              "headers": ["종류", "특징", "전력 범위", "응용"],
+              "rows": [
+                ["플라이백 (Flyback)", "단순, 다출력", "< 100W", "어댑터, 보조 전원"],
+                ["포워드 (Forward)", "단순, 단방향", "< 500W", "컴퓨터 전원"],
+                ["풀-브릿지 (Full-Bridge)", "고전력", "1~100kW", "EV 충전기, UPS"],
+                ["LLC 공진", "고효율, 소프트 스위칭", "100W~10kW", "서버, 온보드 충전기"],
+                ["DAB (Dual Active Bridge)", "양방향", "1~50kW", "ESS, EV V2G"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-inverter",
+      "number": 5,
+      "title": "인버터",
+      "subtitle": "Inverters",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "전압형 인버터 (VSI)",
+          "content": [
+            {
+              "type": "formula",
+              "name": "단상 H-브릿지 출력",
+              "latex": "v_{out} = \\begin{cases}+V_{dc} & S_1,S_4 \\text{ ON}\\\\-V_{dc} & S_2,S_3 \\text{ ON}\\\\0 & \\text{그 외}\\end{cases}",
+              "description": "4개 스위치(S1~S4)로 양·음·0 전압 출력"
+            },
+            {
+              "type": "formula",
+              "name": "3상 인버터 출력 (기본파)",
+              "latex": "V_{1,rms} = \\frac{\\sqrt{6}}{\\pi}M_a V_{dc}\\approx0.612M_a V_{dc}",
+              "description": "Ma: 변조 지수(0~1). 정현파 PWM(SPWM) 기준."
+            },
+            {
+              "type": "formula",
+              "name": "SVPWM (공간 벡터 PWM)",
+              "latex": "M_a^{max,SVPWM} = \\frac{1}{\\sqrt{3}} > M_a^{max,SPWM} = 1",
+              "description": "SVPWM이 SPWM 대비 DC 버스 전압 약 15% 더 활용"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-pwm",
+      "number": 6,
+      "title": "PWM 제어",
+      "subtitle": "PWM Control",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "PWM 기법",
+          "content": [
+            {
+              "type": "definition",
+              "term": "PWM (Pulse Width Modulation)",
+              "body": "스위치의 ON 시간(듀티비 D)을 변조하여 출력 전압·전류의 평균을 제어. 정현파 PWM(SPWM), 공간벡터 PWM(SVPWM), 불연속 PWM(DPWM) 등."
+            },
+            {
+              "type": "formula",
+              "name": "스위칭 주파수와 손실",
+              "latex": "P_{total} = P_{cond} + P_{sw} = I_{rms}^2 R_{on} + f_s E_{sw}",
+              "description": "Esw: 1회 스위칭당 에너지. fs↑ → 필터 소형화 가능하나 손실 증가."
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "소프트 스위칭",
+              "body": "ZVS(Zero Voltage Switching): 전압=0일 때 스위칭 → 스위칭 손실 최소화. ZCS(Zero Current Switching): 전류=0일 때 스위칭. LLC·PSFB 등 공진 컨버터에서 사용."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-motor-drive",
+      "number": 7,
+      "title": "전동기 드라이브",
+      "subtitle": "Motor Drives",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "인버터-모터 시스템",
+          "content": [
+            {
+              "type": "formula",
+              "name": "SPMSM 전압 방정식",
+              "latex": "v_d = R_s i_d + L_d\\frac{di_d}{dt} - \\omega_e L_q i_q",
+              "description": "d-q 좌표계. SPMSM: Ld=Lq=Ls. 벡터 제어(FOC)의 기반."
+            },
+            {
+              "type": "formula",
+              "name": "토크 방정식",
+              "latex": "T_e = \\frac{3}{2}\\frac{P}{2}[\\psi_f i_q + (L_d-L_q)i_d i_q]",
+              "description": "SPMSM: Ld=Lq → Te=(3/2)(P/2)ψf·iq. iq로 토크 직접 제어."
+            },
+            {
+              "type": "table",
+              "title": "전동기 드라이브 제어 방식",
+              "headers": ["방식", "특징", "응용"],
+              "rows": [
+                ["V/f 제어", "단순, 오픈루프", "펌프·팬"],
+                ["벡터 제어 (FOC)", "토크·자속 독립 제어", "EV·CNC·로봇"],
+                ["DTC", "빠른 토크 응답", "압연기"],
+                ["MPC", "최적 제어, 예측", "고성능 드라이브"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-pv-system",
+      "number": 8,
+      "title": "태양광 발전 시스템",
+      "subtitle": "Photovoltaic Systems",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "태양전지와 MPPT",
+          "content": [
+            {
+              "type": "formula",
+              "name": "태양전지 I-V 특성",
+              "latex": "I = I_{ph} - I_0\\left(e^{\\frac{V+IR_s}{nV_T}}-1\\right) - \\frac{V+IR_s}{R_{sh}}",
+              "description": "Iph: 광전류, I₀: 역포화 전류, Rs: 직렬저항, Rsh: 병렬저항"
+            },
+            {
+              "type": "formula",
+              "name": "MPPT 알고리즘 (P&O)",
+              "latex": "\\frac{dP}{dV} = 0 \\Rightarrow \\text{MPP},\\quad \\frac{dP}{dV} > 0 \\Rightarrow V\\uparrow,\\quad \\frac{dP}{dV} < 0 \\Rightarrow V\\downarrow",
+              "description": "P&O (Perturb and Observe): 가장 일반적인 MPPT 알고리즘"
+            },
+            {
+              "type": "formula",
+              "name": "충전 곡선 인자 (FF)",
+              "latex": "FF = \\frac{P_{mpp}}{V_{oc}\\cdot I_{sc}},\\quad \\eta = FF\\cdot\\frac{V_{oc}I_{sc}}{G\\cdot A}",
+              "description": "FF: Fill Factor (0.7~0.85). η: 변환 효율"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-ess",
+      "number": 9,
+      "title": "에너지 저장 시스템",
+      "subtitle": "Energy Storage Systems",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "배터리 관리와 BMS",
+          "content": [
+            {
+              "type": "formula",
+              "name": "배터리 모델 (등가 회로)",
+              "latex": "V_{terminal} = V_{OC}(SoC) - I\\cdot R_0 - \\sum_k V_{RC,k}",
+              "description": "OCV: 개방회로전압(SoC 함수), R₀: 내부저항, VRC: RC 분극 전압"
+            },
+            {
+              "type": "formula",
+              "name": "SoC 추정 (쿨롱 카운팅)",
+              "latex": "SoC(t) = SoC(t_0) - \\frac{1}{Q_{nom}}\\int_{t_0}^{t}I(\\tau)\\,d\\tau",
+              "description": "SoC: 잔존 용량 비율(0~100%). 전류 적산법."
+            },
+            {
+              "type": "table",
+              "title": "배터리 화학 비교",
+              "headers": ["종류", "에너지 밀도", "사이클", "안전성", "응용"],
+              "rows": [
+                ["LFP", "낮음", "높음 (3000+)", "우수", "ESS·버스·전동차"],
+                ["NMC", "높음", "중간", "보통", "EV 승용차"],
+                ["NCA", "매우 높음", "낮음", "낮음", "고성능 EV"],
+                ["전고체", "높음 (개발 중)", "높음 (예상)", "매우 우수", "차세대 EV"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-grid-connected",
+      "number": 10,
+      "title": "계통 연계 시스템",
+      "subtitle": "Grid-Connected Systems",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "계통 연계 제어",
+          "content": [
+            {
+              "type": "formula",
+              "name": "PLL (위상 동기 루프)",
+              "latex": "\\hat{\\theta}_g = \\int\\hat{\\omega}_g\\,dt,\\quad \\hat{\\omega}_g = \\omega_0 + k_p v_q + k_i\\int v_q\\,dt",
+              "description": "vq→0으로 수렴 시 계통 위상 동기. dq 좌표 PLL."
+            },
+            {
+              "type": "formula",
+              "name": "계통 연계 인버터 전류 제어",
+              "latex": "v_d^* = k_p(i_d^*-i_d)+k_i\\int(i_d^*-i_d)dt - \\omega L i_q + v_{gd}",
+              "description": "PI + 전향 보상. id*: 유효전력 제어, iq*: 무효전력 제어"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-ev-charging",
+      "number": 11,
+      "title": "전기차 전력전자",
+      "subtitle": "EV Power Electronics",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "EV 충전 및 구동 시스템",
+          "content": [
+            {
+              "type": "table",
+              "title": "EV 충전 방식",
+              "headers": ["방식", "전력", "충전 시간", "특징"],
+              "rows": [
+                ["완속 (AC Level 1)", "1.4~2.4kW", "8~16h", "가정용 220V"],
+                ["완속 (AC Level 2)", "3.3~22kW", "1~8h", "전용 충전기"],
+                ["급속 (DC CCS)", "50~350kW", "15~45분", "직류 급속"],
+                ["초급속 (DC)", "350~500kW+", "<15분", "고속도로 충전소"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "OBC (On-Board Charger) 효율",
+              "latex": "\\eta_{OBC} = \\eta_{PFC}\\times\\eta_{DCDC}\\approx0.95\\times0.95\\approx0.90",
+              "description": "AC 입력 → PFC(역률 개선) → LLC/PSFB(절연·강압) → 배터리"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "전력전자 응용 총정리",
+          "content": [
+            {
+              "type": "table",
+              "title": "전력전자 응용 분야",
+              "headers": ["분야", "핵심 변환기", "효율 목표"],
+              "rows": [
+                ["데이터센터 전원", "PFC + LLC 컨버터", ">96%"],
+                ["태양광 인버터", "Boost + 계통 연계 인버터", ">98%"],
+                ["풍력 컨버터", "Full-Scale 백투백", ">97%"],
+                ["EV 모터 드라이브", "3상 인버터 (SiC)", ">97%"],
+                ["EV 충전기 (급속)", "PFC + DAB", ">95%"],
+                ["철도 추진", "멀티레벨 인버터", ">96%"],
+                ["스마트그리드 ESS", "양방향 DAB", ">96%"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "⚡",
+              "title": "전력전자는 에너지의 번역기",
+              "body": "발전소의 전기가 스마트폰 배터리를 충전하기까지, 형태가 다른 전기 에너지 사이를 고효율로 변환하는 것이 전력전자의 역할이다. SiC·GaN 같은 와이드밴드갭 소자의 등장으로 더 작고, 더 빠르고, 더 효율적인 변환이 가능해지며 탄소중립 에너지 전환의 핵심이 되고 있다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

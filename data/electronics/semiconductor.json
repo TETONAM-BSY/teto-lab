@@ -1,0 +1,376 @@
+{
+  "id": "semiconductor",
+  "title": "반도체 소자",
+  "subtitle": "Semiconductor Devices",
+  "chapters": [
+    {
+      "id": "ch01-crystal",
+      "number": 1,
+      "title": "반도체 결정 구조",
+      "subtitle": "Crystal Structure and Bonding",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "반도체의 종류와 결정 구조",
+          "content": [
+            {
+              "type": "definition",
+              "term": "반도체 (Semiconductor)",
+              "body": "전기 전도율이 도체와 절연체 사이인 물질. 실온에서 저항률 약 10⁻³~10⁸ Ω·cm. 대표 물질: Si(14족), Ge, GaAs(3-5족), SiC."
+            },
+            {
+              "type": "table",
+              "title": "주요 반도체 비교",
+              "headers": ["물질", "밴드갭 Eg", "전자 이동도", "용도"],
+              "rows": [
+                ["Si", "1.12 eV (간접)", "1400 cm²/Vs", "집적 회로, 태양전지"],
+                ["Ge", "0.67 eV (간접)", "3900 cm²/Vs", "초기 트랜지스터"],
+                ["GaAs", "1.42 eV (직접)", "8500 cm²/Vs", "LED, 레이저, RF"],
+                ["GaN", "3.4 eV (직접)", "1500 cm²/Vs", "청색 LED, 전력소자"],
+                ["SiC", "3.26 eV (간접)", "700 cm²/Vs", "고온·고전력 소자"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-energy-band",
+      "number": 2,
+      "title": "에너지 밴드",
+      "subtitle": "Energy Band Theory",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "밴드 구조",
+          "content": [
+            {
+              "type": "formula",
+              "name": "페르미-디락 분포",
+              "latex": "f(E) = \\frac{1}{1+e^{(E-E_F)/k_BT}}",
+              "description": "에너지 E의 상태가 전자로 점유될 확률. EF: 페르미 준위, kB: 볼츠만 상수."
+            },
+            {
+              "type": "formula-grid",
+              "title": "진성 반도체 특성",
+              "cols": 2,
+              "items": [
+                {"name": "진성 캐리어 농도", "latex": "n_i = \\sqrt{N_c N_v}\\exp\\!\\left(-\\frac{E_g}{2k_BT}\\right)", "desc": "Si 실온: ni≈1.5×10¹⁰ cm⁻³"},
+                {"name": "페르미 준위 (진성)", "latex": "E_{Fi} \\approx \\frac{E_c+E_v}{2}", "desc": "밴드갭 중간"},
+                {"name": "np 적", "latex": "np = n_i^2", "desc": "열평형에서 항상 성립 (질량 작용 법칙)"},
+                {"name": "전도율", "latex": "\\sigma = q(n\\mu_n + p\\mu_p)", "desc": "n·μn+p·μp 기여"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-doping",
+      "number": 3,
+      "title": "도핑과 불순물 반도체",
+      "subtitle": "Doping and Extrinsic Semiconductors",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "n형·p형 반도체",
+          "content": [
+            {
+              "type": "definition",
+              "term": "n형 반도체",
+              "latex": "n \\approx N_D,\\quad p = \\frac{n_i^2}{N_D}",
+              "body": "5족 원소(P, As, Sb) 도핑. 도너(donor) 에너지 준위가 전도대 아래 근처. 전자가 다수 캐리어."
+            },
+            {
+              "type": "definition",
+              "term": "p형 반도체",
+              "latex": "p \\approx N_A,\\quad n = \\frac{n_i^2}{N_A}",
+              "body": "3족 원소(B, Al, Ga) 도핑. 억셉터(acceptor) 에너지 준위가 가전자대 위 근처. 정공이 다수 캐리어."
+            },
+            {
+              "type": "formula",
+              "name": "페르미 준위 이동",
+              "latex": "E_F - E_{Fi} = k_BT\\ln\\frac{N_D}{n_i}\\;(\\text{n형}),\\quad E_{Fi}-E_F = k_BT\\ln\\frac{N_A}{n_i}\\;(\\text{p형})",
+              "description": "도핑 농도에 따라 페르미 준위가 밴드갭 내에서 이동"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-transport",
+      "number": 4,
+      "title": "캐리어 수송",
+      "subtitle": "Carrier Transport",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "드리프트와 확산",
+          "content": [
+            {
+              "type": "formula",
+              "name": "드리프트 전류",
+              "latex": "J_{drift} = q(n\\mu_n + p\\mu_p)E = \\sigma E",
+              "description": "전기장에 의한 전류. μn, μp: 전자·정공 이동도 [cm²/Vs]"
+            },
+            {
+              "type": "formula",
+              "name": "확산 전류",
+              "latex": "J_{diff,n} = qD_n\\frac{dn}{dx},\\quad J_{diff,p} = -qD_p\\frac{dp}{dx}",
+              "description": "농도 기울기에 의한 전류. Dn, Dp: 확산 계수 [cm²/s]"
+            },
+            {
+              "type": "formula",
+              "name": "아인슈타인 관계식",
+              "latex": "\\frac{D_n}{\\mu_n} = \\frac{D_p}{\\mu_p} = \\frac{k_BT}{q} = V_T",
+              "description": "VT=kBT/q: 열전압. 실온(300K)에서 VT≈26 mV"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-pn-junction",
+      "number": 5,
+      "title": "p-n 접합",
+      "subtitle": "p-n Junction",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "접합 특성",
+          "content": [
+            {
+              "type": "formula",
+              "name": "접촉 전위 (Built-in Voltage)",
+              "latex": "V_{bi} = \\frac{k_BT}{q}\\ln\\frac{N_A N_D}{n_i^2} = V_T\\ln\\frac{N_A N_D}{n_i^2}",
+              "description": "공핍층 내의 내부 전위차. 일반적으로 Si에서 0.6~0.7 V"
+            },
+            {
+              "type": "formula",
+              "name": "공핍층 폭",
+              "latex": "W = x_n+x_p = \\sqrt{\\frac{2\\varepsilon(V_{bi}-V_A)}{q}\\left(\\frac{1}{N_A}+\\frac{1}{N_D}\\right)}",
+              "description": "VA: 인가 전압 (순방향: 양수, 역방향: 음수)"
+            },
+            {
+              "type": "formula",
+              "name": "다이오드 방정식 (쇼클리)",
+              "latex": "I = I_0\\left(e^{V_A/nV_T}-1\\right)",
+              "description": "I₀: 역포화 전류, n: 이상 인자(1~2). 순방향 VD≈0.7V(Si)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-diode-types",
+      "number": 6,
+      "title": "다이오드 종류",
+      "subtitle": "Diode Types",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "특수 다이오드",
+          "content": [
+            {
+              "type": "table",
+              "title": "다이오드 종류와 응용",
+              "headers": ["종류", "특성", "응용"],
+              "rows": [
+                ["정류 다이오드", "순방향 0.7V, 역내전압 수~수천V", "AC→DC 정류"],
+                ["제너 다이오드", "항복 전압(Vz) 이하 일정", "전압 기준, 보호"],
+                ["쇼트키 다이오드", "전압강하 0.2~0.4V, 빠른 스위칭", "RF, 전력변환"],
+                ["발광 다이오드 (LED)", "전자-정공 재결합 → 빛", "조명, 디스플레이"],
+                ["포토다이오드", "빛 → 전류 (역방향 편향)", "광 검출, 태양전지"],
+                ["터널 다이오드", "음성 저항 영역", "마이크로파 발진"],
+                ["바렉터 다이오드", "역방향 커패시턴스 가변", "VCO, 위상 변조"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-bjt",
+      "number": 7,
+      "title": "BJT (쌍극성 접합 트랜지스터)",
+      "subtitle": "Bipolar Junction Transistor",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "BJT 동작 원리",
+          "content": [
+            {
+              "type": "formula",
+              "name": "전류 관계",
+              "latex": "I_C = \\beta I_B,\\quad I_E = I_B + I_C = (1+\\beta)I_B",
+              "description": "β(전류 이득)=hFE=IC/IB. 일반적으로 50~300. α=IC/IE=β/(1+β)"
+            },
+            {
+              "type": "table",
+              "title": "BJT 동작 영역",
+              "headers": ["영역", "BE 접합", "BC 접합", "용도"],
+              "rows": [
+                ["차단 (Cutoff)", "역방향", "역방향", "OFF 스위치"],
+                ["능동 (Active)", "순방향", "역방향", "증폭기"],
+                ["포화 (Saturation)", "순방향", "순방향", "ON 스위치"],
+                ["역능동 (Reverse Active)", "역방향", "순방향", "잘 사용 안 함"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch07-s02",
+          "title": "소신호 모델",
+          "content": [
+            {
+              "type": "formula",
+              "name": "하이브리드-π 모델",
+              "latex": "g_m = \\frac{I_C}{V_T},\\quad r_\\pi = \\frac{\\beta}{g_m},\\quad r_o = \\frac{V_A}{I_C}",
+              "description": "gm: 상호 컨덕턴스, rπ: 베이스-에미터 저항, ro: 출력 저항, VA: 얼리 전압"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-mosfet",
+      "number": 8,
+      "title": "MOSFET",
+      "subtitle": "Metal-Oxide-Semiconductor FET",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "MOSFET 동작",
+          "content": [
+            {
+              "type": "formula",
+              "name": "문턱 전압",
+              "latex": "V_T = V_{FB} + 2\\phi_F + \\frac{Q_{dep,max}}{C_{ox}}",
+              "description": "VFB: 평대역 전압, φF: 페르미 퍼텐셜, Cox: 산화막 커패시턴스"
+            },
+            {
+              "type": "formula-grid",
+              "title": "MOSFET 전류 방정식",
+              "cols": 2,
+              "items": [
+                {"name": "선형 영역 (VDS<VGS-VT)", "latex": "I_D = \\mu_n C_{ox}\\frac{W}{L}\\left[(V_{GS}-V_T)V_{DS}-\\frac{V_{DS}^2}{2}\\right]", "desc": "채널 형성, 저항처럼 동작"},
+                {"name": "포화 영역 (VDS≥VGS-VT)", "latex": "I_D = \\frac{1}{2}\\mu_n C_{ox}\\frac{W}{L}(V_{GS}-V_T)^2", "desc": "채널 핀치오프, 전류 일정"},
+                {"name": "소신호 gm", "latex": "g_m = \\sqrt{2\\mu_n C_{ox}\\frac{W}{L}I_D}", "desc": "포화 영역 소신호 파라미터"},
+                {"name": "채널 길이 변조", "latex": "I_D = \\frac{k_n}{2}(V_{GS}-V_T)^2(1+\\lambda V_{DS})", "desc": "λ: 채널 길이 변조 파라미터"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-cmos",
+      "number": 9,
+      "title": "CMOS 기술",
+      "subtitle": "CMOS Technology",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "CMOS 인버터",
+          "content": [
+            {
+              "type": "definition",
+              "term": "CMOS (Complementary MOS)",
+              "body": "nMOSFET과 pMOSFET을 상보적으로 사용. 정적 소비 전력 거의 0. 현대 디지털 IC의 표준."
+            },
+            {
+              "type": "formula",
+              "name": "CMOS 인버터 동적 전력",
+              "latex": "P_{dynamic} = \\alpha C_L V_{DD}^2 f",
+              "description": "α: 스위칭 활성 인자, CL: 부하 커패시턴스, VDD: 공급 전압, f: 클럭 주파수"
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "무어의 법칙",
+              "body": "고든 무어(1965): 집적 회로의 트랜지스터 수가 약 2년마다 2배씩 증가. 수십 년간 성립했으나 물리적 한계에 접근. 현재 최신 공정은 2~3nm 노드. 1개 칩에 트랜지스터 수십~수백억 개."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-power-devices",
+      "number": 10,
+      "title": "전력 반도체 소자",
+      "subtitle": "Power Semiconductor Devices",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "전력 소자 종류",
+          "content": [
+            {
+              "type": "table",
+              "title": "전력 반도체 소자 비교",
+              "headers": ["소자", "전압", "전류", "스위칭 속도", "응용"],
+              "rows": [
+                ["Power MOSFET", "~1kV", "~100A", "매우 빠름", "SMPS, 모터 드라이브"],
+                ["IGBT", "~6.5kV", "~3kA", "중간", "인버터, 열차, 풍력"],
+                ["GTO", "~8kV", "~6kA", "느림", "대용량 인버터"],
+                ["SiC MOSFET", "~3.3kV", "~100A", "매우 빠름", "EV, 태양광 인버터"],
+                ["GaN HEMT", "~650V", "~100A", "최고속", "고주파 전력변환"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-memory",
+      "number": 11,
+      "title": "반도체 메모리",
+      "subtitle": "Semiconductor Memory",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "메모리 소자",
+          "content": [
+            {
+              "type": "table",
+              "title": "반도체 메모리 종류",
+              "headers": ["종류", "구조", "휘발성", "특징"],
+              "rows": [
+                ["SRAM", "6T 래치", "휘발성", "빠름, 비트당 면적 큼, 캐시"],
+                ["DRAM", "1T1C", "휘발성", "고밀도, 주기적 재충전 필요"],
+                ["NOR Flash", "병렬 접근", "비휘발성", "임의 접근, 코드 저장"],
+                ["NAND Flash", "직렬 접근", "비휘발성", "고밀도, SSD, 스마트폰"],
+                ["MRAM", "자기 터널 접합", "비휘발성", "빠름, 무한 쓰기 수명"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "반도체 소자의 응용",
+          "content": [
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "반도체 산업의 중요성",
+              "body": "반도체는 현대 전자 문명의 핵심. CPU, GPU(AI 가속기), 메모리, 통신 칩이 스마트폰·PC·서버·자동차·IoT를 구동. 글로벌 반도체 시장 약 5000억 달러(2023)."
+            },
+            {
+              "type": "analogy",
+              "emoji": "⚡",
+              "title": "트랜지스터: 현대 문명의 기본 단위",
+              "body": "하나의 트랜지스터는 전기 스위치이자 증폭기. 수십억 개가 집적된 CPU는 초당 수십억 번의 연산을 수행한다. 1947년 벨 연구소에서 발명된 이후 인류 역사상 가장 중요한 발명 중 하나로 평가."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

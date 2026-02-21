@@ -1,0 +1,398 @@
+{
+  "id": "emwave",
+  "title": "전자기파",
+  "subtitle": "Electromagnetic Waves",
+  "chapters": [
+    {
+      "id": "ch01-spectrum",
+      "number": 1,
+      "title": "전자기파 스펙트럼",
+      "subtitle": "Electromagnetic Spectrum",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "주파수 대역",
+          "content": [
+            {
+              "type": "table",
+              "title": "전자기파 스펙트럼",
+              "headers": ["대역", "주파수", "파장", "응용"],
+              "rows": [
+                ["ELF/VLF", "3Hz~30kHz", "10Mm~10km", "잠수함 통신"],
+                ["LF/MF", "30kHz~3MHz", "10km~100m", "AM 라디오"],
+                ["HF", "3~30MHz", "100~10m", "단파 통신"],
+                ["VHF/UHF", "30~3000MHz", "10m~10cm", "FM·TV·휴대폰"],
+                ["마이크로파", "3~300GHz", "10cm~1mm", "5G·레이더·위성"],
+                ["적외선", "300GHz~430THz", "1mm~700nm", "열화상·리모컨"],
+                ["가시광선", "430~770THz", "700~390nm", "빛"],
+                ["자외선/X선/γ선", ">770THz", "<390nm", "의료·천문"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "파장·주파수·속도 관계",
+              "latex": "c = f\\lambda,\\quad \\lambda = \\frac{c}{f},\\quad E_{photon} = hf",
+              "description": "c=3×10⁸ m/s, h=6.626×10⁻³⁴ J·s (플랑크 상수)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-propagation",
+      "number": 2,
+      "title": "전파 전파",
+      "subtitle": "Radio Wave Propagation",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "전파 전파 메커니즘",
+          "content": [
+            {
+              "type": "table",
+              "title": "전파 전파 유형",
+              "headers": ["유형", "주파수", "메커니즘"],
+              "rows": [
+                ["지표파", "< 2MHz", "지구 표면 따라 전파"],
+                ["전리층파", "2~30MHz", "전리층 반사"],
+                ["직접파", "> 30MHz", "가시선(LOS) 전파"],
+                ["산란파", "UHF 이상", "대류권·전리층 산란"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "자유 공간 경로 손실",
+              "latex": "L_{fs} = 20\\log_{10}(d) + 20\\log_{10}(f) + 92.4\\;[\\text{dB}]",
+              "description": "d[km], f[GHz]. 거리 2배→6dB 증가, 주파수 2배→6dB 증가"
+            },
+            {
+              "type": "formula",
+              "name": "프리스 전송 공식",
+              "latex": "P_r = P_t G_t G_r \\left(\\frac{\\lambda}{4\\pi d}\\right)^2",
+              "description": "Gt,Gr: 송수신 안테나 이득, d: 거리"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-antenna",
+      "number": 3,
+      "title": "안테나 이론",
+      "subtitle": "Antenna Theory",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "안테나 기본 파라미터",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "안테나 파라미터",
+              "cols": 2,
+              "items": [
+                {"name": "지향성 D", "latex": "D = \\frac{4\\pi U_{max}}{P_{rad}}", "desc": "최대 복사 강도 / 평균 복사 강도"},
+                {"name": "이득 G", "latex": "G = \\eta_{rad}\\cdot D", "desc": "η_rad: 복사 효율"},
+                {"name": "유효 면적", "latex": "A_e = \\frac{G\\lambda^2}{4\\pi}", "desc": "수신 안테나의 등가 면적"},
+                {"name": "빔폭 HPBW", "latex": "\\theta_{HPBW}: G(\\theta)=G_{max}/2", "desc": "반전력 빔폭"}
+              ]
+            },
+            {
+              "type": "table",
+              "title": "안테나 종류와 특성",
+              "headers": ["안테나", "이득", "빔폭", "용도"],
+              "rows": [
+                ["다이폴 (λ/2)", "2.15 dBi", "78°", "기준 안테나"],
+                ["모노폴 (λ/4)", "5.15 dBi", "48°", "자동차, 기지국"],
+                ["야기", "7~15 dBi", "좁음", "TV 수신"],
+                ["파라볼릭", "30~50 dBi", "매우 좁음", "위성통신"],
+                ["패치", "5~8 dBi", "넓음", "GPS, 5G"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-transmission-line-wave",
+      "number": 4,
+      "title": "전송 선로",
+      "subtitle": "Transmission Lines",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "전송 선로 이론",
+          "content": [
+            {
+              "type": "formula",
+              "name": "전송 선로 파동 방정식",
+              "latex": "\\frac{d^2V}{dz^2} = \\gamma^2 V,\\quad \\gamma = \\sqrt{(R+j\\omega L)(G+j\\omega C)}",
+              "description": "γ=α+jβ. R,G: 손실, L,C: 분포 정수"
+            },
+            {
+              "type": "formula",
+              "name": "특성 임피던스",
+              "latex": "Z_0 = \\sqrt{\\frac{R+j\\omega L}{G+j\\omega C}} \\approx \\sqrt{\\frac{L}{C}}\\;(\\text{무손실})",
+              "description": "동축: Z₀=(60/√εr)ln(b/a), 마이크로스트립: 형상 의존"
+            },
+            {
+              "type": "formula",
+              "name": "반사 계수와 VSWR",
+              "latex": "\\Gamma_L = \\frac{Z_L-Z_0}{Z_L+Z_0},\\quad \\text{VSWR} = \\frac{1+|\\Gamma_L|}{1-|\\Gamma_L|}",
+              "description": "VSWR=1: 완전 정합, VSWR→∞: 완전 반사"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-smith-chart",
+      "number": 5,
+      "title": "스미스 차트",
+      "subtitle": "Smith Chart",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "스미스 차트 해석",
+          "content": [
+            {
+              "type": "definition",
+              "term": "스미스 차트 (Smith Chart)",
+              "body": "반사 계수 Γ의 복소 평면에 정규화 임피던스 r+jx의 등고선을 그린 것. 임피던스 정합, 전송 선로 해석에 사용."
+            },
+            {
+              "type": "formula",
+              "name": "정규화 임피던스",
+              "latex": "z_L = \\frac{Z_L}{Z_0} = r + jx = \\frac{1+\\Gamma}{1-\\Gamma}",
+              "description": "스미스 차트는 Γ 평면에 이 변환을 그린 것"
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "스미스 차트 읽기",
+              "body": "• 중심: Γ=0, ZL=Z₀ (완전 정합)<br>• 우측 끝: 개방 (ZL=∞)<br>• 좌측 끝: 단락 (ZL=0)<br>• 원주: |Γ|=1 (완전 반사)<br>• 시계 방향 회전: 소스 방향 (파장으로 눈금)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-impedance-matching",
+      "number": 6,
+      "title": "임피던스 정합",
+      "subtitle": "Impedance Matching",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "정합 기법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "λ/4 변성기",
+              "latex": "Z_{in} = \\frac{Z_0^2}{Z_L},\\quad Z_0 = \\sqrt{Z_1 Z_2}",
+              "description": "Z₀=√(Z₁Z₂)인 λ/4 선로로 Z₁과 Z₂를 정합"
+            },
+            {
+              "type": "formula",
+              "name": "단일 스터브 정합",
+              "latex": "Y_{in} = Y_0 + jB_{stub} = Y_0",
+              "description": "병렬 스터브(단락·개방)로 서셉턴스 상쇄. 스미스 차트로 설계."
+            },
+            {
+              "type": "formula",
+              "name": "L-네트워크 정합",
+              "latex": "Q = \\sqrt{\\frac{R_{high}}{R_{low}}-1}",
+              "description": "인덕터·커패시터 2소자로 임피던스 변환"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-microwave-circuits",
+      "number": 7,
+      "title": "마이크로파 회로",
+      "subtitle": "Microwave Circuits",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "S 파라미터",
+          "content": [
+            {
+              "type": "definition",
+              "term": "S 파라미터 (Scattering Parameters)",
+              "latex": "\\mathbf{b} = S\\mathbf{a},\\quad S_{ij} = \\frac{b_i}{a_j}\\bigg|_{a_k=0,k\\neq j}",
+              "body": "입사파(a)와 반사파(b)의 비. 고주파에서 임피던스보다 측정이 용이. S11: 반사, S21: 전달."
+            },
+            {
+              "type": "formula-grid",
+              "title": "S 파라미터 의미",
+              "cols": 2,
+              "items": [
+                {"name": "S₁₁ (입력 반사)", "latex": "|S_{11}|^2 = \\text{반사 전력비}", "desc": "Return Loss=-20log|S11|"},
+                {"name": "S₂₁ (전달 이득)", "latex": "|S_{21}|^2 = \\text{전달 전력비}", "desc": "Insertion Loss=-20log|S21|"},
+                {"name": "상호성", "latex": "S_{12}=S_{21} \\text{ (수동 소자)}", "desc": "비상호성: 서큘레이터, 아이솔레이터"},
+                {"name": "무손실", "latex": "S^H S = I", "desc": "유니터리 행렬 조건"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-radar",
+      "number": 8,
+      "title": "레이더",
+      "subtitle": "Radar Systems",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "레이더 방정식",
+          "content": [
+            {
+              "type": "formula",
+              "name": "레이더 방정식",
+              "latex": "P_r = \\frac{P_t G_t G_r \\lambda^2 \\sigma}{(4\\pi)^3 R^4}",
+              "description": "σ: 레이더 단면적(RCS). 거리 4제곱에 반비례."
+            },
+            {
+              "type": "formula",
+              "name": "도플러 효과",
+              "latex": "f_d = \\frac{2v\\cos\\theta}{\\lambda} = \\frac{2v_r}{\\lambda}",
+              "description": "vr: 시선 속도(radial velocity). 속도 측정에 활용."
+            },
+            {
+              "type": "formula",
+              "name": "거리 분해능",
+              "latex": "\\Delta R = \\frac{c}{2B}",
+              "description": "B: 신호 대역폭. 펄스 압축으로 분해능 향상."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-optical-fiber",
+      "number": 9,
+      "title": "광섬유",
+      "subtitle": "Optical Fiber",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "광섬유 전파",
+          "content": [
+            {
+              "type": "formula",
+              "name": "수치 개구수 (NA)",
+              "latex": "\\text{NA} = n_1\\sin\\theta_a = \\sqrt{n_1^2-n_2^2}",
+              "description": "θa: 수용각. NA가 클수록 더 많은 빛을 포집."
+            },
+            {
+              "type": "formula",
+              "name": "정규화 주파수 V",
+              "latex": "V = \\frac{2\\pi a}{\\lambda}\\sqrt{n_1^2-n_2^2} = \\frac{2\\pi a}{\\lambda}\\cdot\\text{NA}",
+              "description": "a: 코어 반지름. V<2.405이면 단일 모드(SM) 전파."
+            },
+            {
+              "type": "table",
+              "title": "광섬유 종류",
+              "headers": ["종류", "코어 직경", "모드", "특징"],
+              "rows": [
+                ["단일 모드 (SMF)", "8~10μm", "1개", "장거리, 저분산, 고대역"],
+                ["다중 모드 계단형", "50~62.5μm", "다수", "저가, 단거리"],
+                ["다중 모드 경사형", "50μm", "다수", "모드 분산 완화"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-wireless-channel",
+      "number": 10,
+      "title": "무선 채널",
+      "subtitle": "Wireless Channel",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "다중 경로와 페이딩",
+          "content": [
+            {
+              "type": "definition",
+              "term": "다중 경로 페이딩 (Multipath Fading)",
+              "body": "여러 경로로 수신된 신호들이 위상 차이로 인해 간섭을 일으켜 수신 전력이 불규칙하게 변동. 레일리 페이딩(비가시선), 라이시안 페이딩(가시선 포함)."
+            },
+            {
+              "type": "formula",
+              "name": "코히런스 대역폭",
+              "latex": "B_c \\approx \\frac{1}{2\\pi\\sigma_\\tau}",
+              "description": "στ: RMS 지연 확산. Bc 이하 대역: 주파수 비선택 페이딩"
+            },
+            {
+              "type": "formula",
+              "name": "도플러 확산",
+              "latex": "f_{D,max} = \\frac{v}{\\lambda} = \\frac{vf_c}{c}",
+              "description": "이동 속도 v에 의한 최대 도플러 편이. 코히런스 시간 Tc≈0.423/fD."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-photonics",
+      "number": 11,
+      "title": "포토닉스 기초",
+      "subtitle": "Photonics Basics",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "레이저와 광소자",
+          "content": [
+            {
+              "type": "definition",
+              "term": "레이저 (LASER)",
+              "body": "Light Amplification by Stimulated Emission of Radiation. 유도 방출로 단색·간섭성·지향성 빛 발생. 광통신(DFB 레이저), 의료(수술, 진단), 센서(LIDAR)에 응용."
+            },
+            {
+              "type": "formula",
+              "name": "레이저 발진 조건",
+              "latex": "G_{threshold} = \\alpha_{internal} + \\frac{1}{2L}\\ln\\frac{1}{R_1 R_2}",
+              "description": "이득 > 손실. R1,R2: 거울 반사율, L: 공진기 길이"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "전자기파 응용 총정리",
+          "content": [
+            {
+              "type": "table",
+              "title": "주파수별 주요 응용",
+              "headers": ["주파수 대역", "기술", "응용 예"],
+              "rows": [
+                ["Sub-6GHz", "4G LTE, 5G NR", "스마트폰, IoT"],
+                ["mmWave (28/39GHz)", "5G 밀리미터파", "초고속 무선"],
+                ["60GHz", "WiGig", "무선 VR·AR"],
+                ["77GHz", "자동차 레이더", "ADAS, 자율주행"],
+                ["테라헤르츠", "THz 이미징", "보안 검색, 6G 후보"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "📡",
+              "title": "전자기파는 보이지 않는 정보 고속도로",
+              "body": "스마트폰 화면을 터치하는 순간, 수십억 Hz로 진동하는 전자기파가 기지국을 거쳐 지구 반대편 서버와 통신한다. 맥스웰이 방정식으로 예측하고, 헤르츠가 실험으로 확인한 전자기파가 현대 문명의 모든 무선 통신을 지탱하고 있다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,440 @@
+{
+  "id": "electrostatics",
+  "title": "정전기·정자기",
+  "subtitle": "Electrostatics and Magnetostatics",
+  "chapters": [
+    {
+      "id": "ch01-coulomb",
+      "number": 1,
+      "title": "쿨롱 법칙과 전기장",
+      "subtitle": "Coulomb's Law and Electric Field",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "쿨롱 법칙",
+          "content": [
+            {
+              "type": "formula",
+              "name": "쿨롱 법칙",
+              "latex": "\\mathbf{F} = \\frac{q_1 q_2}{4\\pi\\varepsilon_0 r^2}\\hat{\\mathbf{r}},\\quad \\varepsilon_0 = 8.854\\times10^{-12}\\;\\text{F/m}",
+              "description": "두 점전하 사이의 힘. ε₀: 진공 유전율. 거리 역제곱 법칙."
+            },
+            {
+              "type": "formula",
+              "name": "전기장 (Electric Field)",
+              "latex": "\\mathbf{E} = \\frac{\\mathbf{F}}{q} = \\frac{Q}{4\\pi\\varepsilon_0 r^2}\\hat{\\mathbf{r}}\\quad [\\text{V/m}]",
+              "description": "단위 양전하에 작용하는 힘. 점전하 Q가 만드는 전기장."
+            },
+            {
+              "type": "formula",
+              "name": "중첩 원리",
+              "latex": "\\mathbf{E}_{total} = \\sum_k \\mathbf{E}_k = \\sum_k \\frac{Q_k}{4\\pi\\varepsilon_0 r_k^2}\\hat{\\mathbf{r}}_k",
+              "description": "여러 전하가 만드는 전기장은 각 전하의 전기장 벡터의 합"
+            },
+            {
+              "type": "formula",
+              "name": "연속 전하 분포",
+              "latex": "\\mathbf{E} = \\frac{1}{4\\pi\\varepsilon_0}\\int\\frac{dq}{r^2}\\hat{\\mathbf{r}}",
+              "description": "선전하(λ), 면전하(σ), 체적전하(ρ)에 대해 적분"
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "전기력선과 전속",
+          "content": [
+            {
+              "type": "formula",
+              "name": "가우스 법칙 (적분형)",
+              "latex": "\\oint_S \\mathbf{E}\\cdot d\\mathbf{A} = \\frac{Q_{enc}}{\\varepsilon_0}",
+              "description": "폐곡면을 통과하는 전기 선속 = 내부 전하 / ε₀"
+            },
+            {
+              "type": "example",
+              "title": "가우스 법칙 적용: 구 전하",
+              "problem": "반지름 a인 균일 구 전하(총 전하량 Q)의 내·외부 전기장",
+              "solution": "r>a: E·4πr²=Q/ε₀ → E=Q/(4πε₀r²)\nr<a: E·4πr²=Q(r/a)³/ε₀ → E=Qr/(4πε₀a³)",
+              "answer": "외부: E=Q/(4πε₀r²), 내부: E=Qr/(4πε₀a³)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-potential",
+      "number": 2,
+      "title": "전위와 전기 퍼텐셜 에너지",
+      "subtitle": "Electric Potential",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "전위",
+          "content": [
+            {
+              "type": "formula",
+              "name": "전위 (Electric Potential)",
+              "latex": "V = -\\int_{\\infty}^{P}\\mathbf{E}\\cdot d\\mathbf{l} = \\frac{Q}{4\\pi\\varepsilon_0 r}\\quad [\\text{V}]",
+              "description": "무한원점을 기준으로 한 점 P에서의 전위. 스칼라량."
+            },
+            {
+              "type": "formula",
+              "name": "전기장 ↔ 전위",
+              "latex": "\\mathbf{E} = -\\nabla V = -\\left(\\frac{\\partial V}{\\partial x}\\hat{x}+\\frac{\\partial V}{\\partial y}\\hat{y}+\\frac{\\partial V}{\\partial z}\\hat{z}\\right)",
+              "description": "전기장은 전위의 음의 기울기"
+            },
+            {
+              "type": "formula",
+              "name": "퍼텐셜 에너지",
+              "latex": "U = qV = \\frac{q_1 q_2}{4\\pi\\varepsilon_0 r}",
+              "description": "두 점전하 사이의 퍼텐셜 에너지"
+            }
+          ]
+        },
+        {
+          "id": "ch02-s02",
+          "title": "등전위면과 도체",
+          "content": [
+            {
+              "type": "definition",
+              "term": "도체의 정전기 성질",
+              "body": "① 도체 내부 E=0 ② 도체는 등전위체 ③ 전하는 표면에만 분포 ④ 표면에서 E는 수직. 뾰족한 곳에서 표면 전하 밀도가 크다 (첨단 방전)."
+            },
+            {
+              "type": "formula",
+              "name": "도체 표면 전기장",
+              "latex": "E_n = \\frac{\\sigma}{\\varepsilon_0}",
+              "description": "σ: 표면 전하 밀도. 전기장은 표면에 수직."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-dielectric",
+      "number": 3,
+      "title": "유전체",
+      "subtitle": "Dielectrics",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "분극과 유전율",
+          "content": [
+            {
+              "type": "formula",
+              "name": "분극 벡터",
+              "latex": "\\mathbf{P} = \\varepsilon_0 \\chi_e \\mathbf{E}",
+              "description": "χe: 전기 감수율. 외부 전기장에 의해 유전체 내 쌍극자 정렬."
+            },
+            {
+              "type": "formula",
+              "name": "전속 밀도 (D)",
+              "latex": "\\mathbf{D} = \\varepsilon_0\\mathbf{E} + \\mathbf{P} = \\varepsilon_0(1+\\chi_e)\\mathbf{E} = \\varepsilon\\mathbf{E}",
+              "description": "ε=ε₀εr: 유전율. εr=1+χe: 비유전율(상대 유전율)"
+            },
+            {
+              "type": "formula",
+              "name": "가우스 법칙 (유전체 포함)",
+              "latex": "\\oint \\mathbf{D}\\cdot d\\mathbf{A} = Q_{free}",
+              "description": "D의 발산원은 자유전하만. 분극전하는 포함 안 됨."
+            }
+          ]
+        },
+        {
+          "id": "ch03-s02",
+          "title": "커패시터와 에너지",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "커패시터 용량",
+              "cols": 2,
+              "items": [
+                {"name": "평행판 커패시터", "latex": "C = \\frac{\\varepsilon A}{d}", "desc": "A: 면적, d: 간격"},
+                {"name": "원통형", "latex": "C = \\frac{2\\pi\\varepsilon l}{\\ln(b/a)}", "desc": "a,b: 내외 반지름"},
+                {"name": "구형", "latex": "C = 4\\pi\\varepsilon\\frac{ab}{b-a}", "desc": "동심구"},
+                {"name": "저장 에너지", "latex": "U = \\frac{1}{2}CV^2 = \\frac{Q^2}{2C} = \\frac{1}{2}\\varepsilon E^2 \\cdot Vol", "desc": "전기장 에너지"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-laplace-poisson",
+      "number": 4,
+      "title": "라플라스·포아송 방정식",
+      "subtitle": "Laplace and Poisson Equations",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "경계값 문제",
+          "content": [
+            {
+              "type": "formula",
+              "name": "포아송 방정식",
+              "latex": "\\nabla^2 V = -\\frac{\\rho_v}{\\varepsilon}",
+              "description": "체적 전하 ρv가 있는 영역에서의 전위 방정식"
+            },
+            {
+              "type": "formula",
+              "name": "라플라스 방정식",
+              "latex": "\\nabla^2 V = 0 \\quad (\\rho_v = 0 \\text{인 영역})",
+              "description": "자유전하가 없는 영역. 전위는 내부 최대·최소값을 가질 수 없다."
+            },
+            {
+              "type": "formula",
+              "name": "직각좌표 라플라시안",
+              "latex": "\\nabla^2 V = \\frac{\\partial^2 V}{\\partial x^2}+\\frac{\\partial^2 V}{\\partial y^2}+\\frac{\\partial^2 V}{\\partial z^2}",
+              "description": "원통: (1/r)∂(r∂V/∂r)/∂r + ..., 구: (1/r²)∂(r²∂V/∂r)/∂r + ..."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-biot-savart",
+      "number": 5,
+      "title": "비오-사바르 법칙",
+      "subtitle": "Biot-Savart Law",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "정자기장",
+          "content": [
+            {
+              "type": "formula",
+              "name": "비오-사바르 법칙",
+              "latex": "d\\mathbf{H} = \\frac{I\\,d\\mathbf{l}\\times\\hat{\\mathbf{r}}}{4\\pi r^2}\\quad [\\text{A/m}]",
+              "description": "전류 요소 Idl이 거리 r인 점에 만드는 자기장 H"
+            },
+            {
+              "type": "example",
+              "title": "무한 직선 전류",
+              "problem": "무한 직선 도선에 전류 I가 흐를 때 거리 ρ에서의 H",
+              "solution": "비오-사바르 적분:\nH=∫_{-∞}^{∞} I dz sinθ/(4πr²)\n= I/(2πρ)",
+              "answer": "H = I/(2πρ) [A/m], 방향: 전류 주위 원형"
+            },
+            {
+              "type": "formula",
+              "name": "앙페르 법칙 (적분형)",
+              "latex": "\\oint_C \\mathbf{H}\\cdot d\\mathbf{l} = I_{enc}",
+              "description": "폐경로를 둘러싸인 전류. 대칭 문제에 유용."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-magnetic-materials",
+      "number": 6,
+      "title": "자성체와 자기 회로",
+      "subtitle": "Magnetic Materials and Circuits",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "자화와 투자율",
+          "content": [
+            {
+              "type": "formula",
+              "name": "자속 밀도 B",
+              "latex": "\\mathbf{B} = \\mu_0(\\mathbf{H}+\\mathbf{M}) = \\mu_0\\mu_r\\mathbf{H} = \\mu\\mathbf{H}\\quad [\\text{T}]",
+              "description": "M: 자화 벡터, μ₀=4π×10⁻⁷ H/m, μr: 비투자율"
+            },
+            {
+              "type": "formula",
+              "name": "자기 회로 (자기 옴의 법칙)",
+              "latex": "\\mathcal{F} = NI = \\Phi\\mathcal{R},\\quad \\mathcal{R} = \\frac{l}{\\mu A}",
+              "description": "F: 기자력[A], Φ: 자속[Wb], R: 자기 저항[A/Wb]"
+            },
+            {
+              "type": "table",
+              "title": "자성체 분류",
+              "headers": ["종류", "비투자율 μr", "특성"],
+              "rows": [
+                ["반자성체", "μr<1 (≈1)", "약한 반발 (구리, 금, 물)"],
+                ["상자성체", "μr>1 (≈1)", "약한 흡인 (알루미늄, 백금)"],
+                ["강자성체", "μr≫1 (수천)", "강한 자화, 이력 현상 (철, 니켈, 코발트)"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-faraday",
+      "number": 7,
+      "title": "패러데이 법칙과 유도 기전력",
+      "subtitle": "Faraday's Law and EMF",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "전자기 유도",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "패러데이 법칙",
+              "statement": "폐루프를 통과하는 자속의 시간 변화율이 유도 기전력을 만든다.",
+              "latex": "\\mathcal{E} = -\\frac{d\\Phi_B}{dt} = -\\frac{d}{dt}\\int_S \\mathbf{B}\\cdot d\\mathbf{A}"
+            },
+            {
+              "type": "formula",
+              "name": "렌츠의 법칙",
+              "latex": "\\mathcal{E} = -N\\frac{d\\Phi}{dt}",
+              "description": "N: 권선 수. 음의 부호(렌츠): 유도 기전력은 자속 변화를 방해하는 방향."
+            },
+            {
+              "type": "formula",
+              "name": "운동 기전력 (Motional EMF)",
+              "latex": "\\mathcal{E} = \\oint(\\mathbf{v}\\times\\mathbf{B})\\cdot d\\mathbf{l}",
+              "description": "도체가 자기장 내에서 운동할 때 발생하는 기전력"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-inductance",
+      "number": 8,
+      "title": "인덕턴스",
+      "subtitle": "Inductance",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "자기 인덕턴스와 상호 인덕턴스",
+          "content": [
+            {
+              "type": "formula",
+              "name": "자기 인덕턴스",
+              "latex": "L = \\frac{N\\Phi}{I} = \\frac{\\lambda}{I}\\quad [\\text{H}]",
+              "description": "λ=NΦ: 전속 쇄교수. 솔레노이드: L=μN²A/l"
+            },
+            {
+              "type": "formula",
+              "name": "상호 인덕턴스",
+              "latex": "M = k\\sqrt{L_1 L_2},\\quad k = \\frac{\\Phi_{12}}{\\Phi_1}",
+              "description": "k: 결합계수(0≤k≤1). k=1: 완전 결합"
+            },
+            {
+              "type": "formula",
+              "name": "인덕터 저장 에너지",
+              "latex": "U = \\frac{1}{2}LI^2 = \\frac{1}{2\\mu}B^2\\cdot Vol",
+              "description": "자기장 에너지 밀도: wm=B²/(2μ)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-boundary-conditions",
+      "number": 9,
+      "title": "경계 조건",
+      "subtitle": "Boundary Conditions",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "전자기 경계 조건",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "경계 조건 요약",
+              "cols": 2,
+              "items": [
+                {"name": "전기장 접선 성분", "latex": "E_{t1} = E_{t2}", "desc": "경계에서 연속"},
+                {"name": "전속 밀도 법선 성분", "latex": "D_{n1}-D_{n2}=\\sigma_s", "desc": "σs: 표면 전하 밀도"},
+                {"name": "자기장 접선 성분", "latex": "H_{t1}-H_{t2}=K", "desc": "K: 표면 전류 밀도"},
+                {"name": "자속 밀도 법선 성분", "latex": "B_{n1}=B_{n2}", "desc": "자속선 연속"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-energy-force",
+      "number": 10,
+      "title": "에너지와 힘",
+      "subtitle": "Energy and Forces",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "전자기 에너지와 힘",
+          "content": [
+            {
+              "type": "formula",
+              "name": "전기장 에너지 밀도",
+              "latex": "w_e = \\frac{1}{2}\\mathbf{D}\\cdot\\mathbf{E} = \\frac{1}{2}\\varepsilon E^2\\quad [\\text{J/m}^3]",
+              "description": "단위 체적당 전기장 에너지"
+            },
+            {
+              "type": "formula",
+              "name": "자기장 에너지 밀도",
+              "latex": "w_m = \\frac{1}{2}\\mathbf{B}\\cdot\\mathbf{H} = \\frac{B^2}{2\\mu}\\quad [\\text{J/m}^3]",
+              "description": "단위 체적당 자기장 에너지"
+            },
+            {
+              "type": "formula",
+              "name": "로렌츠 힘",
+              "latex": "\\mathbf{F} = q(\\mathbf{E}+\\mathbf{v}\\times\\mathbf{B})",
+              "description": "전하에 작용하는 전자기력의 합"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-vector-calculus",
+      "number": 11,
+      "title": "벡터 미적분과 좌표계",
+      "subtitle": "Vector Calculus and Coordinate Systems",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "벡터 연산자",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "주요 벡터 항등식",
+              "cols": 2,
+              "items": [
+                {"name": "발산 정리", "latex": "\\oint_S \\mathbf{A}\\cdot d\\mathbf{S}=\\int_V(\\nabla\\cdot\\mathbf{A})\\,dV", "desc": "가우스 정리"},
+                {"name": "스토크스 정리", "latex": "\\oint_C \\mathbf{A}\\cdot d\\mathbf{l}=\\int_S(\\nabla\\times\\mathbf{A})\\cdot d\\mathbf{S}", "desc": "회전의 면적분"},
+                {"name": "curl of grad", "latex": "\\nabla\\times(\\nabla V)=0", "desc": "보존장"},
+                {"name": "div of curl", "latex": "\\nabla\\cdot(\\nabla\\times\\mathbf{A})=0", "desc": "솔레노이드"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "정전기·정자기 응용",
+          "content": [
+            {
+              "type": "table",
+              "title": "정전기·정자기 응용 분야",
+              "headers": ["분야", "원리", "응용 예"],
+              "rows": [
+                ["정전기", "쿨롱 힘, 전기장", "잉크젯 프린터, 공기청정기, 복사기"],
+                ["커패시터", "전기 에너지 저장", "DRAM, 터치스크린, 전원 필터"],
+                ["자기", "앙페르 힘, 자기장", "MRI, 모터, 스피커, 하드디스크"],
+                ["전자기 유도", "패러데이 법칙", "발전기, 변압기, 무선 충전"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "🧲",
+              "title": "전기와 자기의 대칭성",
+              "body": "전기(E, D, ε, q, V)와 자기(H, B, μ, I, Φ)는 놀라운 대칭성을 가진다. 쿨롱↔비오-사바르, 가우스↔앙페르, 전위↔자위함수. 이 대칭성이 맥스웰 방정식으로 통합된다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
