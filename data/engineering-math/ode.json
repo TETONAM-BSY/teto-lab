@@ -1,0 +1,578 @@
+{
+  "id": "ode",
+  "title": "상미분방정식",
+  "subtitle": "Ordinary Differential Equations",
+  "chapters": [
+    {
+      "id": "ch01-intro",
+      "number": 1,
+      "title": "미분방정식 개론",
+      "subtitle": "Introduction to ODEs",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "미분방정식의 분류",
+          "content": [
+            {
+              "type": "definition",
+              "term": "상미분방정식 (ODE)",
+              "latex": "F(x,\\, y,\\, y',\\, y'',\\, \\ldots,\\, y^{(n)}) = 0",
+              "body": "하나의 독립변수 x에 대한 종속변수 y와 그 도함수들 사이의 관계식. 편미분방정식(PDE)과 달리 독립변수가 하나이다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "ODE 분류",
+              "cols": 2,
+              "items": [
+                {"name": "계수 (Order)", "latex": "y^{(n)} \\text{의 최고 차수}", "desc": "방정식에 나타나는 최고 도함수의 차수"},
+                {"name": "선형 ODE", "latex": "a_n(x)y^{(n)}+\\cdots+a_0(x)y=g(x)", "desc": "y와 도함수가 1차로만 나타남"},
+                {"name": "비선형 ODE", "latex": "y y' = x,\\; (y')^2 = y", "desc": "y 또는 도함수가 비선형으로 포함"},
+                {"name": "제차/비제차", "latex": "g(x)=0 / g(x)\\neq0", "desc": "우변이 0이면 제차(homogeneous)"}
+              ]
+            },
+            {
+              "type": "definition",
+              "term": "일반해와 특수해",
+              "body": "n계 ODE의 일반해는 n개의 임의상수를 포함한다. 초기조건(IVP) 또는 경계조건(BVP)을 적용하여 임의상수를 결정하면 특수해를 얻는다."
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "방향장과 해의 존재·유일성",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "피카르-린델뢰프 정리 (존재·유일성)",
+              "statement": "f(x,y)와 ∂f/∂y가 직사각형 영역 R에서 연속이면 IVP y'=f(x,y), y(x₀)=y₀는 x₀를 포함하는 구간에서 유일한 해를 가진다.",
+              "latex": "y' = f(x,y),\\quad y(x_0)=y_0 \\Rightarrow \\exists!\\; y(x)"
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "방향장(Direction Field)",
+              "body": "각 점 (x,y)에서 기울기 y'=f(x,y)를 짧은 선분으로 그린 것. 해 곡선의 전체적인 거동을 해석적 풀이 없이 파악할 수 있다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-first-order",
+      "number": 2,
+      "title": "1계 미분방정식",
+      "subtitle": "First-Order ODEs",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "변수분리법과 완전방정식",
+          "content": [
+            {
+              "type": "formula",
+              "name": "변수분리형 (Separable)",
+              "latex": "\\frac{dy}{dx} = g(x)h(y) \\Rightarrow \\int \\frac{dy}{h(y)} = \\int g(x)\\,dx",
+              "description": "양변을 분리하여 각각 적분"
+            },
+            {
+              "type": "formula",
+              "name": "완전방정식 (Exact)",
+              "latex": "M\\,dx + N\\,dy = 0,\\quad \\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x} \\Rightarrow F(x,y)=C",
+              "description": "∂M/∂y = ∂N/∂x 이면 완전. F를 구하면 F=C가 일반해."
+            },
+            {
+              "type": "example",
+              "title": "변수분리법",
+              "problem": "y' = xy, y(0)=2 풀기",
+              "solution": "dy/y = x dx\n∫dy/y = ∫x dx → ln|y| = x²/2 + C\ny = Ae^{x²/2}\ny(0)=2: A=2",
+              "answer": "y = 2e^{x²/2}"
+            }
+          ]
+        },
+        {
+          "id": "ch02-s02",
+          "title": "1계 선형 ODE와 베르누이 방정식",
+          "content": [
+            {
+              "type": "formula",
+              "name": "1계 선형 ODE 적분인자법",
+              "latex": "y' + P(x)y = Q(x) \\Rightarrow y = \\frac{1}{\\mu}\\int \\mu Q\\,dx,\\quad \\mu = e^{\\int P\\,dx}",
+              "description": "적분인자 μ를 곱하여 좌변을 (μy)'로 만든다."
+            },
+            {
+              "type": "formula",
+              "name": "베르누이 방정식",
+              "latex": "y' + P(x)y = Q(x)y^n \\xrightarrow{v=y^{1-n}} v'+(1-n)Pv=(1-n)Q",
+              "description": "v=y^{1-n} 치환으로 선형화"
+            },
+            {
+              "type": "example",
+              "title": "1계 선형 ODE",
+              "problem": "y' + (2/x)y = x², y(1)=1 풀기",
+              "solution": "μ = e^{∫(2/x)dx} = x²\n(x²y)' = x⁴\nx²y = x⁵/5 + C\ny = x³/5 + C/x²\ny(1)=1: C = 4/5",
+              "answer": "y = x³/5 + 4/(5x²)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-second-order",
+      "number": 3,
+      "title": "2계 선형 ODE",
+      "subtitle": "Second-Order Linear ODEs",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "제차 2계 선형 ODE",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "중첩의 원리",
+              "statement": "y₁, y₂가 제차 선형 ODE의 해이면 c₁y₁+c₂y₂도 해이다.",
+              "latex": "L[y_1]=0,\\; L[y_2]=0 \\Rightarrow L[c_1y_1+c_2y_2]=0"
+            },
+            {
+              "type": "formula",
+              "name": "상수계수 제차 ODE 특성방정식",
+              "latex": "ay''+by'+cy=0 \\Rightarrow ar^2+br+c=0",
+              "description": "특성근 r에 따라 해의 형태가 결정된다."
+            },
+            {
+              "type": "table",
+              "title": "특성근에 따른 일반해",
+              "headers": ["판별식 D=b²-4ac", "특성근", "일반해"],
+              "rows": [
+                ["D > 0", "실수 r₁≠r₂", "y = c₁e^{r₁x} + c₂e^{r₂x}"],
+                ["D = 0", "중근 r₁=r₂=r", "y = (c₁+c₂x)e^{rx}"],
+                ["D < 0", "복소수 α±βi", "y = e^{αx}(c₁cosβx + c₂sinβx)"]
+            ]
+            }
+          ]
+        },
+        {
+          "id": "ch03-s02",
+          "title": "비제차 ODE: 미정계수법·매개변수법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "비제차 ODE 일반해",
+              "latex": "y = y_h + y_p",
+              "description": "제차 일반해 yₕ + 특수해 yₚ의 합"
+            },
+            {
+              "type": "table",
+              "title": "미정계수법 가정 형태",
+              "headers": ["g(x) 형태", "가정하는 yₚ"],
+              "rows": [
+                ["Pₙ(x) (n차 다항식)", "xˢ(Aₙxⁿ+…+A₀)"],
+                ["Pₙ(x)eᵅˣ", "xˢ(Aₙxⁿ+…+A₀)eᵅˣ"],
+                ["Pₙ(x)eᵅˣcos βx", "xˢeᵅˣ[(Aₙxⁿ+…)cosβx+(Bₙxⁿ+…)sinβx)"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "매개변수 변환법 (Variation of Parameters)",
+              "latex": "y_p = y_1 \\int \\frac{-y_2 g}{W}\\,dx + y_2 \\int \\frac{y_1 g}{W}\\,dx",
+              "description": "W = y₁y₂' - y₂y₁' (론스키안). g(x)가 복잡할 때 사용."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-series-solution",
+      "number": 4,
+      "title": "급수해법",
+      "subtitle": "Series Solutions",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "멱급수해",
+          "content": [
+            {
+              "type": "definition",
+              "term": "정칙점과 비정칙점",
+              "body": "y'' + P(x)y' + Q(x)y = 0에서 P, Q가 x=x₀에서 해석적이면 x₀는 정칙점(ordinary point). 그렇지 않으면 비정칙점(singular point)."
+            },
+            {
+              "type": "formula",
+              "name": "정칙점에서의 멱급수해",
+              "latex": "y = \\sum_{n=0}^{\\infty} a_n (x-x_0)^n",
+              "description": "계수 aₙ을 점화식으로 결정한다."
+            },
+            {
+              "type": "example",
+              "title": "에르미트 방정식",
+              "problem": "y'' - 2xy' + 2ny = 0 (에르미트 방정식) 풀기",
+              "solution": "y = Σaₙxⁿ 대입 후 점화식:\naₙ₊₂ = (2k-2n)/((k+1)(k+2))·aₙ\nn=정수이면 다항식 해(에르미트 다항식) 존재",
+              "answer": "H₀=1, H₁=2x, H₂=4x²-2, H₃=8x³-12x, …"
+            }
+          ]
+        },
+        {
+          "id": "ch04-s02",
+          "title": "프로베니우스 방법과 베셀 방정식",
+          "content": [
+            {
+              "type": "formula",
+              "name": "프로베니우스 급수",
+              "latex": "y = x^r \\sum_{n=0}^{\\infty} a_n x^n,\\quad a_0 \\neq 0",
+              "description": "정칙 특이점에서의 급수해법. r은 지표 방정식으로 결정."
+            },
+            {
+              "type": "formula",
+              "name": "베셀 방정식",
+              "latex": "x^2 y'' + xy' + (x^2 - \\nu^2)y = 0",
+              "description": "베셀 함수 Jᵥ(x), Yᵥ(x)가 해. 원통 좌표계 문제에서 자주 등장."
+            },
+            {
+              "type": "formula",
+              "name": "베셀 함수 (1종)",
+              "latex": "J_\\nu(x) = \\sum_{m=0}^{\\infty} \\frac{(-1)^m}{m!\\,\\Gamma(m+\\nu+1)}\\left(\\frac{x}{2}\\right)^{2m+\\nu}",
+              "description": "정수 ν에서는 Jₙ과 J₋ₙ이 선형 종속 → Yₙ을 제2해로 사용"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-systems",
+      "number": 5,
+      "title": "연립 미분방정식",
+      "subtitle": "Systems of ODEs",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "행렬을 이용한 연립 ODE",
+          "content": [
+            {
+              "type": "formula",
+              "name": "연립 ODE 행렬 표현",
+              "latex": "\\mathbf{x}' = A\\mathbf{x} + \\mathbf{g}(t)",
+              "description": "x는 상태벡터, A는 계수행렬, g는 비제차항"
+            },
+            {
+              "type": "formula",
+              "name": "제차 연립 ODE 해",
+              "latex": "\\mathbf{x}_h = c_1 \\mathbf{v}_1 e^{\\lambda_1 t} + c_2 \\mathbf{v}_2 e^{\\lambda_2 t}",
+              "description": "λᵢ: 고유값, vᵢ: 대응 고유벡터"
+            },
+            {
+              "type": "example",
+              "title": "연립 ODE 풀기",
+              "problem": "x'=x+2y, y'=3x+2y 풀기",
+              "solution": "A=[[1,2],[3,2]]\ndet(A-λI)=0: λ²-3λ-4=0 → λ=4,-1\nλ=4: v=(1,3/2)^T, λ=-1: v=(2,-1)^T",
+              "answer": "x=c₁e^{4t}+2c₂e^{-t}, y=(3/2)c₁e^{4t}-c₂e^{-t}"
+            }
+          ]
+        },
+        {
+          "id": "ch05-s02",
+          "title": "위상 평면과 안정성",
+          "content": [
+            {
+              "type": "table",
+              "title": "평형점의 분류 (2×2 선형 시스템)",
+              "headers": ["고유값", "평형점 유형", "안정성"],
+              "rows": [
+                ["λ₁<λ₂<0", "안정 노드", "점근 안정"],
+                ["0<λ₁<λ₂", "불안정 노드", "불안정"],
+                ["λ₁<0<λ₂", "안장점 (Saddle)", "불안정"],
+                ["α±βi (α<0)", "안정 나선", "점근 안정"],
+                ["α±βi (α>0)", "불안정 나선", "불안정"],
+                ["±βi", "중심 (Center)", "안정(Lyapunov)"]
+              ]
+            },
+            {
+              "type": "definition",
+              "term": "리아푸노프 안정성",
+              "body": "평형점 x*=0에 대해 초기조건이 충분히 가까우면 해가 영원히 가까이 있으면 Lyapunov 안정, 추가로 0으로 수렴하면 점근 안정."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-laplace-intro",
+      "number": 6,
+      "title": "라플라스 변환 기초",
+      "subtitle": "Laplace Transform Basics",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "라플라스 변환의 정의",
+          "content": [
+            {
+              "type": "definition",
+              "term": "라플라스 변환",
+              "latex": "\\mathcal{L}\\{f(t)\\} = F(s) = \\int_0^{\\infty} e^{-st} f(t)\\,dt",
+              "body": "시간 영역 함수 f(t)를 복소 주파수 영역 F(s)로 변환. 미분방정식을 대수방정식으로 변환하는 핵심 도구."
+            },
+            {
+              "type": "table",
+              "title": "기본 라플라스 변환 쌍",
+              "headers": ["f(t)", "F(s)=ℒ{f}", "조건"],
+              "rows": [
+                ["1", "1/s", "s>0"],
+                ["t^n", "n!/s^{n+1}", "s>0"],
+                ["e^{at}", "1/(s-a)", "s>a"],
+                ["sin(ωt)", "ω/(s²+ω²)", "s>0"],
+                ["cos(ωt)", "s/(s²+ω²)", "s>0"],
+                ["t^n e^{at}", "n!/(s-a)^{n+1}", "s>a"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch06-s02",
+          "title": "라플라스 변환의 성질",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "라플라스 변환 주요 성질",
+              "cols": 2,
+              "items": [
+                {"name": "선형성", "latex": "\\mathcal{L}\\{af+bg\\}=aF+bG", "desc": "선형 연산자"},
+                {"name": "도함수", "latex": "\\mathcal{L}\\{f'\\}=sF(s)-f(0)", "desc": "미분 → s 곱셈"},
+                {"name": "2계 도함수", "latex": "\\mathcal{L}\\{f''\\}=s^2F-sf(0)-f'(0)", "desc": "초기값 포함"},
+                {"name": "이동 (s-이동)", "latex": "\\mathcal{L}\\{e^{at}f\\}=F(s-a)", "desc": "s 영역 이동"},
+                {"name": "이동 (t-이동)", "latex": "\\mathcal{L}\\{u(t-a)f(t-a)\\}=e^{-as}F(s)", "desc": "시간 지연"},
+                {"name": "합성곱", "latex": "\\mathcal{L}\\{f*g\\}=F(s)G(s)", "desc": "Convolution theorem"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-laplace-applications",
+      "number": 7,
+      "title": "라플라스 변환 응용",
+      "subtitle": "Applications of Laplace Transform",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "ODE 풀이에 적용",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "풀이 절차",
+              "title": "라플라스로 IVP 풀기",
+              "body": "<b>Step 1:</b> 방정식 전체에 ℒ 적용 → 대수방정식<br><b>Step 2:</b> Y(s)에 대해 정리<br><b>Step 3:</b> 부분분수 분해<br><b>Step 4:</b> 역라플라스 변환 ℒ⁻¹ 적용"
+            },
+            {
+              "type": "example",
+              "title": "IVP 풀기",
+              "problem": "y'' + 3y' + 2y = e^{-t}, y(0)=0, y'(0)=1",
+              "solution": "ℒ: (s²+3s+2)Y = 1/(s+1) + 1\nY = 1/((s+1)(s+1)(s+2)) + 1/((s+1)(s+2))\n부분분수: Y = 1/(s+1)² - 1/(s+1) + 1/(s+2) + 1/(s+1) - 1/(s+2)\n= 1/(s+1)² + 1/(s+2)... (정리)",
+              "answer": "y = te^{-t} + e^{-t} - e^{-2t}"
+            }
+          ]
+        },
+        {
+          "id": "ch07-s02",
+          "title": "단위계단함수와 디랙 델타",
+          "content": [
+            {
+              "type": "definition",
+              "term": "헤비사이드 단위계단함수",
+              "latex": "u(t-a) = \\begin{cases}0 & t<a \\\\ 1 & t\\geq a\\end{cases}",
+              "body": "입력이 시간 a에서 켜지는 스위칭 함수. 불연속 강제함수를 모델링할 때 사용."
+            },
+            {
+              "type": "formula",
+              "name": "디랙 델타 함수",
+              "latex": "\\mathcal{L}\\{\\delta(t-a)\\} = e^{-as},\\quad \\int_{-\\infty}^{\\infty}\\delta(t-a)f(t)\\,dt = f(a)",
+              "description": "순간 충격 입력 모델링. 체질(sifting) 성질로 함수값 추출."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-numerical",
+      "number": 8,
+      "title": "수치해법",
+      "subtitle": "Numerical Methods for ODEs",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "오일러법과 런게-쿠타법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "오일러법 (Euler's Method)",
+              "latex": "y_{n+1} = y_n + h\\,f(x_n, y_n)",
+              "description": "1차 정확도 O(h). 간단하지만 오차가 크다."
+            },
+            {
+              "type": "formula",
+              "name": "4차 런게-쿠타법 (RK4)",
+              "latex": "y_{n+1} = y_n + \\frac{h}{6}(k_1+2k_2+2k_3+k_4)",
+              "description": "4차 정확도 O(h⁴). 공학에서 가장 널리 사용."
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "RK4 계수",
+              "title": "RK4 k 계수 정의",
+              "body": "k₁ = f(xₙ, yₙ)<br>k₂ = f(xₙ+h/2, yₙ+hk₁/2)<br>k₃ = f(xₙ+h/2, yₙ+hk₂/2)<br>k₄ = f(xₙ+h, yₙ+hk₃)"
+            },
+            {
+              "type": "table",
+              "title": "수치해법 비교",
+              "headers": ["방법", "정확도", "단계", "특징"],
+              "rows": [
+                ["오일러", "O(h)", "1단계", "간단, 큰 오차"],
+                ["수정 오일러(Heun)", "O(h²)", "2단계", "예측-수정"],
+                ["RK4", "O(h⁴)", "4단계", "실용적 표준"],
+                ["Adams-Bashforth", "O(h⁴)", "다단계", "함수 재활용"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-special-functions",
+      "number": 9,
+      "title": "특수함수",
+      "subtitle": "Special Functions",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "감마함수·베타함수",
+          "content": [
+            {
+              "type": "formula",
+              "name": "감마 함수",
+              "latex": "\\Gamma(n) = \\int_0^{\\infty} t^{n-1}e^{-t}\\,dt,\\quad \\Gamma(n+1)=n!",
+              "description": "팩토리얼의 연속 확장. Γ(1/2)=√π"
+            },
+            {
+              "type": "formula",
+              "name": "베타 함수",
+              "latex": "B(m,n) = \\int_0^1 t^{m-1}(1-t)^{n-1}\\,dt = \\frac{\\Gamma(m)\\Gamma(n)}{\\Gamma(m+n)}",
+              "description": "적분 계산에 유용한 특수함수"
+            },
+            {
+              "type": "formula",
+              "name": "르장드르 다항식",
+              "latex": "P_n(x) = \\frac{1}{2^n n!}\\frac{d^n}{dx^n}(x^2-1)^n",
+              "description": "구면 좌표계 문제의 해. P₀=1, P₁=x, P₂=(3x²-1)/2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-boundary-value",
+      "number": 10,
+      "title": "경계값 문제",
+      "subtitle": "Boundary Value Problems",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "스터름-리우빌 이론",
+          "content": [
+            {
+              "type": "definition",
+              "term": "스터름-리우빌 문제",
+              "latex": "\\frac{d}{dx}\\left[p(x)y'\\right] + [q(x)+\\lambda w(x)]y = 0",
+              "body": "경계조건과 함께 주어진 고유값 문제. 고유함수들은 가중함수 w(x)에 대해 직교한다."
+            },
+            {
+              "type": "theorem",
+              "name": "고유함수 직교성",
+              "statement": "스터름-리우빌 문제의 서로 다른 고유값 λₘ≠λₙ에 대응하는 고유함수 yₘ, yₙ은 가중 직교한다.",
+              "latex": "\\int_a^b y_m y_n w\\,dx = 0 \\quad (m \\neq n)"
+            }
+          ]
+        },
+        {
+          "id": "ch10-s02",
+          "title": "그린 함수",
+          "content": [
+            {
+              "type": "definition",
+              "term": "그린 함수 (Green's Function)",
+              "latex": "Ly = f(x) \\Rightarrow y(x) = \\int_a^b G(x,\\xi)f(\\xi)\\,d\\xi",
+              "body": "비제차 BVP의 해를 적분 형태로 표현. G(x,ξ)는 점 소스 ξ에서의 임펄스 응답."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-nonlinear",
+      "number": 11,
+      "title": "비선형 ODE와 카오스",
+      "subtitle": "Nonlinear ODEs and Chaos",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "비선형 진동",
+          "content": [
+            {
+              "type": "formula",
+              "name": "반데르폴 진동자",
+              "latex": "\\ddot{x} - \\mu(1-x^2)\\dot{x} + x = 0",
+              "description": "비선형 감쇠 진동자. μ>0이면 리미트 사이클(극한 주기궤도) 존재."
+            },
+            {
+              "type": "formula",
+              "name": "뒤핑 방정식",
+              "latex": "\\ddot{x} + \\delta\\dot{x} + \\alpha x + \\beta x^3 = \\gamma\\cos(\\omega t)",
+              "description": "비선형 강제 진동. 혼돈(chaos) 거동 가능."
+            },
+            {
+              "type": "callout",
+              "variant": "warning",
+              "title": "카오스의 특징",
+              "body": "비선형 결정론적 시스템에서 초기 조건에 민감하게 의존하는 거동. 리아푸노프 지수 λ>0이면 카오스 상태. 작은 초기 오차가 지수적으로 증폭."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "진동·회로·열전달",
+          "content": [
+            {
+              "type": "formula",
+              "name": "질량-스프링-감쇠 시스템",
+              "latex": "m\\ddot{x} + c\\dot{x} + kx = F_0\\cos(\\omega t)",
+              "description": "기계 진동의 표준 모델. ζ=c/(2√mk): 감쇠비"
+            },
+            {
+              "type": "formula",
+              "name": "RLC 직렬 회로",
+              "latex": "L\\ddot{q} + R\\dot{q} + \\frac{q}{C} = E(t)",
+              "description": "L: 인덕턴스, R: 저항, C: 커패시턴스, q: 전하"
+            },
+            {
+              "type": "analogy",
+              "emoji": "⚡",
+              "title": "기계-전기 유추",
+              "body": "질량(m) ↔ 인덕턴스(L), 감쇠계수(c) ↔ 저항(R), 스프링상수(k) ↔ 1/C, 변위(x) ↔ 전하(q). 같은 ODE 구조를 공유하므로 전기 회로로 기계 시스템을 시뮬레이션할 수 있다."
+            },
+            {
+              "type": "formula",
+              "name": "공진 주파수",
+              "latex": "\\omega_0 = \\sqrt{\\frac{k}{m}} = \\frac{1}{\\sqrt{LC}}",
+              "description": "비감쇠 고유 각진동수. 강제 진동수 = 공진 주파수이면 공진 발생."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

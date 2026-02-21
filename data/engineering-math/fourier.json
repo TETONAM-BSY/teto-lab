@@ -1,0 +1,407 @@
+{
+  "id": "fourier",
+  "title": "푸리에 해석",
+  "subtitle": "Fourier Analysis",
+  "chapters": [
+    {
+      "id": "ch01-series",
+      "number": 1,
+      "title": "푸리에 급수",
+      "subtitle": "Fourier Series",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "주기 함수와 푸리에 급수",
+          "content": [
+            {
+              "type": "definition",
+              "term": "푸리에 급수",
+              "latex": "f(t) = \\frac{a_0}{2} + \\sum_{n=1}^{\\infty}\\left[a_n\\cos\\frac{n\\pi t}{L} + b_n\\sin\\frac{n\\pi t}{L}\\right]",
+              "body": "주기 2L인 함수를 삼각함수의 합으로 표현. 신호를 주파수 성분으로 분해하는 핵심 도구."
+            },
+            {
+              "type": "formula-grid",
+              "title": "푸리에 계수",
+              "cols": 2,
+              "items": [
+                {"name": "a₀ (직류 성분)", "latex": "a_0 = \\frac{1}{L}\\int_{-L}^{L}f(t)\\,dt", "desc": "평균값의 2배"},
+                {"name": "aₙ (코사인 계수)", "latex": "a_n = \\frac{1}{L}\\int_{-L}^{L}f(t)\\cos\\frac{n\\pi t}{L}\\,dt", "desc": "n=1,2,3,…"},
+                {"name": "bₙ (사인 계수)", "latex": "b_n = \\frac{1}{L}\\int_{-L}^{L}f(t)\\sin\\frac{n\\pi t}{L}\\,dt", "desc": "n=1,2,3,…"},
+                {"name": "직교성", "latex": "\\int_{-L}^{L}\\cos\\frac{m\\pi t}{L}\\cos\\frac{n\\pi t}{L}dt = L\\delta_{mn}", "desc": "삼각함수 직교성"}
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "디리클레 조건과 수렴",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "디리클레 정리",
+              "statement": "f(t)가 주기 2L이고 한 주기 안에서 유한개의 불연속점과 극값을 가지면, 푸리에 급수는 연속점에서 f(t)로, 불연속점 t₀에서 [f(t₀⁺)+f(t₀⁻)]/2로 수렴한다.",
+              "latex": "S(t_0) = \\frac{f(t_0^+)+f(t_0^-)}{2}"
+            },
+            {
+              "type": "example",
+              "title": "구형파의 푸리에 급수",
+              "problem": "f(t)=1 (0<t<π), f(t)=-1 (-π<t<0), 주기 2π",
+              "solution": "a₀=0, aₙ=0 (우함수×홀함수=0)\nbₙ=(1/π)[∫₀π sinnt dt - ∫₋π⁰ sinnt dt] = 2(1-cosπn)/(πn)\nn 홀수: bₙ=4/(nπ), n 짝수: bₙ=0",
+              "answer": "f(t) = (4/π)[sin t + sin 3t/3 + sin 5t/5 + …]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-symmetry",
+      "number": 2,
+      "title": "우함수·홀함수와 반파 대칭",
+      "subtitle": "Even, Odd, and Half-wave Symmetry",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "대칭성 활용",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "대칭에 따른 계수 단순화",
+              "cols": 2,
+              "items": [
+                {"name": "우함수 f(-t)=f(t)", "latex": "b_n=0,\\; a_n=\\frac{2}{L}\\int_0^L f(t)\\cos\\frac{n\\pi t}{L}dt", "desc": "코사인 급수만"},
+                {"name": "홀함수 f(-t)=-f(t)", "latex": "a_n=0,\\; b_n=\\frac{2}{L}\\int_0^L f(t)\\sin\\frac{n\\pi t}{L}dt", "desc": "사인 급수만"},
+                {"name": "반파 홀 대칭", "latex": "f(t+T/2)=-f(t)\\Rightarrow a_n=b_n=0\\;(n\\text{ 짝})", "desc": "홀수 고조파만"},
+                {"name": "4분의 1파 대칭", "latex": "\\text{우+반파}: a_n\\text{만 홀수},\\; \\text{홀+반파}: b_n\\text{만 홀수}", "desc": "계산량 1/4로 축소"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-parseval",
+      "number": 3,
+      "title": "파르스발 정리와 에너지",
+      "subtitle": "Parseval's Theorem and Energy",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "파르스발 정리",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "파르스발 정리 (Parseval's Theorem)",
+              "statement": "신호의 시간 영역 에너지(평균 제곱값)는 주파수 성분 에너지의 합과 같다.",
+              "latex": "\\frac{1}{2L}\\int_{-L}^{L}|f(t)|^2\\,dt = \\frac{a_0^2}{4}+\\frac{1}{2}\\sum_{n=1}^{\\infty}(a_n^2+b_n^2)"
+            },
+            {
+              "type": "example",
+              "title": "급수 합 계산",
+              "problem": "파르스발 정리를 이용해 Σ(1/n²)의 합을 구하라.",
+              "solution": "f(t)=t on (-π,π)의 푸리에 급수: bₙ=2(-1)^{n+1}/n\n파르스발: (1/π)∫₋ππ t²dt = Σ2/n²\n2π²/3 = 2Σ1/n²",
+              "answer": "Σ(1/n²) = π²/6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-complex-fourier",
+      "number": 4,
+      "title": "복소 푸리에 급수",
+      "subtitle": "Complex Fourier Series",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "지수 형태 표현",
+          "content": [
+            {
+              "type": "formula",
+              "name": "복소 푸리에 급수",
+              "latex": "f(t) = \\sum_{n=-\\infty}^{\\infty} c_n e^{jn\\omega_0 t},\\quad c_n = \\frac{1}{T}\\int_{-T/2}^{T/2}f(t)e^{-jn\\omega_0 t}dt",
+              "description": "ω₀=2π/T: 기본 각주파수. cₙ: 복소 스펙트럼 계수"
+            },
+            {
+              "type": "formula-grid",
+              "title": "실수↔복소 계수 관계",
+              "cols": 2,
+              "items": [
+                {"name": "c₀", "latex": "c_0 = a_0/2", "desc": "직류 성분"},
+                {"name": "cₙ (n>0)", "latex": "c_n = (a_n - jb_n)/2", "desc": "양주파수"},
+                {"name": "c₋ₙ", "latex": "c_{-n} = c_n^*", "desc": "켤레 대칭"},
+                {"name": "진폭 스펙트럼", "latex": "|c_n| = \\frac{1}{2}\\sqrt{a_n^2+b_n^2}", "desc": "각 주파수 성분의 크기"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-fourier-transform",
+      "number": 5,
+      "title": "푸리에 변환",
+      "subtitle": "Fourier Transform",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "푸리에 변환의 정의",
+          "content": [
+            {
+              "type": "definition",
+              "term": "푸리에 변환",
+              "latex": "\\mathcal{F}\\{f(t)\\} = F(\\omega) = \\int_{-\\infty}^{\\infty} f(t)e^{-j\\omega t}\\,dt",
+              "body": "주기를 ∞로 보내는 극한으로 비주기 신호로 확장. F(ω)는 연속 스펙트럼."
+            },
+            {
+              "type": "formula",
+              "name": "역푸리에 변환",
+              "latex": "f(t) = \\mathcal{F}^{-1}\\{F(\\omega)\\} = \\frac{1}{2\\pi}\\int_{-\\infty}^{\\infty} F(\\omega)e^{j\\omega t}\\,d\\omega",
+              "description": "주파수 성분을 합산하여 시간 신호 재구성"
+            },
+            {
+              "type": "table",
+              "title": "주요 푸리에 변환 쌍",
+              "headers": ["f(t)", "F(ω)"],
+              "rows": [
+                ["δ(t)", "1"],
+                ["1", "2πδ(ω)"],
+                ["e^{-at}u(t) (a>0)", "1/(a+jω)"],
+                ["rect(t/τ)", "τ sinc(ωτ/2)"],
+                ["e^{-a|t|}", "2a/(a²+ω²)"],
+                ["e^{-at²}", "√(π/a)·e^{-ω²/(4a)}"],
+                ["cos ω₀t", "π[δ(ω-ω₀)+δ(ω+ω₀)]"],
+                ["sin ω₀t", "jπ[δ(ω+ω₀)-δ(ω-ω₀)]"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-ft-properties",
+      "number": 6,
+      "title": "푸리에 변환의 성질",
+      "subtitle": "Properties of Fourier Transform",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "주요 성질",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "푸리에 변환 성질",
+              "cols": 2,
+              "items": [
+                {"name": "선형성", "latex": "\\mathcal{F}\\{af+bg\\}=aF+bG", "desc": "중첩"},
+                {"name": "시간 이동", "latex": "\\mathcal{F}\\{f(t-t_0)\\}=e^{-j\\omega t_0}F(\\omega)", "desc": "위상 이동"},
+                {"name": "주파수 이동", "latex": "\\mathcal{F}\\{e^{j\\omega_0 t}f(t)\\}=F(\\omega-\\omega_0)", "desc": "변조"},
+                {"name": "시간 스케일", "latex": "\\mathcal{F}\\{f(at)\\}=\\frac{1}{|a|}F\\!\\left(\\frac{\\omega}{a}\\right)", "desc": "시간-주파수 역관계"},
+                {"name": "미분", "latex": "\\mathcal{F}\\{f^{(n)}\\}=(j\\omega)^n F(\\omega)", "desc": "미분 → jω 곱셈"},
+                {"name": "합성곱", "latex": "\\mathcal{F}\\{f*g\\}=F(\\omega)G(\\omega)", "desc": "Convolution theorem"},
+                {"name": "이중성", "latex": "\\mathcal{F}\\{F(t)\\}=2\\pi f(-\\omega)", "desc": "Duality"},
+                {"name": "파르스발", "latex": "\\int|f|^2dt=\\frac{1}{2\\pi}\\int|F|^2d\\omega", "desc": "에너지 보존"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-sampling",
+      "number": 7,
+      "title": "표본화 정리",
+      "subtitle": "Sampling Theorem",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "나이퀴스트-섀넌 정리",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "나이퀴스트-섀넌 표본화 정리",
+              "statement": "최대 주파수 f_max를 가진 대역제한 신호를 완전히 복원하려면 표본화 주파수가 나이퀴스트 주파수 이상이어야 한다.",
+              "latex": "f_s \\geq 2f_{\\max} = f_N \\text{ (나이퀴스트 주파수)}"
+            },
+            {
+              "type": "definition",
+              "term": "앨리어싱 (Aliasing)",
+              "body": "표본화 주파수가 부족하면 고주파 성분이 저주파로 접혀 들어와 원신호 왜곡이 발생한다. 안티앨리어싱 필터(저역통과)로 예방."
+            },
+            {
+              "type": "formula",
+              "name": "표본화된 신호의 스펙트럼",
+              "latex": "F_s(\\omega) = f_s \\sum_{n=-\\infty}^{\\infty} F(\\omega - n\\omega_s)",
+              "description": "주기적으로 복제된 스펙트럼. fₛ 이상이면 복제본이 겹치지 않음."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-dft",
+      "number": 8,
+      "title": "이산 푸리에 변환 (DFT)",
+      "subtitle": "Discrete Fourier Transform",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "DFT 정의와 FFT",
+          "content": [
+            {
+              "type": "formula",
+              "name": "DFT",
+              "latex": "X[k] = \\sum_{n=0}^{N-1} x[n] e^{-j2\\pi kn/N},\\quad k=0,1,\\ldots,N-1",
+              "description": "N점 이산 신호를 N개의 복소 주파수 성분으로 분해"
+            },
+            {
+              "type": "formula",
+              "name": "역DFT (IDFT)",
+              "latex": "x[n] = \\frac{1}{N}\\sum_{k=0}^{N-1} X[k] e^{j2\\pi kn/N}",
+              "description": "주파수 성분에서 시간 신호 재구성"
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "FFT의 중요성",
+              "body": "DFT의 직접 계산은 O(N²). 쿨리-튜키(Cooley-Tukey) FFT 알고리즘은 O(N log N)으로 획기적 개선. N=1024 기준 약 100배 빠름. 현대 디지털 신호처리의 핵심."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-filters",
+      "number": 9,
+      "title": "필터 설계",
+      "subtitle": "Filter Design",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "이상적·실용적 필터",
+          "content": [
+            {
+              "type": "table",
+              "title": "필터 종류",
+              "headers": ["필터", "통과 대역", "응용"],
+              "rows": [
+                ["저역통과 (LPF)", "0~fc", "부드러운 신호, 안티앨리어싱"],
+                ["고역통과 (HPF)", "fc~∞", "엣지 검출, 미분"],
+                ["대역통과 (BPF)", "f1~f2", "통신 채널 선택"],
+                ["대역차단 (BSF)", "f1~f2 차단", "노이즈 제거"],
+                ["전대역통과 (APF)", "모든 주파수", "위상 보정"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "이상적 LPF의 임펄스 응답",
+              "latex": "h(t) = \\frac{\\omega_c}{\\pi}\\text{sinc}(\\omega_c t)",
+              "description": "이상적 LPF는 비인과적(t<0에서 응답). 실용 구현 시 윈도우 함수 필요."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-stft",
+      "number": 10,
+      "title": "단시간 푸리에 변환과 웨이블릿",
+      "subtitle": "STFT and Wavelet Transform",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "시간-주파수 분석",
+          "content": [
+            {
+              "type": "definition",
+              "term": "단시간 푸리에 변환 (STFT)",
+              "latex": "\\text{STFT}\\{x\\}(t,\\omega) = \\int_{-\\infty}^{\\infty} x(\\tau)w(\\tau-t)e^{-j\\omega\\tau}\\,d\\tau",
+              "body": "이동하는 윈도우 함수 w(τ-t)로 국소화된 주파수 분석. 스펙트로그램으로 시각화."
+            },
+            {
+              "type": "definition",
+              "term": "웨이블릿 변환 (Wavelet Transform)",
+              "latex": "W_f(a,b) = \\frac{1}{\\sqrt{a}}\\int f(t)\\,\\psi^*\\!\\left(\\frac{t-b}{a}\\right)dt",
+              "body": "a: 스케일(주파수 역할), b: 이동. 저주파에서 넓은 윈도우, 고주파에서 좁은 윈도우 → 다해상도 분석."
+            },
+            {
+              "type": "analogy",
+              "emoji": "🎵",
+              "title": "악보와 웨이블릿",
+              "body": "악보는 시간(마디)과 음높이(주파수)를 동시에 표현한다. STFT는 고정 크기 악보(해상도 일정), 웨이블릿은 저음에서 긴 음표·고음에서 짧은 음표를 사용하는 적응형 악보다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-fourier-pde",
+      "number": 11,
+      "title": "푸리에 방법과 PDE",
+      "subtitle": "Fourier Methods for PDEs",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "열방정식·파동방정식 풀이",
+          "content": [
+            {
+              "type": "formula",
+              "name": "열방정식 (1D)",
+              "latex": "u_t = k u_{xx},\\quad u(x,0)=f(x),\\quad u(0,t)=u(L,t)=0",
+              "description": "변수분리: u=X(x)T(t) → X''/X = T'/(kT) = -λ"
+            },
+            {
+              "type": "formula",
+              "name": "열방정식 해",
+              "latex": "u(x,t) = \\sum_{n=1}^{\\infty} b_n \\sin\\frac{n\\pi x}{L} e^{-k(n\\pi/L)^2 t}",
+              "description": "bₙ은 초기조건 f(x)의 푸리에 사인 계수"
+            },
+            {
+              "type": "formula",
+              "name": "파동방정식 해",
+              "latex": "u(x,t) = \\sum_{n=1}^{\\infty}\\sin\\frac{n\\pi x}{L}\\left(A_n\\cos\\frac{n\\pi ct}{L}+B_n\\sin\\frac{n\\pi ct}{L}\\right)",
+              "description": "달랑베르 공식 또는 분리변수법"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "통신·음향·영상",
+          "content": [
+            {
+              "type": "formula",
+              "name": "진폭 변조 (AM)",
+              "latex": "s(t) = [1+m\\cdot f(t)]\\cos(2\\pi f_c t)",
+              "description": "f(t): 메시지, fc: 반송파. 스펙트럼에서 ±fc 주위 측파대 생성."
+            },
+            {
+              "type": "formula",
+              "name": "주파수 변조 (FM)",
+              "latex": "s(t) = A\\cos\\left(2\\pi f_c t + 2\\pi k_f \\int_0^t f(\\tau)d\\tau\\right)",
+              "description": "kf: 주파수 감도. AM보다 잡음에 강인."
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "푸리에의 공학 응용 분야",
+              "body": "• <b>통신:</b> 변조·복조, 채널 용량 분석<br>• <b>음향:</b> 스펙트럼 분석, 노이즈 캔슬링, MP3 압축<br>• <b>의료:</b> MRI, CT 재구성 (역 라돈 변환)<br>• <b>영상처리:</b> JPEG 압축(DCT), 에지 검출<br>• <b>지진학:</b> 지진파 스펙트럼 분석"
+            },
+            {
+              "type": "formula",
+              "name": "이산 코사인 변환 (DCT)",
+              "latex": "X[k] = \\sum_{n=0}^{N-1} x[n]\\cos\\frac{\\pi(2n+1)k}{2N}",
+              "description": "JPEG, MP3 압축의 핵심. 에너지를 낮은 계수에 집중시켜 압축 효율 극대화."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,487 @@
+{
+  "id": "numerical",
+  "title": "수치해석",
+  "subtitle": "Numerical Analysis",
+  "chapters": [
+    {
+      "id": "ch01-errors",
+      "number": 1,
+      "title": "오차와 수치 안정성",
+      "subtitle": "Errors and Numerical Stability",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "오차의 종류",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "오차의 분류",
+              "cols": 2,
+              "items": [
+                {"name": "절대 오차", "latex": "E_a = |x_{true} - x_{approx}|", "desc": "참값과 근사값의 차"},
+                {"name": "상대 오차", "latex": "E_r = \\frac{|x_{true}-x_{approx}|}{|x_{true}|}\\times 100\\%", "desc": "절대 오차의 비율"},
+                {"name": "절단 오차", "latex": "\\text{유한 계산 과정에서 무한 급수 절단}", "desc": "알고리즘 오차"},
+                {"name": "반올림 오차", "latex": "\\text{부동소수점 유한 표현 한계}", "desc": "기계 오차"}
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "테일러 급수와 절단 오차",
+              "latex": "f(x+h) = f(x)+hf'(x)+\\frac{h^2}{2!}f''(x)+\\cdots+\\frac{h^n}{n!}f^{(n)}(x)+O(h^{n+1})",
+              "description": "O(h^{n+1}): 절단 오차의 차수"
+            },
+            {
+              "type": "definition",
+              "term": "기계 입실론 (Machine Epsilon)",
+              "latex": "\\epsilon_M: \\quad 1 + \\epsilon_M > 1,\\quad \\epsilon_M \\approx 2.22\\times10^{-16} \\text{ (double)}",
+              "body": "부동소수점 표현의 최소 상대 간격. IEEE 754 배정밀도 기준."
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "수치 안정성과 조건수",
+          "content": [
+            {
+              "type": "definition",
+              "term": "조건수 (Condition Number)",
+              "latex": "\\kappa(A) = \\|A\\|\\cdot\\|A^{-1}\\|",
+              "body": "입력의 작은 변화에 대한 출력 변화의 증폭 비율. κ가 크면 불량조건(ill-conditioned) 문제."
+            },
+            {
+              "type": "callout",
+              "variant": "warning",
+              "title": "수치 소거 (Catastrophic Cancellation)",
+              "body": "크기가 비슷한 두 수의 차는 유효 숫자가 급격히 손실된다. 예: (1.000001 - 1.000000)에서 6자리 유효숫자 → 1자리. 알고리즘 재구성으로 회피."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-rootfinding",
+      "number": 2,
+      "title": "방정식의 근 찾기",
+      "subtitle": "Root Finding Methods",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "이분법과 뉴턴-랩슨법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "이분법 (Bisection Method)",
+              "latex": "c = \\frac{a+b}{2},\\quad \\text{오차} \\leq \\frac{b-a}{2^{n+1}}",
+              "description": "f(a)f(b)<0인 구간에서 반씩 좁힘. 선형 수렴(1차)."
+            },
+            {
+              "type": "formula",
+              "name": "뉴턴-랩슨법 (Newton-Raphson)",
+              "latex": "x_{n+1} = x_n - \\frac{f(x_n)}{f'(x_n)}",
+              "description": "이차 수렴(2차). f'≠0이고 초기값이 충분히 가까울 때."
+            },
+            {
+              "type": "formula",
+              "name": "할선법 (Secant Method)",
+              "latex": "x_{n+1} = x_n - f(x_n)\\frac{x_n - x_{n-1}}{f(x_n)-f(x_{n-1})}",
+              "description": "도함수 불필요. 수렴 차수 ≈ 1.618 (황금비)."
+            },
+            {
+              "type": "table",
+              "title": "근 찾기 방법 비교",
+              "headers": ["방법", "수렴 차수", "장점", "단점"],
+              "rows": [
+                ["이분법", "1 (선형)", "항상 수렴", "느림"],
+                ["뉴턴-랩슨", "2 (이차)", "매우 빠름", "f' 필요, 발산 가능"],
+                ["할선법", "1.618", "f' 불필요", "초기값 2개"],
+                ["Brent법", "초선형", "견고, 빠름", "구현 복잡"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-linear-systems",
+      "number": 3,
+      "title": "선형 연립방정식",
+      "subtitle": "Linear Systems",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "가우스 소거법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "가우스 소거법",
+              "latex": "A\\mathbf{x}=\\mathbf{b} \\xrightarrow{\\text{전진소거}} U\\mathbf{x}=\\mathbf{c} \\xrightarrow{\\text{후퇴대입}} \\mathbf{x}",
+              "description": "O(n³/3) 연산. 피벗팅으로 수치 안정성 향상."
+            },
+            {
+              "type": "formula",
+              "name": "LU 분해",
+              "latex": "A = LU \\Rightarrow L(U\\mathbf{x})=\\mathbf{b}:\\; L\\mathbf{y}=\\mathbf{b},\\; U\\mathbf{x}=\\mathbf{y}",
+              "description": "한 번 분해 후 여러 우변벡터에 O(n²)으로 재사용."
+            },
+            {
+              "type": "formula",
+              "name": "대각지배 행렬의 반복법",
+              "latex": "x_i^{(k+1)} = \\frac{1}{a_{ii}}\\left(b_i - \\sum_{j\\neq i}a_{ij}x_j^{(k)}\\right)",
+              "description": "가우스-자이델 반복법. 희소 대형 시스템에 효율적."
+            }
+          ]
+        },
+        {
+          "id": "ch03-s02",
+          "title": "반복법과 수렴",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "가우스-자이델 수렴 조건",
+              "statement": "행렬 A가 엄격 대각지배(strictly diagonally dominant)이면 가우스-자이델 반복법은 초기값에 관계없이 수렴한다.",
+              "latex": "|a_{ii}| > \\sum_{j\\neq i}|a_{ij}| \\Rightarrow \\text{수렴}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-interpolation",
+      "number": 4,
+      "title": "보간법",
+      "subtitle": "Interpolation",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "다항식 보간",
+          "content": [
+            {
+              "type": "formula",
+              "name": "라그랑주 보간 다항식",
+              "latex": "P_n(x) = \\sum_{k=0}^{n} f(x_k) L_k(x),\\quad L_k(x) = \\prod_{j\\neq k}\\frac{x-x_j}{x_k-x_j}",
+              "description": "n+1개의 점을 정확히 지나는 n차 다항식"
+            },
+            {
+              "type": "formula",
+              "name": "뉴턴 분할차분 공식",
+              "latex": "P_n(x) = f[x_0]+f[x_0,x_1](x-x_0)+\\cdots+f[x_0,\\ldots,x_n]\\prod_{i=0}^{n-1}(x-x_i)",
+              "description": "점을 추가할 때 이전 계산 재활용 가능"
+            },
+            {
+              "type": "theorem",
+              "name": "보간 오차 (런게 현상)",
+              "statement": "등간격 보간에서 차수가 높아지면 끝점 근처에서 오차가 폭발적으로 증가할 수 있다 (Runge's phenomenon).",
+              "latex": "E_n(x) = \\frac{f^{(n+1)}(\\xi)}{(n+1)!}\\prod_{i=0}^{n}(x-x_i)"
+            }
+          ]
+        },
+        {
+          "id": "ch04-s02",
+          "title": "스플라인 보간",
+          "content": [
+            {
+              "type": "definition",
+              "term": "3차 스플라인 (Cubic Spline)",
+              "body": "구간마다 3차 다항식을 사용하고, 접합점에서 함수값·1계·2계 도함수의 연속성을 요구. 런게 현상 없이 부드러운 보간."
+            },
+            {
+              "type": "formula",
+              "name": "자연 스플라인 조건",
+              "latex": "S''(x_0) = S''(x_n) = 0",
+              "description": "양 끝점에서 2계 도함수가 0인 자연 스플라인"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-numerical-diff",
+      "number": 5,
+      "title": "수치 미분",
+      "subtitle": "Numerical Differentiation",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "유한차분 공식",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "유한차분 근사 공식",
+              "cols": 2,
+              "items": [
+                {"name": "전진 차분", "latex": "f'(x)\\approx\\frac{f(x+h)-f(x)}{h}", "desc": "O(h) 1차 정확도"},
+                {"name": "후진 차분", "latex": "f'(x)\\approx\\frac{f(x)-f(x-h)}{h}", "desc": "O(h) 1차 정확도"},
+                {"name": "중심 차분", "latex": "f'(x)\\approx\\frac{f(x+h)-f(x-h)}{2h}", "desc": "O(h²) 2차 정확도"},
+                {"name": "2계 중심 차분", "latex": "f''(x)\\approx\\frac{f(x+h)-2f(x)+f(x-h)}{h^2}", "desc": "O(h²) 2차 정확도"}
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "warning",
+              "title": "최적 스텝 크기",
+              "body": "h가 너무 크면 절단 오차 증가, 너무 작으면 반올림 오차 증가. 최적 h ≈ √(ε_M) ≈ 10⁻⁸ (1계), ∛(ε_M) ≈ 10⁻⁵ (2계)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-numerical-integration",
+      "number": 6,
+      "title": "수치 적분",
+      "subtitle": "Numerical Integration",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "뉴턴-코츠 공식",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "수치 적분 공식",
+              "cols": 2,
+              "items": [
+                {"name": "사다리꼴 공식", "latex": "\\int_a^b f\\,dx \\approx \\frac{h}{2}(f_0+2f_1+\\cdots+2f_{n-1}+f_n)", "desc": "O(h²) 정확도"},
+                {"name": "심프슨 1/3 공식", "latex": "\\approx \\frac{h}{3}(f_0+4f_1+2f_2+4f_3+\\cdots+f_n)", "desc": "O(h⁴), n 짝수"},
+                {"name": "심프슨 3/8 공식", "latex": "\\approx \\frac{3h}{8}(f_0+3f_1+3f_2+2f_3+\\cdots+f_n)", "desc": "O(h⁴), n=3의 배수"},
+                {"name": "가우스 구적법", "latex": "\\int_{-1}^{1}f(x)dx \\approx \\sum_{i=1}^n w_i f(x_i)", "desc": "최고 2n-1차 정확도"}
+              ]
+            },
+            {
+              "type": "example",
+              "title": "심프슨 공식 적용",
+              "problem": "∫₀¹ e^x dx를 n=4 심프슨 공식으로 계산",
+              "solution": "h=0.25, x₀~x₄: 0, 0.25, 0.5, 0.75, 1\nf₀=1, f₁=1.2840, f₂=1.6487, f₃=2.1170, f₄=2.7183\n∫≈(0.25/3)(1+4(1.2840)+2(1.6487)+4(2.1170)+2.7183)\n= (0.25/3)(1+5.1361+3.2974+8.4680+2.7183)\n= (0.25/3)(20.6198)=1.71832",
+              "answer": "≈1.71832 (정확값 e-1=1.71828, 오차 0.002%)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-ode-numerical",
+      "number": 7,
+      "title": "ODE 수치해법",
+      "subtitle": "Numerical ODE Solvers",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "단일 단계법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "오일러법",
+              "latex": "y_{n+1} = y_n + hf(t_n,y_n),\\quad \\text{오차}: O(h)",
+              "description": "1차 정확도. 간단하지만 큰 오차."
+            },
+            {
+              "type": "formula",
+              "name": "4차 런게-쿠타 (RK4)",
+              "latex": "y_{n+1} = y_n + \\frac{h}{6}(k_1+2k_2+2k_3+k_4),\\quad \\text{오차}: O(h^4)",
+              "description": "공학 실무의 표준. 4번의 함수 평가로 4차 정확도."
+            },
+            {
+              "type": "formula",
+              "name": "적응형 스텝 크기 조절",
+              "latex": "h_{\\text{new}} = h\\left(\\frac{\\text{tol}}{E}\\right)^{1/5}",
+              "description": "추정 오차 E와 허용 오차 tol을 비교하여 h 자동 조정 (RK45 등)"
+            }
+          ]
+        },
+        {
+          "id": "ch07-s02",
+          "title": "강성(Stiff) 문제",
+          "content": [
+            {
+              "type": "definition",
+              "term": "강성 방정식 (Stiff ODE)",
+              "body": "해의 다른 성분들이 매우 다른 시간 스케일로 변화. 명시적 방법은 매우 작은 스텝 필요 → 암시적 방법(예: 역오일러, BDF) 사용."
+            },
+            {
+              "type": "formula",
+              "name": "역오일러법 (Backward Euler)",
+              "latex": "y_{n+1} = y_n + hf(t_{n+1},y_{n+1})",
+              "description": "비선형 방정식 → 각 스텝마다 뉴턴법 필요. 무조건 안정."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-eigenvalue-numerical",
+      "number": 8,
+      "title": "고유값 수치 계산",
+      "subtitle": "Numerical Eigenvalue Problems",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "거듭제곱법과 QR 알고리즘",
+          "content": [
+            {
+              "type": "formula",
+              "name": "거듭제곱법 (Power Iteration)",
+              "latex": "\\mathbf{q}_{k+1} = \\frac{A\\mathbf{q}_k}{\\|A\\mathbf{q}_k\\|}",
+              "description": "최대 절대 고유값과 대응 고유벡터 수렴. 수렴율: |λ₂/λ₁|."
+            },
+            {
+              "type": "formula",
+              "name": "역거듭제곱법",
+              "latex": "\\mathbf{q}_{k+1} = \\frac{(A-\\mu I)^{-1}\\mathbf{q}_k}{\\|(A-\\mu I)^{-1}\\mathbf{q}_k\\|}",
+              "description": "μ에 가장 가까운 고유값으로 수렴. LU 분해 1회 + 전방/후방 대입."
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "QR 알고리즘",
+              "body": "A=QR (QR 분해) → Aₖ₊₁=RₖQₖ 반복. 상헤센베르크 변환 후 적용하면 모든 고유값을 O(n³) 내에 계산. LAPACK의 표준 알고리즘."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-optimization",
+      "number": 9,
+      "title": "수치 최적화",
+      "subtitle": "Numerical Optimization",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "기울기 기반 방법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "경사하강법 (Gradient Descent)",
+              "latex": "\\mathbf{x}_{k+1} = \\mathbf{x}_k - \\alpha \\nabla f(\\mathbf{x}_k)",
+              "description": "α: 학습률(step size). 머신러닝의 핵심 최적화 알고리즘."
+            },
+            {
+              "type": "formula",
+              "name": "뉴턴법 (2차 최적화)",
+              "latex": "\\mathbf{x}_{k+1} = \\mathbf{x}_k - [H f(\\mathbf{x}_k)]^{-1}\\nabla f(\\mathbf{x}_k)",
+              "description": "H: 헤시안 행렬. 이차 수렴. 헤시안 계산 비용이 크다."
+            },
+            {
+              "type": "formula",
+              "name": "BFGS (준뉴턴법)",
+              "latex": "B_{k+1} = B_k + \\frac{\\mathbf{y}\\mathbf{y}^T}{\\mathbf{y}^T\\mathbf{s}} - \\frac{B_k\\mathbf{s}\\mathbf{s}^TB_k}{\\mathbf{s}^TB_k\\mathbf{s}}",
+              "description": "s=xₖ₊₁-xₖ, y=∇fₖ₊₁-∇fₖ. 헤시안 근사 업데이트."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-least-squares",
+      "number": 10,
+      "title": "최소제곱법",
+      "subtitle": "Least Squares",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "선형 최소제곱",
+          "content": [
+            {
+              "type": "formula",
+              "name": "정규 방정식 (Normal Equations)",
+              "latex": "A^T A\\mathbf{x} = A^T\\mathbf{b} \\Rightarrow \\mathbf{x} = (A^TA)^{-1}A^T\\mathbf{b}",
+              "description": "잔차 ‖Ax-b‖₂를 최소화. A가 full rank이면 유일해."
+            },
+            {
+              "type": "formula",
+              "name": "QR 분해를 이용한 최소제곱",
+              "latex": "A = QR \\Rightarrow R\\mathbf{x} = Q^T\\mathbf{b}",
+              "description": "수치적으로 안정. 정규방정식보다 조건수 좋음."
+            },
+            {
+              "type": "formula",
+              "name": "SVD를 이용한 최소제곱",
+              "latex": "A = U\\Sigma V^T \\Rightarrow \\mathbf{x}^+ = V\\Sigma^+U^T\\mathbf{b}",
+              "description": "Moore-Penrose 유사역행렬. 최소 노름 최소제곱해."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-fft-applications",
+      "number": 11,
+      "title": "FFT와 수치 응용",
+      "subtitle": "FFT and Applications",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "FFT 알고리즘",
+          "content": [
+            {
+              "type": "formula",
+              "name": "쿨리-튜키 FFT",
+              "latex": "X[k] = \\sum_{m=0}^{N/2-1}x[2m]W_N^{2mk} + W_N^k\\sum_{m=0}^{N/2-1}x[2m+1]W_N^{2mk}",
+              "description": "W_N=e^{-j2π/N}. 짝수/홀수로 재귀 분할 → O(N log N)"
+            },
+            {
+              "type": "table",
+              "title": "FFT 응용",
+              "headers": ["응용 분야", "사용 방법"],
+              "rows": [
+                ["다항식 곱셈", "DFT→점별 곱→IDFT: O(n log n)"],
+                ["신호 필터링", "H(ω)·X(ω)→IDFT"],
+                ["PDE 수치해", "주파수 영역에서 미분연산"],
+                ["이미지 압축", "2D FFT → JPEG(DCT)"],
+                ["상관관계 분석", "교차상관 = IFFT(F*·G)"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용과 소프트웨어",
+      "subtitle": "Engineering Applications and Software",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "수치해석 소프트웨어와 응용",
+          "content": [
+            {
+              "type": "table",
+              "title": "수치해석 소프트웨어",
+              "headers": ["소프트웨어", "강점", "주요 용도"],
+              "rows": [
+                ["MATLAB", "행렬 연산, 시각화", "제어, 신호처리"],
+                ["NumPy/SciPy", "파이썬 생태계", "과학 계산 전반"],
+                ["LAPACK/BLAS", "고성능 선형대수", "산업용 라이브러리"],
+                ["Mathematica", "기호 계산", "수학 연구"],
+                ["GNU Octave", "MATLAB 호환 무료", "교육, 연구"]
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "수치해석 선택 가이드",
+              "body": "• <b>근 찾기:</b> scipy.optimize.brentq (견고), newton (빠름)<br>• <b>선형계:</b> numpy.linalg.solve (일반), scipy.sparse.linalg (희소)<br>• <b>ODE:</b> scipy.integrate.solve_ivp (RK45/Radau/BDF)<br>• <b>적분:</b> scipy.integrate.quad (1D), dblquad (2D)<br>• <b>최적화:</b> scipy.optimize.minimize (다변수)"
+            },
+            {
+              "type": "analogy",
+              "emoji": "🔧",
+              "title": "수치해석은 공학의 계산 도구함",
+              "body": "해석적 해가 존재하지 않는 실제 공학 문제를 컴퓨터로 풀기 위한 수학적 도구 모음. 오차 제어와 계산 효율성의 균형이 핵심이며, 알고리즘 선택이 결과의 신뢰성을 결정한다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "수렴 속도 요약",
+              "cols": 2,
+              "items": [
+                {"name": "선형 수렴", "latex": "e_{n+1} \\leq C e_n", "desc": "이분법, 고정점 반복"},
+                {"name": "초선형 수렴", "latex": "e_{n+1}/e_n \\to 0", "desc": "할선법 (1.618차)"},
+                {"name": "이차 수렴", "latex": "e_{n+1} \\leq C e_n^2", "desc": "뉴턴법"},
+                {"name": "스펙트럼 수렴", "latex": "e_n \\sim C^n \\to 0", "desc": "스펙트럴법, FFT 기반"}
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

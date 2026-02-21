@@ -1,0 +1,441 @@
+{
+  "id": "laplace",
+  "title": "라플라스 변환",
+  "subtitle": "Laplace Transform",
+  "chapters": [
+    {
+      "id": "ch01-definition",
+      "number": 1,
+      "title": "라플라스 변환의 정의",
+      "subtitle": "Definition and Existence",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "변환의 정의와 존재 조건",
+          "content": [
+            {
+              "type": "definition",
+              "term": "라플라스 변환",
+              "latex": "\\mathcal{L}\\{f(t)\\} = F(s) = \\int_0^{\\infty} e^{-st} f(t)\\,dt",
+              "body": "t≥0에서 정의된 함수 f(t)를 복소 주파수 변수 s의 함수 F(s)로 변환. 미분방정식, 제어이론, 신호처리의 핵심 도구."
+            },
+            {
+              "type": "theorem",
+              "name": "라플라스 변환의 존재 조건",
+              "statement": "f(t)가 지수 차수 α이고 구간별 연속이면 ℒ{f(t)}는 Re(s)>α에서 존재한다.",
+              "latex": "|f(t)| \\leq Me^{\\alpha t} \\Rightarrow F(s) \\text{ 존재 for } \\text{Re}(s) > \\alpha"
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "s의 의미",
+              "body": "s = σ + jω (복소수). σ는 감쇠(수렴), ω는 진동수. 제어공학에서 s-평면의 극점 위치로 시스템 안정성을 판단한다."
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "기본 변환 쌍 도출",
+          "content": [
+            {
+              "type": "example",
+              "title": "e^{at}의 라플라스 변환",
+              "problem": "f(t)=e^{at}의 라플라스 변환을 구하라.",
+              "solution": "F(s)=∫₀^∞ e^{-st}·e^{at}dt = ∫₀^∞ e^{-(s-a)t}dt\n= [-e^{-(s-a)t}/(s-a)]₀^∞ = 1/(s-a)",
+              "answer": "ℒ{e^{at}} = 1/(s-a), Re(s)>a"
+            },
+            {
+              "type": "table",
+              "title": "필수 라플라스 변환 표",
+              "headers": ["f(t)", "F(s)", "수렴역"],
+              "rows": [
+                ["1", "1/s", "Re(s)>0"],
+                ["t", "1/s²", "Re(s)>0"],
+                ["tⁿ", "n!/s^{n+1}", "Re(s)>0"],
+                ["e^{at}", "1/(s-a)", "Re(s)>a"],
+                ["sin ωt", "ω/(s²+ω²)", "Re(s)>0"],
+                ["cos ωt", "s/(s²+ω²)", "Re(s)>0"],
+                ["sinh at", "a/(s²-a²)", "Re(s)>|a|"],
+                ["cosh at", "s/(s²-a²)", "Re(s)>|a|"],
+                ["te^{at}", "1/(s-a)²", "Re(s)>a"],
+                ["δ(t)", "1", "모든 s"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-properties",
+      "number": 2,
+      "title": "라플라스 변환의 성질",
+      "subtitle": "Properties of Laplace Transform",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "선형성·이동·스케일링",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "기본 성질",
+              "cols": 2,
+              "items": [
+                {"name": "선형성", "latex": "\\mathcal{L}\\{af+bg\\}=aF(s)+bG(s)", "desc": "중첩 가능"},
+                {"name": "s-이동", "latex": "\\mathcal{L}\\{e^{at}f(t)\\}=F(s-a)", "desc": "주파수 이동"},
+                {"name": "t-스케일링", "latex": "\\mathcal{L}\\{f(at)\\}=\\frac{1}{a}F\\!\\left(\\frac{s}{a}\\right)", "desc": "시간 스케일"},
+                {"name": "t-이동", "latex": "\\mathcal{L}\\{u(t-a)f(t-a)\\}=e^{-as}F(s)", "desc": "시간 지연"}
+              ]
+            },
+            {
+              "type": "formula-grid",
+              "title": "미분·적분 성질",
+              "cols": 2,
+              "items": [
+                {"name": "1계 도함수", "latex": "\\mathcal{L}\\{f'\\}=sF(s)-f(0^-)", "desc": "초기값 포함"},
+                {"name": "n계 도함수", "latex": "\\mathcal{L}\\{f^{(n)}\\}=s^nF-s^{n-1}f(0)-\\cdots-f^{(n-1)}(0)", "desc": "n계 도함수"},
+                {"name": "적분", "latex": "\\mathcal{L}\\left\\{\\int_0^t f\\,d\\tau\\right\\}=\\frac{F(s)}{s}", "desc": "적분 → s 나눗셈"},
+                {"name": "t 곱셈", "latex": "\\mathcal{L}\\{t^n f(t)\\}=(-1)^n F^{(n)}(s)", "desc": "s 미분"}
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch02-s02",
+          "title": "합성곱 정리",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "합성곱 정리 (Convolution Theorem)",
+              "statement": "두 함수의 합성곱의 라플라스 변환은 각 변환의 곱과 같다.",
+              "latex": "\\mathcal{L}\\{f * g\\} = F(s)\\cdot G(s),\\quad (f*g)(t)=\\int_0^t f(\\tau)g(t-\\tau)\\,d\\tau"
+            },
+            {
+              "type": "example",
+              "title": "합성곱 적분 계산",
+              "problem": "ℒ⁻¹{1/(s²(s+1))}을 합성곱으로 구하라.",
+              "solution": "F(s)=1/s², G(s)=1/(s+1)\nf(t)=t, g(t)=e^{-t}\n(f*g)(t)=∫₀ᵗ τ·e^{-(t-τ)}dτ\n= e^{-t}∫₀ᵗ τe^τdτ = e^{-t}[(τ-1)eτ]₀ᵗ\n= e^{-t}((t-1)eᵗ+1) = t-1+e^{-t}",
+              "answer": "t - 1 + e^{-t}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-inverse",
+      "number": 3,
+      "title": "역라플라스 변환",
+      "subtitle": "Inverse Laplace Transform",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "부분분수 분해",
+          "content": [
+            {
+              "type": "definition",
+              "term": "역라플라스 변환",
+              "latex": "f(t) = \\mathcal{L}^{-1}\\{F(s)\\} = \\frac{1}{2\\pi j}\\int_{c-j\\infty}^{c+j\\infty}e^{st}F(s)\\,ds",
+              "body": "브롬위치 적분(복소 선적분). 실용적으로는 부분분수 분해 후 변환표를 역으로 이용한다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "부분분수 분해 패턴",
+              "cols": 2,
+              "items": [
+                {"name": "단순 실수 극", "latex": "\\frac{A}{s-a} \\to Ae^{at}", "desc": "단순 극"},
+                {"name": "중복 극", "latex": "\\frac{A}{(s-a)^n} \\to \\frac{A}{(n-1)!}t^{n-1}e^{at}", "desc": "n중 극"},
+                {"name": "복소 극쌍", "latex": "\\frac{As+B}{s^2+\\omega^2} \\to A\\cos\\omega t+\\frac{B}{\\omega}\\sin\\omega t", "desc": "순허수 극"},
+                {"name": "감쇠 복소 극", "latex": "\\frac{As+B}{(s-\\alpha)^2+\\beta^2}", "desc": "e^{αt}(…cosβt+…sinβt)"}
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch03-s02",
+          "title": "헤비사이드 전개 정리",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "헤비사이드 커버업 법",
+              "statement": "F(s)=N(s)/D(s)에서 단순 극 s=aₖ의 유수(residue)는 (s-aₖ)F(s)|_{s=aₖ}이다.",
+              "latex": "A_k = \\lim_{s \\to a_k}(s-a_k)F(s)"
+            },
+            {
+              "type": "example",
+              "title": "부분분수 분해 풀이",
+              "problem": "F(s) = (2s+3)/((s+1)(s+2))의 역변환",
+              "solution": "F(s)=A/(s+1)+B/(s+2)\nA=(2(-1)+3)=1, B=(2(-2)+3)=-1\nF(s)=1/(s+1)-1/(s+2)",
+              "answer": "f(t) = e^{-t} - e^{-2t}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-ode-solving",
+      "number": 4,
+      "title": "ODE 풀이 응용",
+      "subtitle": "Solving ODEs with Laplace Transform",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "초기값 문제 풀이",
+          "content": [
+            {
+              "type": "example",
+              "title": "2계 ODE IVP",
+              "problem": "y'' + 4y' + 4y = t·e^{-2t}, y(0)=0, y'(0)=1",
+              "solution": "(s²+4s+4)Y(s)-1 = 1/(s+2)²\n(s+2)²Y = 1/(s+2)² + 1\nY = 1/(s+2)⁴ + 1/(s+2)²\ny = t³e^{-2t}/6 + te^{-2t}",
+              "answer": "y = e^{-2t}(t³/6 + t)"
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "초기조건 자동 처리",
+              "body": "라플라스 변환의 가장 큰 장점: 미분 연산을 s 곱셈으로 변환하면서 초기조건이 자동으로 대수방정식에 포함된다. 미정계수법처럼 yₕ+yₚ를 따로 구할 필요 없이 Y(s)를 한 번에 구한다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-discontinuous",
+      "number": 5,
+      "title": "불연속 입력과 임펄스",
+      "subtitle": "Discontinuous and Impulse Inputs",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "단위계단·임펄스 응답",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "특수 입력 함수",
+              "cols": 2,
+              "items": [
+                {"name": "단위계단", "latex": "\\mathcal{L}\\{u(t-a)\\}=\\frac{e^{-as}}{s}", "desc": "Heaviside"},
+                {"name": "디랙 델타", "latex": "\\mathcal{L}\\{\\delta(t-a)\\}=e^{-as}", "desc": "충격 함수"},
+                {"name": "단위 램프", "latex": "\\mathcal{L}\\{t\\cdot u(t)\\}=\\frac{1}{s^2}", "desc": "선형 증가"},
+                {"name": "사각파", "latex": "\\mathcal{L}\\{f\\}=\\frac{1}{1-e^{-Ts}}\\int_0^T e^{-st}f(t)dt", "desc": "주기 T 함수"}
+              ]
+            },
+            {
+              "type": "example",
+              "title": "불연속 입력 IVP",
+              "problem": "y''+y = u(t-π), y(0)=0, y'(0)=0",
+              "solution": "(s²+1)Y = e^{-πs}/s\nY = e^{-πs}/(s(s²+1)) = e^{-πs}[1/s - s/(s²+1)]\ny = u(t-π)[1-cos(t-π)] = u(t-π)(1+cos t)",
+              "answer": "y = u(t-π)(1+cos t)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-systems-control",
+      "number": 6,
+      "title": "시스템과 전달함수",
+      "subtitle": "Systems and Transfer Functions",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "전달함수",
+          "content": [
+            {
+              "type": "definition",
+              "term": "전달함수 (Transfer Function)",
+              "latex": "H(s) = \\frac{Y(s)}{U(s)} = \\frac{\\text{출력의 라플라스}}{\\text{입력의 라플라스}}\\bigg|_{\\text{초기값}=0}",
+              "body": "선형 시불변(LTI) 시스템의 입출력 관계를 s-영역에서 표현. 시스템의 고유한 특성을 나타낸다."
+            },
+            {
+              "type": "formula",
+              "name": "임펄스 응답과 전달함수",
+              "latex": "H(s) = \\mathcal{L}\\{h(t)\\},\\quad y(t) = h(t)*u(t)",
+              "description": "h(t): 임펄스 응답. 합성곱 정리에 의해 출력=임펄스응답*입력"
+            },
+            {
+              "type": "table",
+              "title": "표준 2차 시스템",
+              "headers": ["파라미터", "기호", "의미"],
+              "rows": [
+                ["자연진동수", "ωₙ", "√(k/m) 또는 1/√(LC)"],
+                ["감쇠비", "ζ", "c/(2√(km)) 또는 R/(2)√(C/L)"],
+                ["전달함수", "H(s)", "ωₙ²/(s²+2ζωₙs+ωₙ²)"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-stability",
+      "number": 7,
+      "title": "안정성 분석",
+      "subtitle": "Stability Analysis",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "극점과 안정성",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "BIBO 안정성",
+              "statement": "LTI 시스템이 BIBO(Bounded-Input Bounded-Output) 안정이려면 전달함수 H(s)의 모든 극점이 s-평면의 좌반평면(Re(s)<0)에 있어야 한다.",
+              "latex": "\\text{안정} \\iff \\text{모든 극점 } p_k : \\text{Re}(p_k) < 0"
+            },
+            {
+              "type": "theorem",
+              "name": "라우스-후르비츠 판별법",
+              "statement": "특성다항식 D(s)=aₙsⁿ+…+a₀의 모든 근이 좌반평면에 있을 조건을 라우스 배열로 확인한다.",
+              "latex": "D(s) = a_n s^n + a_{n-1}s^{n-1} + \\cdots + a_0"
+            },
+            {
+              "type": "example",
+              "title": "라우스 판별법",
+              "problem": "D(s)=s³+2s²+3s+6이 안정한지 판별하라.",
+              "solution": "라우스 배열:\nRow1: 1  3\nRow2: 2  6\nRow3: (2·3-1·6)/2=0 → 경계\n1열: 1,2,0 → 부호변화 없으나 0행 → 임계 안정",
+              "answer": "임계 안정 (허수축에 극점 존재)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-partial-fractions-advanced",
+      "number": 8,
+      "title": "고급 부분분수와 유수 정리",
+      "subtitle": "Advanced Partial Fractions and Residues",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "유수 정리를 이용한 역변환",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "유수 정리 (Residue Theorem)",
+              "statement": "F(s)의 극점 sₖ에서의 유수 Res[F(s)eˢᵗ, sₖ]의 합이 f(t)이다.",
+              "latex": "f(t) = \\sum_k \\text{Res}[F(s)e^{st},\\; s_k]"
+            },
+            {
+              "type": "formula",
+              "name": "n중 극에서의 유수",
+              "latex": "\\text{Res}[F(s)e^{st}, s_k] = \\frac{1}{(n-1)!}\\lim_{s\\to s_k}\\frac{d^{n-1}}{ds^{n-1}}[(s-s_k)^n F(s)e^{st}]",
+              "description": "n중 극점에서의 유수 계산"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-periodic",
+      "number": 9,
+      "title": "주기 함수와 라플라스",
+      "subtitle": "Periodic Functions",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "주기 함수의 변환",
+          "content": [
+            {
+              "type": "formula",
+              "name": "주기 함수의 라플라스 변환",
+              "latex": "\\mathcal{L}\\{f(t)\\} = \\frac{1}{1-e^{-sT}}\\int_0^T e^{-st}f(t)\\,dt",
+              "description": "T: 주기. 한 주기의 적분으로 전체 표현 가능."
+            },
+            {
+              "type": "example",
+              "title": "구형파의 라플라스 변환",
+              "problem": "주기 T=2, [0,1)에서 1, [1,2)에서 -1인 구형파의 ℒ을 구하라.",
+              "solution": "∫₀²e^{-st}f(t)dt = ∫₀¹e^{-st}dt - ∫₁²e^{-st}dt\n= (1-e^{-s})/s - (e^{-s}-e^{-2s})/s = (1-e^{-s})²/s\nℒ{f} = (1-e^{-s})²/(s(1-e^{-2s})) = (1-e^{-s})/(s(1+e^{-s}))",
+              "answer": "F(s) = (1-e^{-s})/(s(1+e^{-s})) = tanh(s/2)/s"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-integral-equations",
+      "number": 10,
+      "title": "적분방정식",
+      "subtitle": "Integral Equations",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "볼테라 적분방정식",
+          "content": [
+            {
+              "type": "definition",
+              "term": "볼테라 적분방정식 (2종)",
+              "latex": "f(t) = g(t) + \\lambda\\int_0^t K(t-\\tau)f(\\tau)\\,d\\tau",
+              "body": "합성곱 형태의 적분방정식. 라플라스 변환으로 대수방정식으로 변환하여 풀 수 있다."
+            },
+            {
+              "type": "example",
+              "title": "적분방정식 풀기",
+              "problem": "f(t) = sin t + ∫₀ᵗ f(τ)cos(t-τ)dτ",
+              "solution": "ℒ: F = 1/(s²+1) + F·s/(s²+1)\nF(1-s/(s²+1)) = 1/(s²+1)\nF·(s²+1-s)/(s²+1) = 1/(s²+1)\nF = 1/(s²-s+1)",
+              "answer": "f(t) = ℒ⁻¹{1/(s²-s+1)} = (2/√3)e^{t/2}sin(√3t/2)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-multidim",
+      "number": 11,
+      "title": "다변수·연립 시스템",
+      "subtitle": "Multi-variable Systems",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "연립 ODE의 라플라스 풀이",
+          "content": [
+            {
+              "type": "example",
+              "title": "연립 IVP 라플라스 풀이",
+              "problem": "x'=x+y, y'=-x+y, x(0)=1, y(0)=0",
+              "solution": "sX-1 = X+Y → (s-1)X-Y=1\nsY = -X+Y → X+(s-1-... wait\n(s-1)X - Y = 1\nX - (s-1)Y = 0 → X=(s-1)Y\n(s-1)²Y-Y=1 → Y=1/((s-1)²-1)\n(s-1)X = (s-1)·(s-1)/((s-1)²-1)",
+              "answer": "x=e^t cosh t, y=e^t sinh t"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-z-transform",
+      "number": 12,
+      "title": "Z 변환과 이산 시스템",
+      "subtitle": "Z-Transform and Discrete Systems",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "Z 변환",
+          "content": [
+            {
+              "type": "definition",
+              "term": "Z 변환",
+              "latex": "\\mathcal{Z}\\{x[n]\\} = X(z) = \\sum_{n=0}^{\\infty} x[n]z^{-n}",
+              "body": "이산 시간 신호에서의 라플라스 변환 대응. z=e^{sT} (T: 표본 주기)."
+            },
+            {
+              "type": "table",
+              "title": "Z 변환 쌍",
+              "headers": ["x[n]", "X(z)", "ROC"],
+              "rows": [
+                ["δ[n]", "1", "모든 z"],
+                ["u[n]", "z/(z-1)", "|z|>1"],
+                ["aⁿu[n]", "z/(z-a)", "|z|>|a|"],
+                ["nˑaⁿu[n]", "az/(z-a)²", "|z|>|a|"],
+                ["cos(Ωn)u[n]", "(z²-z cosΩ)/(z²-2z cosΩ+1)", "|z|>1"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "🔄",
+              "title": "라플라스 ↔ Z 변환 대응",
+              "body": "라플라스 변환이 연속 시스템의 도구라면, Z 변환은 디지털 필터와 이산 제어 시스템의 도구다. s-평면의 좌반평면이 z-평면의 단위원 내부에 대응되며, 안정성 조건도 유사하게 적용된다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

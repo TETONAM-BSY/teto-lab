@@ -1,0 +1,462 @@
+{
+  "id": "pde",
+  "title": "편미분방정식",
+  "subtitle": "Partial Differential Equations",
+  "chapters": [
+    {
+      "id": "ch01-intro",
+      "number": 1,
+      "title": "편미분방정식 개론",
+      "subtitle": "Introduction to PDEs",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "PDE의 분류",
+          "content": [
+            {
+              "type": "definition",
+              "term": "편미분방정식 (PDE)",
+              "latex": "F(x, y, u, u_x, u_y, u_{xx}, u_{xy}, u_{yy}, \\ldots) = 0",
+              "body": "둘 이상의 독립변수에 대한 종속변수 u의 편도함수들로 이루어진 방정식."
+            },
+            {
+              "type": "table",
+              "title": "2계 선형 PDE의 분류",
+              "headers": ["유형", "조건", "대표 방정식", "물리적 의미"],
+              "rows": [
+                ["쌍곡형 (Hyperbolic)", "B²-4AC>0", "파동방정식 uₜₜ=c²uₓₓ", "파동 전파"],
+                ["포물형 (Parabolic)", "B²-4AC=0", "열방정식 uₜ=kuₓₓ", "확산"],
+                ["타원형 (Elliptic)", "B²-4AC<0", "라플라스 방정식 ∇²u=0", "정상 상태"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "2계 선형 PDE 일반형",
+              "latex": "Au_{xx} + Bu_{xy} + Cu_{yy} + Du_x + Eu_y + Fu = G",
+              "description": "판별식 Δ=B²-4AC로 유형 결정"
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "경계조건의 종류",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "경계조건 종류",
+              "cols": 2,
+              "items": [
+                {"name": "디리클레 조건", "latex": "u = g \\text{ on } \\partial\\Omega", "desc": "경계에서 함수값 지정"},
+                {"name": "노이만 조건", "latex": "\\frac{\\partial u}{\\partial n} = g \\text{ on } \\partial\\Omega", "desc": "경계에서 법선 도함수 지정"},
+                {"name": "로빈 조건", "latex": "\\alpha u + \\beta\\frac{\\partial u}{\\partial n} = g", "desc": "혼합 조건"},
+                {"name": "초기 조건", "latex": "u(x,0)=f(x),\\; u_t(x,0)=g(x)", "desc": "시간 발전 문제"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-wave",
+      "number": 2,
+      "title": "파동방정식",
+      "subtitle": "Wave Equation",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "1차원 파동방정식",
+          "content": [
+            {
+              "type": "formula",
+              "name": "1D 파동방정식",
+              "latex": "\\frac{\\partial^2 u}{\\partial t^2} = c^2 \\frac{\\partial^2 u}{\\partial x^2}",
+              "description": "c: 파속. 진동하는 줄, 음파, 전자기파 등을 기술."
+            },
+            {
+              "type": "theorem",
+              "name": "달랑베르 해 (D'Alembert's Solution)",
+              "statement": "초기조건 u(x,0)=f(x), uₜ(x,0)=g(x)에서 파동방정식의 일반해",
+              "latex": "u(x,t) = \\frac{f(x+ct)+f(x-ct)}{2} + \\frac{1}{2c}\\int_{x-ct}^{x+ct}g(s)\\,ds"
+            },
+            {
+              "type": "analogy",
+              "emoji": "〰️",
+              "title": "좌행파·우행파",
+              "body": "달랑베르 해의 f(x+ct)는 좌행파(속도 -c), f(x-ct)는 우행파(속도 +c). 두 파가 중첩되어 정재파(standing wave)를 만들기도 한다."
+            }
+          ]
+        },
+        {
+          "id": "ch02-s02",
+          "title": "변수분리법으로 푸는 파동방정식",
+          "content": [
+            {
+              "type": "formula",
+              "name": "변수분리법 해",
+              "latex": "u(x,t) = \\sum_{n=1}^{\\infty}\\sin\\frac{n\\pi x}{L}\\left(A_n\\cos\\frac{n\\pi ct}{L}+B_n\\sin\\frac{n\\pi ct}{L}\\right)",
+              "description": "고정 경계 u(0,t)=u(L,t)=0 조건"
+            },
+            {
+              "type": "example",
+              "title": "진동하는 줄",
+              "problem": "u_tt=4u_xx, u(0,t)=u(π,t)=0, u(x,0)=sin x, u_t(x,0)=0",
+              "solution": "c=2, 변수분리\nu(x,t)=Σ sin(nx)(Aₙcos2nt+Bₙsin2nt)\nu(x,0)=sin x → A₁=1, 나머지=0\nu_t(x,0)=0 → Bₙ=0",
+              "answer": "u(x,t) = sin x · cos 2t"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-heat",
+      "number": 3,
+      "title": "열방정식",
+      "subtitle": "Heat Equation",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "1차원 열방정식",
+          "content": [
+            {
+              "type": "formula",
+              "name": "열방정식",
+              "latex": "\\frac{\\partial u}{\\partial t} = k\\nabla^2 u",
+              "description": "k: 열확산율 (=열전도율/(밀도×비열)). 열·확산·브라운 운동 등 기술."
+            },
+            {
+              "type": "formula",
+              "name": "열방정식 해 (0<x<L, 양 끝 고정)",
+              "latex": "u(x,t) = \\sum_{n=1}^{\\infty} b_n \\sin\\frac{n\\pi x}{L} e^{-k(n\\pi/L)^2 t}",
+              "description": "초기 온도 분포 f(x)의 푸리에 사인 급수로 bₙ 결정"
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "열방정식의 특징",
+              "body": "시간이 지남에 따라 고주파 성분(큰 n)이 지수적으로 빠르게 감쇠 → 초기 불규칙한 온도 분포가 평균화됨. 비가역적 과정을 수학적으로 표현."
+            }
+          ]
+        },
+        {
+          "id": "ch03-s02",
+          "title": "비제차 열방정식",
+          "content": [
+            {
+              "type": "formula",
+              "name": "내부 열원이 있는 경우",
+              "latex": "u_t = k u_{xx} + Q(x,t)",
+              "description": "Q(x,t): 단위 부피당 열 발생률. 고유함수 전개로 풀이."
+            },
+            {
+              "type": "formula",
+              "name": "정상 상태 + 과도 상태 분해",
+              "latex": "u = u_{\\text{steady}} + v(x,t)",
+              "description": "u_steady: ODE로 결정, v: 제차 PDE로 결정"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-laplace",
+      "number": 4,
+      "title": "라플라스 방정식",
+      "subtitle": "Laplace's Equation",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "조화함수",
+          "content": [
+            {
+              "type": "definition",
+              "term": "라플라스 방정식",
+              "latex": "\\nabla^2 u = \\frac{\\partial^2 u}{\\partial x^2} + \\frac{\\partial^2 u}{\\partial y^2} = 0",
+              "body": "정상상태 온도, 중력·전기 퍼텐셜, 비압축성 유동의 속도 퍼텐셜 등 물리학 전반에 등장."
+            },
+            {
+              "type": "theorem",
+              "name": "최대-최소 원리",
+              "statement": "유계 영역에서 조화함수(라플라스 방정식 해)의 최대값과 최소값은 반드시 경계에서 달성된다.",
+              "latex": "\\max_{\\Omega} u = \\max_{\\partial\\Omega} u"
+            },
+            {
+              "type": "theorem",
+              "name": "평균값 성질",
+              "statement": "조화함수의 한 점에서의 값은 그 점을 중심으로 하는 임의의 원(구) 위에서의 평균값과 같다.",
+              "latex": "u(x_0,y_0) = \\frac{1}{2\\pi r}\\oint_{|\\mathbf{r}|=r} u\\,ds"
+            }
+          ]
+        },
+        {
+          "id": "ch04-s02",
+          "title": "원형·구형 영역",
+          "content": [
+            {
+              "type": "formula",
+              "name": "원형 영역의 디리클레 문제 (포아송 공식)",
+              "latex": "u(r,\\theta) = \\frac{a^2-r^2}{2\\pi}\\int_0^{2\\pi}\\frac{f(\\phi)}{a^2-2ar\\cos(\\theta-\\phi)+r^2}\\,d\\phi",
+              "description": "a: 원 반지름, f(φ): 경계값"
+            },
+            {
+              "type": "formula",
+              "name": "극좌표 라플라스 방정식 해",
+              "latex": "u(r,\\theta) = \\frac{A_0}{2} + \\sum_{n=1}^{\\infty}r^n(A_n\\cos n\\theta + B_n\\sin n\\theta)",
+              "description": "r<a 내부 해. r>a 외부는 r^{-n} 사용."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-separation",
+      "number": 5,
+      "title": "변수분리법",
+      "subtitle": "Separation of Variables",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "변수분리의 원리",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "변수분리법 절차",
+              "title": "변수분리법 단계",
+              "body": "<b>Step 1:</b> u=X(x)T(t) 가정<br><b>Step 2:</b> 대입하여 각 변수의 방정식으로 분리<br><b>Step 3:</b> 분리 상수 -λ 도입 (고유값 문제)<br><b>Step 4:</b> 경계조건으로 허용 가능한 λₙ과 Xₙ 결정<br><b>Step 5:</b> 중첩 원리로 일반해 구성<br><b>Step 6:</b> 초기조건으로 계수 결정"
+            },
+            {
+              "type": "formula",
+              "name": "고유값 문제",
+              "latex": "X'' + \\lambda X = 0,\\; X(0)=X(L)=0 \\Rightarrow \\lambda_n = \\left(\\frac{n\\pi}{L}\\right)^2,\\; X_n = \\sin\\frac{n\\pi x}{L}",
+              "description": "가장 기본적인 스터름-리우빌 고유값 문제"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-fourier-method",
+      "number": 6,
+      "title": "푸리에 변환법",
+      "subtitle": "Fourier Transform Method",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "무한 영역의 PDE",
+          "content": [
+            {
+              "type": "example",
+              "title": "무한 직선 위의 열방정식",
+              "problem": "uₜ=kuₓₓ, -∞<x<∞, u(x,0)=f(x)",
+              "solution": "x에 대해 푸리에 변환: dÛ/dt = -kω²Û\nÛ(ω,t) = F(ω)e^{-kω²t}\nu(x,t) = F⁻¹{F(ω)e^{-kω²t}}\n합성곱: u = f * G, G=가우시안 핵",
+              "answer": "u(x,t) = (1/√(4πkt))∫f(y)e^{-(x-y)²/(4kt)}dy"
+            },
+            {
+              "type": "formula",
+              "name": "열핵 (Heat Kernel)",
+              "latex": "G(x,t) = \\frac{1}{\\sqrt{4\\pi kt}}e^{-x^2/(4kt)}",
+              "description": "가우시안 핵. 시간이 지날수록 넓어지며 열 확산 표현."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-greens-function",
+      "number": 7,
+      "title": "그린 함수법",
+      "subtitle": "Green's Function Method",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "그린 함수",
+          "content": [
+            {
+              "type": "definition",
+              "term": "그린 함수",
+              "latex": "\\nabla^2 G(\\mathbf{x},\\mathbf{x}_0) = -\\delta(\\mathbf{x}-\\mathbf{x}_0)",
+              "body": "점 소스 x₀에서의 라플라스 방정식 해. 임의의 소스 분포에 대한 해를 중첩으로 구성."
+            },
+            {
+              "type": "formula",
+              "name": "3D 자유 공간 그린 함수",
+              "latex": "G(\\mathbf{x},\\mathbf{x}_0) = \\frac{1}{4\\pi|\\mathbf{x}-\\mathbf{x}_0|}",
+              "description": "쿨롱 퍼텐셜과 동일. 전자기학과 직접 연결."
+            },
+            {
+              "type": "formula",
+              "name": "비제차 PDE의 해",
+              "latex": "u(\\mathbf{x}) = \\int_\\Omega G(\\mathbf{x},\\mathbf{x}_0)f(\\mathbf{x}_0)\\,dV_0 + \\text{경계항}",
+              "description": "그린 함수로 비제차 문제의 해를 적분으로 표현"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-characteristics",
+      "number": 8,
+      "title": "특성선법",
+      "subtitle": "Method of Characteristics",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "1계 PDE와 특성선",
+          "content": [
+            {
+              "type": "formula",
+              "name": "1계 선형 PDE",
+              "latex": "a(x,y)u_x + b(x,y)u_y = c(x,y,u)",
+              "description": "특성선: dx/a = dy/b = du/c를 따라 해가 전파됨"
+            },
+            {
+              "type": "example",
+              "title": "이류 방정식",
+              "problem": "uₜ + cu_x = 0, u(x,0)=f(x)",
+              "solution": "특성선: dx/dt=c, x-ct=const\nu는 특성선을 따라 일정\nu(x,t) = f(x-ct)",
+              "answer": "u(x,t) = f(x-ct) (오른쪽으로 속도 c의 이동파)"
+            },
+            {
+              "type": "formula",
+              "name": "버거스 방정식 (비선형)",
+              "latex": "u_t + u u_x = 0",
+              "description": "비선형 이류. 특성선이 교차하면 충격파(shock wave) 형성."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-numerical-pde",
+      "number": 9,
+      "title": "PDE 수치해법",
+      "subtitle": "Numerical Methods for PDEs",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "유한차분법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "유한차분 근사",
+              "latex": "u_x \\approx \\frac{u_{i+1}-u_{i-1}}{2\\Delta x},\\quad u_{xx} \\approx \\frac{u_{i+1}-2u_i+u_{i-1}}{(\\Delta x)^2}",
+              "description": "중심 차분. O(Δx²) 정확도."
+            },
+            {
+              "type": "formula",
+              "name": "열방정식 FTCS 스킴",
+              "latex": "u_i^{n+1} = u_i^n + r(u_{i+1}^n - 2u_i^n + u_{i-1}^n),\\quad r=\\frac{k\\Delta t}{(\\Delta x)^2}",
+              "description": "Forward Time Centered Space. r≤1/2이면 안정."
+            },
+            {
+              "type": "table",
+              "title": "수치 기법 비교",
+              "headers": ["방법", "정확도", "안정 조건", "특징"],
+              "rows": [
+                ["FTCS (명시)", "O(Δt,Δx²)", "r≤1/2", "간단, 조건부 안정"],
+                ["Crank-Nicolson (암시)", "O(Δt²,Δx²)", "무조건 안정", "연립방정식 필요"],
+                ["유한요소법 (FEM)", "O(h^k)", "문제 의존", "복잡한 영역에 적합"],
+                ["유한체적법 (FVM)", "보존 법칙", "문제 의존", "유체역학 표준"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-nonlinear-pde",
+      "number": 10,
+      "title": "비선형 PDE",
+      "subtitle": "Nonlinear PDEs",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "주요 비선형 PDE",
+          "content": [
+            {
+              "type": "formula",
+              "name": "KdV 방정식",
+              "latex": "u_t - 6uu_x + u_{xxx} = 0",
+              "description": "솔리톤(soliton) 파동 해 존재. 비선형 분산과 확산의 균형."
+            },
+            {
+              "type": "formula",
+              "name": "비선형 슈뢰딩거 방정식",
+              "latex": "i u_t + u_{xx} + |u|^2 u = 0",
+              "description": "광섬유 통신, 보즈-아인슈타인 응집체 모델링"
+            },
+            {
+              "type": "definition",
+              "term": "솔리톤 (Soliton)",
+              "body": "비선형성과 분산이 균형을 이루어 형태를 유지하며 전파하는 파동. 충돌 후에도 형태 보존. 광섬유 통신에서 응용."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-distributions",
+      "number": 11,
+      "title": "분포론과 약한 해",
+      "subtitle": "Distribution Theory and Weak Solutions",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "분포와 약한 해",
+          "content": [
+            {
+              "type": "definition",
+              "term": "약한 해 (Weak Solution)",
+              "latex": "\\int_\\Omega u\\,L^*\\phi\\,dV = \\int_\\Omega f\\phi\\,dV \\quad \\forall\\phi \\in C_0^\\infty",
+              "body": "고전적 해가 존재하지 않을 때 시험함수(test function) φ와의 내적으로 해 개념 확장. 충격파, 불연속 해 기술 가능."
+            },
+            {
+              "type": "definition",
+              "term": "소볼레프 공간",
+              "latex": "W^{k,p}(\\Omega) = \\{u : D^\\alpha u \\in L^p(\\Omega),\\; |\\alpha|\\leq k\\}",
+              "body": "약도함수가 Lᵖ에 속하는 함수들의 공간. 현대 PDE 이론의 기반."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "유체·구조·전자기",
+          "content": [
+            {
+              "type": "formula",
+              "name": "나비에-스토크스 방정식",
+              "latex": "\\rho\\left(\\frac{\\partial\\mathbf{v}}{\\partial t}+(\\mathbf{v}\\cdot\\nabla)\\mathbf{v}\\right) = -\\nabla p + \\mu\\nabla^2\\mathbf{v}+\\mathbf{f}",
+              "description": "점성 유체 운동. 난류 해석의 최전선."
+            },
+            {
+              "type": "formula",
+              "name": "맥스웰 방정식 (PDE 형태)",
+              "latex": "\\nabla\\times\\mathbf{E} = -\\frac{\\partial\\mathbf{B}}{\\partial t},\\quad \\nabla\\times\\mathbf{H} = \\mathbf{J}+\\frac{\\partial\\mathbf{D}}{\\partial t}",
+              "description": "전자기파는 파동방정식, 정자기장은 라플라스 방정식으로 귀결"
+            },
+            {
+              "type": "formula",
+              "name": "탄성체 파동방정식",
+              "latex": "\\rho\\ddot{\\mathbf{u}} = (\\lambda+\\mu)\\nabla(\\nabla\\cdot\\mathbf{u})+\\mu\\nabla^2\\mathbf{u}",
+              "description": "λ,μ: 라메 상수. 지진파, 초음파 검사에 응용."
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "PDE 선택 가이드",
+              "body": "<b>파동형:</b> 파동 전파, 음향, 전자기 → 파동방정식<br><b>포물형:</b> 열전달, 확산, 블랙-숄즈 옵션 → 열방정식<br><b>타원형:</b> 정전기, 중력 퍼텐셜, 정상 유동 → 라플라스/포아송"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
