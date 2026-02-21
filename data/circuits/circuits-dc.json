@@ -1,0 +1,493 @@
+{
+  "id": "circuits-dc",
+  "title": "회로이론 기초",
+  "subtitle": "DC Circuit Theory",
+  "chapters": [
+    {
+      "id": "ch01-basic-concepts",
+      "number": 1,
+      "title": "전기 기본 개념",
+      "subtitle": "Basic Electrical Concepts",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "전하·전류·전압",
+          "content": [
+            {
+              "type": "definition",
+              "term": "전하 (Electric Charge)",
+              "latex": "q,\\quad [\\text{C: 쿨롱}]",
+              "body": "물질의 기본 전기적 성질. 전자 1개의 전하량 e=1.602×10⁻¹⁹ C. 같은 부호끼리 반발, 다른 부호끼리 흡인."
+            },
+            {
+              "type": "formula",
+              "name": "전류 (Current)",
+              "latex": "i = \\frac{dq}{dt},\\quad [\\text{A: 암페어}]",
+              "description": "단위 시간당 흐르는 전하량. 관습적으로 양전하 이동 방향을 전류 방향으로 정의."
+            },
+            {
+              "type": "formula",
+              "name": "전압 (Voltage)",
+              "latex": "v_{ab} = \\frac{dw}{dq},\\quad [\\text{V: 볼트}]",
+              "description": "단위 전하를 a→b로 이동시키는 데 필요한 에너지. 전위차(potential difference)."
+            },
+            {
+              "type": "formula",
+              "name": "전력 (Power)",
+              "latex": "p = vi = \\frac{dw}{dt},\\quad [\\text{W: 와트}]",
+              "description": "단위 시간당 소비 또는 공급 에너지. p>0: 소비, p<0: 공급."
+            },
+            {
+              "type": "formula",
+              "name": "에너지",
+              "latex": "w = \\int_{t_0}^{t} p\\,d\\tau = \\int_{t_0}^{t} vi\\,d\\tau,\\quad [\\text{J: 줄}]",
+              "description": "전력의 시간 적분"
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "회로 소자와 수동 부호 규약",
+          "content": [
+            {
+              "type": "definition",
+              "term": "수동 부호 규약 (Passive Sign Convention)",
+              "body": "전류가 소자의 (+)단자로 흘러 들어갈 때 p=vi>0이면 소자는 전력을 소비(수동 소자). 전류가 (+)에서 나오면 p=vi로 계산 시 음수 → 전력 공급(능동 소자)."
+            },
+            {
+              "type": "table",
+              "title": "기본 회로 소자",
+              "headers": ["소자", "기호", "관계식", "단위"],
+              "rows": [
+                ["저항", "R", "v = iR (옴의 법칙)", "Ω (옴)"],
+                ["커패시터", "C", "i = C dv/dt", "F (패럿)"],
+                ["인덕터", "L", "v = L di/dt", "H (헨리)"],
+                ["독립 전압원", "Vs", "v = Vs (일정)", "-"],
+                ["독립 전류원", "Is", "i = Is (일정)", "-"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-ohms-kirchhoff",
+      "number": 2,
+      "title": "옴의 법칙과 키르히호프 법칙",
+      "subtitle": "Ohm's Law and Kirchhoff's Laws",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "옴의 법칙",
+          "content": [
+            {
+              "type": "formula",
+              "name": "옴의 법칙 (Ohm's Law)",
+              "latex": "v = iR,\\quad R = \\frac{\\rho l}{A}",
+              "description": "ρ: 비저항[Ω·m], l: 길이, A: 단면적. 선형 저항에서 성립."
+            },
+            {
+              "type": "formula-grid",
+              "title": "저항 관련 공식",
+              "cols": 2,
+              "items": [
+                {"name": "컨덕턴스", "latex": "G = \\frac{1}{R},\\quad [\\text{S: 지멘스}]", "desc": "저항의 역수"},
+                {"name": "전력 소비", "latex": "p = i^2R = \\frac{v^2}{R} = vi", "desc": "저항에서의 전력"},
+                {"name": "직렬 합성", "latex": "R_{eq} = R_1+R_2+\\cdots+R_n", "desc": "직렬 저항"},
+                {"name": "병렬 합성", "latex": "\\frac{1}{R_{eq}}=\\frac{1}{R_1}+\\frac{1}{R_2}+\\cdots+\\frac{1}{R_n}", "desc": "병렬 저항"}
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch02-s02",
+          "title": "키르히호프 법칙",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "KCL (키르히호프 전류 법칙)",
+              "statement": "임의의 노드에서 들어오는 전류의 합은 나가는 전류의 합과 같다. (전하 보존 법칙)",
+              "latex": "\\sum_{k=1}^{n} i_k = 0 \\quad (\\text{노드에서})"
+            },
+            {
+              "type": "theorem",
+              "name": "KVL (키르히호프 전압 법칙)",
+              "statement": "임의의 폐루프에서 전압 강하의 합은 0이다. (에너지 보존 법칙)",
+              "latex": "\\sum_{k=1}^{n} v_k = 0 \\quad (\\text{폐루프에서})"
+            },
+            {
+              "type": "example",
+              "title": "KVL·KCL 적용",
+              "problem": "10V 전원, R₁=2Ω, R₂=3Ω 직렬 회로에서 각 저항의 전압 구하기",
+              "solution": "KVL: 10 - v₁ - v₂ = 0\nKCL: i₁=i₂=i (직렬)\nv₁=iR₁=2i, v₂=iR₂=3i\n10=2i+3i → i=2A\nv₁=4V, v₂=6V",
+              "answer": "v₁=4V, v₂=6V"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-analysis-methods",
+      "number": 3,
+      "title": "회로 해석법",
+      "subtitle": "Circuit Analysis Methods",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "노드 전압법",
+          "content": [
+            {
+              "type": "definition",
+              "term": "노드 전압법 (Node Voltage Method)",
+              "body": "접지(기준 노드)에 대한 각 노드의 전압을 미지수로 설정. KCL을 각 노드에 적용하여 연립방정식 구성. n개 노드 → (n-1)개 방정식."
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "절차",
+              "title": "노드 전압법 풀이 순서",
+              "body": "1. 기준 노드(접지) 선택<br>2. 나머지 노드에 V₁, V₂,… 부여<br>3. 각 노드에 KCL 적용 (나가는 전류의 합=0)<br>4. 저항 가지: i=(V_node - V_adj)/R<br>5. 연립방정식 풀기"
+            }
+          ]
+        },
+        {
+          "id": "ch03-s02",
+          "title": "메쉬 전류법",
+          "content": [
+            {
+              "type": "definition",
+              "term": "메쉬 전류법 (Mesh Current Method)",
+              "body": "각 메쉬(독립 루프)에 순환 전류를 미지수로 설정. KVL을 각 메쉬에 적용. m개 메쉬 → m개 방정식. 평면 회로에만 적용."
+            },
+            {
+              "type": "example",
+              "title": "메쉬 전류법",
+              "problem": "두 메쉬 회로: V₁=12V, R₁=2Ω, R₂=4Ω(공유), R₃=6Ω, V₂=6V",
+              "solution": "메쉬1: 12-2I₁-4(I₁-I₂)=0 → 6I₁-4I₂=12\n메쉬2: -4(I₂-I₁)-6I₂-6=0 → -4I₁+10I₂=-6\n풀면: I₁=2A, I₂=0.5A",
+              "answer": "I₁=2A, I₂=0.5A"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-theorems",
+      "number": 4,
+      "title": "회로 정리",
+      "subtitle": "Circuit Theorems",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "중첩·테브난·노턴 정리",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "중첩 정리 (Superposition)",
+              "statement": "선형 회로에서 여러 독립 전원이 있을 때, 각 전원이 단독으로 작동할 때의 응답을 합산하면 전체 응답을 구할 수 있다.",
+              "latex": "v = v_1 + v_2 + \\cdots + v_n"
+            },
+            {
+              "type": "theorem",
+              "name": "테브난 정리 (Thévenin's Theorem)",
+              "statement": "임의의 선형 회로를 두 단자에서 보면 하나의 전압원 Vth와 직렬 저항 Rth로 등가 표현할 수 있다.",
+              "latex": "V_{th} = V_{oc},\\quad R_{th} = \\frac{V_{oc}}{I_{sc}}"
+            },
+            {
+              "type": "theorem",
+              "name": "노턴 정리 (Norton's Theorem)",
+              "statement": "임의의 선형 회로를 두 단자에서 보면 하나의 전류원 IN과 병렬 저항 RN으로 등가 표현할 수 있다.",
+              "latex": "I_N = I_{sc},\\quad R_N = R_{th},\\quad V_{th} = I_N R_N"
+            }
+          ]
+        },
+        {
+          "id": "ch04-s02",
+          "title": "최대 전력 전달",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "최대 전력 전달 정리",
+              "statement": "부하 저항 RL이 테브난 저항 Rth와 같을 때 부하에 최대 전력이 전달된다.",
+              "latex": "R_L = R_{th} \\Rightarrow P_{max} = \\frac{V_{th}^2}{4R_{th}}"
+            },
+            {
+              "type": "example",
+              "title": "최대 전력 전달",
+              "problem": "Vth=12V, Rth=4Ω일 때 최대 전력과 최적 RL 구하기",
+              "solution": "RL=Rth=4Ω\nPmax=Vth²/(4Rth)=144/16=9W",
+              "answer": "RL=4Ω, Pmax=9W"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-rc-rl",
+      "number": 5,
+      "title": "1차 RC·RL 회로",
+      "subtitle": "First-Order RC and RL Circuits",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "자연응답과 강제응답",
+          "content": [
+            {
+              "type": "formula",
+              "name": "RC 회로 자연응답",
+              "latex": "v(t) = V_0 e^{-t/\\tau},\\quad \\tau = RC",
+              "description": "τ: 시정수. 5τ 후 정상 상태 근접 (0.7% 이내)"
+            },
+            {
+              "type": "formula",
+              "name": "RL 회로 자연응답",
+              "latex": "i(t) = I_0 e^{-t/\\tau},\\quad \\tau = \\frac{L}{R}",
+              "description": "인덕터 초기 전류 I₀가 지수적으로 감쇠"
+            },
+            {
+              "type": "formula",
+              "name": "1차 회로 완전응답",
+              "latex": "x(t) = x(\\infty) + [x(0^+)-x(\\infty)]e^{-t/\\tau}",
+              "description": "초기값 x(0⁺), 최종값 x(∞), 시정수 τ만 알면 완전 응답 결정"
+            },
+            {
+              "type": "analogy",
+              "emoji": "⏱️",
+              "title": "시정수의 의미",
+              "body": "시정수 τ는 응답이 초기값의 36.8%(=1/e)로 감소하는 시간. RC에서는 커패시터 충·방전 속도, RL에서는 인덕터 전류 변화 속도를 결정한다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-rlc",
+      "number": 6,
+      "title": "2차 RLC 회로",
+      "subtitle": "Second-Order RLC Circuits",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "직렬 RLC 회로",
+          "content": [
+            {
+              "type": "formula",
+              "name": "직렬 RLC 특성방정식",
+              "latex": "s^2 + \\frac{R}{L}s + \\frac{1}{LC} = 0 \\Rightarrow s = -\\alpha \\pm \\sqrt{\\alpha^2 - \\omega_0^2}",
+              "description": "α=R/(2L): 감쇠계수, ω₀=1/√LC: 공진 각주파수"
+            },
+            {
+              "type": "table",
+              "title": "감쇠 특성에 따른 응답",
+              "headers": ["조건", "감쇠 유형", "응답 형태"],
+              "rows": [
+                ["α > ω₀", "과감쇠 (Overdamped)", "두 실수 지수의 합, 진동 없음"],
+                ["α = ω₀", "임계감쇠 (Critically Damped)", "(A+Bt)e^{-αt}, 가장 빠른 수렴"],
+                ["α < ω₀", "부족감쇠 (Underdamped)", "e^{-αt}(A cosωₐt+B sinωₐt), 진동"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "감쇠 진동 주파수",
+              "latex": "\\omega_d = \\sqrt{\\omega_0^2 - \\alpha^2}",
+              "description": "부족감쇠 시 실제 진동 주파수"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-op-amp",
+      "number": 7,
+      "title": "연산증폭기",
+      "subtitle": "Operational Amplifiers",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "이상적 연산증폭기",
+          "content": [
+            {
+              "type": "definition",
+              "term": "이상적 연산증폭기 (Ideal Op-Amp)",
+              "body": "① 무한대 개방 루프 이득 A→∞\n② 무한대 입력 임피던스 (i⁺=i⁻=0)\n③ 영 출력 임피던스\n④ 무한대 대역폭\n→ 부궤환 시: v⁺=v⁻ (가상 단락)"
+            },
+            {
+              "type": "formula-grid",
+              "title": "기본 연산증폭기 회로",
+              "cols": 2,
+              "items": [
+                {"name": "반전 증폭기", "latex": "v_o = -\\frac{R_f}{R_1}v_i", "desc": "입력 반전, 이득=Rf/R₁"},
+                {"name": "비반전 증폭기", "latex": "v_o = \\left(1+\\frac{R_f}{R_1}\\right)v_i", "desc": "이득=1+Rf/R₁"},
+                {"name": "전압 팔로워", "latex": "v_o = v_i", "desc": "이득=1, 버퍼용"},
+                {"name": "합산 증폭기", "latex": "v_o = -R_f\\left(\\frac{v_1}{R_1}+\\frac{v_2}{R_2}\\right)", "desc": "신호 합산"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-capacitor-inductor",
+      "number": 8,
+      "title": "커패시터와 인덕터",
+      "subtitle": "Capacitors and Inductors",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "에너지 저장 소자",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "커패시터 특성",
+              "cols": 2,
+              "items": [
+                {"name": "전류-전압 관계", "latex": "i = C\\frac{dv}{dt}", "desc": "전압 변화율에 비례"},
+                {"name": "저장 에너지", "latex": "w_C = \\frac{1}{2}Cv^2", "desc": "전기장 에너지"},
+                {"name": "직렬 합성", "latex": "\\frac{1}{C_{eq}}=\\frac{1}{C_1}+\\frac{1}{C_2}+\\cdots", "desc": "직렬"},
+                {"name": "병렬 합성", "latex": "C_{eq}=C_1+C_2+\\cdots", "desc": "병렬"}
+              ]
+            },
+            {
+              "type": "formula-grid",
+              "title": "인덕터 특성",
+              "cols": 2,
+              "items": [
+                {"name": "전압-전류 관계", "latex": "v = L\\frac{di}{dt}", "desc": "전류 변화율에 비례"},
+                {"name": "저장 에너지", "latex": "w_L = \\frac{1}{2}Li^2", "desc": "자기장 에너지"},
+                {"name": "직렬 합성", "latex": "L_{eq}=L_1+L_2+\\cdots", "desc": "직렬"},
+                {"name": "병렬 합성", "latex": "\\frac{1}{L_{eq}}=\\frac{1}{L_1}+\\frac{1}{L_2}+\\cdots", "desc": "병렬"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-network-topology",
+      "number": 9,
+      "title": "회로망 위상과 행렬해석",
+      "subtitle": "Network Topology and Matrix Analysis",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "그래프 이론과 회로망",
+          "content": [
+            {
+              "type": "formula",
+              "name": "회로망 독립 방정식 수",
+              "latex": "\\text{독립 KCL}: n-1,\\quad \\text{독립 KVL}: b-(n-1)",
+              "description": "n: 노드 수, b: 가지(branch) 수"
+            },
+            {
+              "type": "formula",
+              "name": "노드 어드미턴스 행렬",
+              "latex": "[Y][V] = [I] \\Rightarrow [V] = [Y]^{-1}[I]",
+              "description": "Y: 노드 어드미턴스 행렬, V: 노드 전압 벡터, I: 전류원 벡터"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-two-port",
+      "number": 10,
+      "title": "2포트 회로망",
+      "subtitle": "Two-Port Networks",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "2포트 파라미터",
+          "content": [
+            {
+              "type": "formula",
+              "name": "Z 파라미터 (임피던스)",
+              "latex": "\\begin{pmatrix}V_1\\\\V_2\\end{pmatrix}=\\begin{pmatrix}z_{11}&z_{12}\\\\z_{21}&z_{22}\\end{pmatrix}\\begin{pmatrix}I_1\\\\I_2\\end{pmatrix}",
+              "description": "개방 회로 파라미터"
+            },
+            {
+              "type": "formula",
+              "name": "Y 파라미터 (어드미턴스)",
+              "latex": "\\begin{pmatrix}I_1\\\\I_2\\end{pmatrix}=\\begin{pmatrix}y_{11}&y_{12}\\\\y_{21}&y_{22}\\end{pmatrix}\\begin{pmatrix}V_1\\\\V_2\\end{pmatrix}",
+              "description": "단락 회로 파라미터"
+            },
+            {
+              "type": "formula",
+              "name": "h 파라미터 (하이브리드)",
+              "latex": "\\begin{pmatrix}V_1\\\\I_2\\end{pmatrix}=\\begin{pmatrix}h_{11}&h_{12}\\\\h_{21}&h_{22}\\end{pmatrix}\\begin{pmatrix}I_1\\\\V_2\\end{pmatrix}",
+              "description": "트랜지스터 모델에 자주 사용"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-wye-delta",
+      "number": 11,
+      "title": "Y-Δ 변환과 브릿지 회로",
+      "subtitle": "Y-Δ Transform and Bridge Circuits",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "Y-Δ 변환",
+          "content": [
+            {
+              "type": "formula",
+              "name": "Δ→Y 변환",
+              "latex": "R_a = \\frac{R_{ab}R_{ca}}{R_{ab}+R_{bc}+R_{ca}}",
+              "description": "델타에서 와이로. 각 Y 저항 = 인접 두 Δ 저항의 곱 / Δ 저항 합"
+            },
+            {
+              "type": "formula",
+              "name": "Y→Δ 변환",
+              "latex": "R_{ab} = \\frac{R_a R_b + R_b R_c + R_c R_a}{R_c}",
+              "description": "와이에서 델타로. 각 Δ 저항 = Y 저항 쌍곱의 합 / 대면 Y 저항"
+            },
+            {
+              "type": "theorem",
+              "name": "휘트스톤 브릿지",
+              "statement": "R₁/R₂ = R₃/R₄ 조건에서 브릿지가 평형이 되어 검류계에 전류가 흐르지 않는다.",
+              "latex": "\\frac{R_1}{R_2} = \\frac{R_3}{R_4} \\Rightarrow V_G = 0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "센서·계측·전원 회로",
+          "content": [
+            {
+              "type": "formula",
+              "name": "전압 분배기 (Voltage Divider)",
+              "latex": "v_{out} = v_{in}\\cdot\\frac{R_2}{R_1+R_2}",
+              "description": "센서 신호 레벨 조정, 기준 전압 생성에 응용"
+            },
+            {
+              "type": "formula",
+              "name": "전류 분배기 (Current Divider)",
+              "latex": "i_k = i_{total}\\cdot\\frac{G_k}{G_1+G_2+\\cdots+G_n}",
+              "description": "병렬 가지에서 전류 분배. G=1/R"
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "DC 회로의 공학 응용",
+              "body": "• <b>전원 설계:</b> 선형 레귤레이터, 배터리 관리 시스템<br>• <b>센서 인터페이스:</b> 휘트스톤 브릿지로 미세 저항 변화 감지<br>• <b>바이어스 회로:</b> 트랜지스터 동작점 설정<br>• <b>신호 처리:</b> 적분기·미분기 (RC 회로 기반)"
+            },
+            {
+              "type": "analogy",
+              "emoji": "💡",
+              "title": "회로이론은 전기공학의 언어",
+              "body": "KCL은 노드에서의 전하 보존, KVL은 루프에서의 에너지 보존. 이 두 법칙과 소자 방정식만으로 모든 선형 회로를 완전히 기술할 수 있다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

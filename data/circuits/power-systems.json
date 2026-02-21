@@ -1,0 +1,449 @@
+{
+  "id": "power-systems",
+  "title": "전력공학",
+  "subtitle": "Power Systems Engineering",
+  "chapters": [
+    {
+      "id": "ch01-basics",
+      "number": 1,
+      "title": "전력 시스템 개론",
+      "subtitle": "Introduction to Power Systems",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "전력 시스템 구성",
+          "content": [
+            {
+              "type": "definition",
+              "term": "전력 시스템 (Power System)",
+              "body": "전기 에너지를 생산·전송·분배·소비하는 상호 연결된 시스템. 발전소 → 초고압 송전(345kV, 765kV) → 변전소 → 배전(22.9kV) → 수용가(220V/380V)."
+            },
+            {
+              "type": "table",
+              "title": "전력 시스템 전압 레벨",
+              "headers": ["구분", "전압 레벨", "용도"],
+              "rows": [
+                ["초고압 송전", "345kV, 765kV", "장거리 대용량 송전"],
+                ["고압 송전", "154kV", "권역 송전"],
+                ["배전", "22.9kV (3상 4선)", "도시·지역 배전"],
+                ["저압 배전", "220V/380V", "가정·소규모 산업"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "3상 전력",
+              "latex": "P = \\sqrt{3}V_L I_L \\cos\\theta,\\quad S = \\sqrt{3}V_L I_L",
+              "description": "3상 시스템 표준 전력 공식"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-per-unit",
+      "number": 2,
+      "title": "단위법 (Per-Unit System)",
+      "subtitle": "Per-Unit System",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "단위법의 정의와 장점",
+          "content": [
+            {
+              "type": "definition",
+              "term": "단위법 (Per-Unit)",
+              "latex": "x_{pu} = \\frac{x_{actual}}{x_{base}}",
+              "body": "기준값(base)으로 나눈 무차원 표현. 여러 전압 레벨의 시스템을 통일된 척도로 분석 가능."
+            },
+            {
+              "type": "formula-grid",
+              "title": "기준값 관계",
+              "cols": 2,
+              "items": [
+                {"name": "기준 전압", "latex": "V_{base}", "desc": "선간 전압 (kV)"},
+                {"name": "기준 전력", "latex": "S_{base}", "desc": "3상 피상전력 (MVA)"},
+                {"name": "기준 전류", "latex": "I_{base}=\\frac{S_{base}}{\\sqrt{3}V_{base}}", "desc": "선전류 (A)"},
+                {"name": "기준 임피던스", "latex": "Z_{base}=\\frac{V_{base}^2}{S_{base}}", "desc": "Ω"}
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "기준값 변환",
+              "latex": "Z_{pu,new} = Z_{pu,old}\\cdot\\frac{S_{base,new}}{S_{base,old}}\\cdot\\left(\\frac{V_{base,old}}{V_{base,new}}\\right)^2",
+              "description": "다른 기준값 체계 간의 변환 공식"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-transformer",
+      "number": 3,
+      "title": "변압기",
+      "subtitle": "Power Transformers",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "변압기 등가 회로",
+          "content": [
+            {
+              "type": "formula",
+              "name": "이상 변압기 관계",
+              "latex": "\\frac{V_1}{V_2}=\\frac{N_1}{N_2}=a,\\quad \\frac{I_1}{I_2}=\\frac{N_2}{N_1}=\\frac{1}{a}",
+              "description": "a: 권선비. 전압은 비례, 전류는 반비례."
+            },
+            {
+              "type": "formula",
+              "name": "변압기 효율",
+              "latex": "\\eta = \\frac{P_{out}}{P_{in}}\\times100\\% = \\frac{P_{out}}{P_{out}+P_{cu}+P_{core}}\\times100\\%",
+              "description": "Pcu: 동손(권선), Pcore: 철손(코어)"
+            },
+            {
+              "type": "formula",
+              "name": "전압 변동률",
+              "latex": "\\varepsilon = \\frac{V_{2,no-load}-V_{2,full-load}}{V_{2,full-load}}\\times100\\%",
+              "description": "무부하 → 전부하 시 2차 전압 변화율"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-transmission-line",
+      "number": 4,
+      "title": "송전 선로",
+      "subtitle": "Transmission Lines",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "선로 파라미터",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "선로 분포 정수",
+              "cols": 2,
+              "items": [
+                {"name": "저항 R", "latex": "R = \\frac{\\rho l}{A}\\;[\\Omega/\\text{km}]", "desc": "도체 저항 손실"},
+                {"name": "인덕턴스 L", "latex": "L = \\frac{\\mu_0}{2\\pi}\\ln\\frac{D}{r}\\;[\\text{H/km}]", "desc": "자기장 에너지"},
+                {"name": "커패시턴스 C", "latex": "C = \\frac{2\\pi\\varepsilon_0}{\\ln(D/r)}\\;[\\text{F/km}]", "desc": "전기장 에너지"},
+                {"name": "특성 임피던스", "latex": "Z_0 = \\sqrt{L/C}\\approx 300\\text{Ω}", "desc": "파동 임피던스"}
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "단거리 선로 모델 (π형)",
+              "latex": "\\begin{pmatrix}V_S\\\\I_S\\end{pmatrix}=\\begin{pmatrix}A&B\\\\C&D\\end{pmatrix}\\begin{pmatrix}V_R\\\\I_R\\end{pmatrix}",
+              "description": "A=D=1+ZY/2, B=Z, C=Y(1+ZY/4). Z=직렬임피던스, Y=병렬어드미턴스"
+            }
+          ]
+        },
+        {
+          "id": "ch04-s02",
+          "title": "전력 전송",
+          "content": [
+            {
+              "type": "formula",
+              "name": "전력 전달 방정식",
+              "latex": "P = \\frac{|V_S||V_R|}{X}\\sin\\delta",
+              "description": "δ: 송수전단 전압 위상차(전력각). X: 선로 리액턴스. Pmax=|Vs||Vr|/X"
+            },
+            {
+              "type": "formula",
+              "name": "전력 전달 한계",
+              "latex": "P_{max} = \\frac{|V_S||V_R|}{X} \\quad (\\delta = 90°\\text{일 때})",
+              "description": "정태 안정도 한계. 실제 운전은 δ<45° 정도로 제한."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-power-flow",
+      "number": 5,
+      "title": "조류 계산",
+      "subtitle": "Power Flow Analysis",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "버스 어드미턴스와 조류",
+          "content": [
+            {
+              "type": "formula",
+              "name": "버스 방정식",
+              "latex": "\\mathbf{I} = \\mathbf{Y}_{bus}\\mathbf{V}",
+              "description": "Ybus: 노드 어드미턴스 행렬. 대각 = 자기 어드미턴스, 비대각 = 상호 어드미턴스(음수)"
+            },
+            {
+              "type": "formula",
+              "name": "전력 조류 방정식",
+              "latex": "P_i = \\sum_{k=1}^{n}|V_i||V_k|(G_{ik}\\cos\\theta_{ik}+B_{ik}\\sin\\theta_{ik})",
+              "description": "비선형 연립방정식 → 뉴턴-랩슨법 또는 고즈-자이델법으로 수치 풀이"
+            },
+            {
+              "type": "table",
+              "title": "버스 유형",
+              "headers": ["버스 유형", "알려진 값", "미지수"],
+              "rows": [
+                ["슬랙 버스 (Swing)", "|V|, δ=0°", "P, Q"],
+                ["PV 버스 (발전기)", "P, |V|", "Q, δ"],
+                ["PQ 버스 (부하)", "P, Q", "|V|, δ"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-fault-analysis",
+      "number": 6,
+      "title": "고장 해석",
+      "subtitle": "Fault Analysis",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "대칭 고장",
+          "content": [
+            {
+              "type": "formula",
+              "name": "3상 단락 고장 전류",
+              "latex": "I_f = \\frac{V_f}{Z_{th}} = \\frac{V_f}{jX''_d}",
+              "description": "X''d: 발전기 차과도 리액턴스. Vf: 고장 전 전압"
+            },
+            {
+              "type": "formula",
+              "name": "대칭 성분법",
+              "latex": "\\begin{pmatrix}V_a\\\\V_b\\\\V_c\\end{pmatrix}=\\begin{pmatrix}1&1&1\\\\1&a^2&a\\\\1&a&a^2\\end{pmatrix}\\begin{pmatrix}V_0\\\\V_1\\\\V_2\\end{pmatrix}",
+              "description": "a=e^{j120°}. 불평형 3상을 영상(0), 정상(1), 역상(2) 성분으로 분해"
+            }
+          ]
+        },
+        {
+          "id": "ch06-s02",
+          "title": "비대칭 고장",
+          "content": [
+            {
+              "type": "table",
+              "title": "고장 종류별 특성",
+              "headers": ["고장 유형", "발생 빈도", "특징"],
+              "rows": [
+                ["1선 지락 (SLG)", "70~80%", "가장 흔함. 영상, 정상, 역상 전류 모두 발생"],
+                ["선간 단락 (LL)", "10~15%", "정상, 역상 성분만"],
+                ["2선 지락 (DLG)", "5~10%", "세 성분 모두"],
+                ["3상 단락 (3Φ)", "3~5%", "대칭 고장. 가장 큰 전류"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-stability",
+      "number": 7,
+      "title": "전력 계통 안정도",
+      "subtitle": "Power System Stability",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "정태·과도 안정도",
+          "content": [
+            {
+              "type": "definition",
+              "term": "정태 안정도 (Steady-State Stability)",
+              "body": "소규모 교란 후 계통이 평형 상태로 돌아오는 능력. 전력 전달 한계(δ<90°)로 판단."
+            },
+            {
+              "type": "definition",
+              "term": "과도 안정도 (Transient Stability)",
+              "body": "대규모 교란(고장, 부하 급변) 후 계통이 동기를 유지하는 능력. 스윙 방정식과 등면적 판별법으로 분석."
+            },
+            {
+              "type": "formula",
+              "name": "스윙 방정식",
+              "latex": "\\frac{2H}{\\omega_s}\\frac{d^2\\delta}{dt^2} = P_m - P_e = P_a",
+              "description": "H: 관성상수[s], δ: 전력각, Pa: 가속 전력. 발전기 로터 동역학."
+            },
+            {
+              "type": "theorem",
+              "name": "등면적 판별법 (Equal Area Criterion)",
+              "statement": "과도 안정을 유지하려면 가속 면적 A₁이 감속 면적 A₂보다 작아야 한다.",
+              "latex": "A_1 < A_2 \\Rightarrow \\text{안정}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-protection",
+      "number": 8,
+      "title": "전력 계통 보호",
+      "subtitle": "Power System Protection",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "계전기와 차단기",
+          "content": [
+            {
+              "type": "definition",
+              "term": "보호 계전기 (Protective Relay)",
+              "body": "계통의 이상 상태(고장, 과부하)를 감지하여 차단기에 트립 신호를 보내는 장치. CT(전류변성기)·PT(전압변성기)로 측정."
+            },
+            {
+              "type": "table",
+              "title": "주요 보호 계전기",
+              "headers": ["계전기", "기능", "적용"],
+              "rows": [
+                ["과전류 (OCR)", "과전류 검출", "배전 선로, 변압기"],
+                ["거리 (Distance)", "임피던스로 고장 위치 판정", "송전 선로"],
+                ["차동 (Differential)", "전류 불평형 검출", "변압기, 발전기, 모선"],
+                ["접지 (Ground)", "지락 전류 검출", "모든 설비"],
+                ["역전력 (Reverse Power)", "역전력 방지", "발전기"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-reactive-power",
+      "number": 9,
+      "title": "무효 전력과 전압 제어",
+      "subtitle": "Reactive Power and Voltage Control",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "전압 제어",
+          "content": [
+            {
+              "type": "definition",
+              "term": "무효 전력 보상",
+              "body": "전압 유지와 역률 개선을 위해 무효 전력을 공급·흡수하는 장치. 커패시터(진상), 리액터(지상), SVC, STATCOM 등."
+            },
+            {
+              "type": "formula-grid",
+              "title": "전압 제어 장치",
+              "cols": 2,
+              "items": [
+                {"name": "부하시 탭절환 (OLTC)", "latex": "V_2 = \\frac{N_2}{N_1}V_1", "desc": "변압기 권선비 자동 조절"},
+                {"name": "진상 커패시터", "latex": "Q_C = \\frac{V^2}{X_C}", "desc": "전압 상승, 역률 개선"},
+                {"name": "SVC", "latex": "Q_{SVC} = B_{SVC}V^2", "desc": "가변 서셉턴스로 연속 제어"},
+                {"name": "STATCOM", "latex": "Q = \\frac{V(V-E)}{X}", "desc": "전압원 인버터 기반"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-economic-dispatch",
+      "number": 10,
+      "title": "경제 급전",
+      "subtitle": "Economic Dispatch",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "최적 발전 배분",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "등증분 비용 법칙 (Equal Incremental Cost)",
+              "statement": "총 발전 비용이 최소가 되려면 모든 발전기의 증분 비용(λ)이 같아야 한다.",
+              "latex": "\\lambda = \\frac{dC_1}{dP_1} = \\frac{dC_2}{dP_2} = \\cdots = \\frac{dC_n}{dP_n}"
+            },
+            {
+              "type": "formula",
+              "name": "2차 발전 비용 함수",
+              "latex": "C_i(P_i) = a_i P_i^2 + b_i P_i + c_i \\quad [\\text{원/h}]",
+              "description": "aᵢ, bᵢ, cᵢ: 발전 비용 계수"
+            },
+            {
+              "type": "formula",
+              "name": "최적 발전량",
+              "latex": "P_i^* = \\frac{\\lambda - b_i}{2a_i},\\quad \\sum P_i^* = P_{load}",
+              "description": "λ를 수렴시켜 부하와 일치하는 최적 배분"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-power-quality",
+      "number": 11,
+      "title": "전력 품질",
+      "subtitle": "Power Quality",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "고조파와 전압 변동",
+          "content": [
+            {
+              "type": "definition",
+              "term": "고조파 (Harmonics)",
+              "body": "기본파(60Hz)의 정수배 주파수 성분. 비선형 부하(인버터, 정류기, LED)에서 발생. 변압기 과열, 커패시터 소손, 오동작 유발."
+            },
+            {
+              "type": "formula",
+              "name": "총 고조파 왜율 (THD)",
+              "latex": "\\text{THD}_V = \\frac{\\sqrt{\\sum_{n=2}^{\\infty}V_n^2}}{V_1}\\times100\\%",
+              "description": "IEC 기준 배전계통 THD < 5%"
+            },
+            {
+              "type": "table",
+              "title": "전력 품질 문제",
+              "headers": ["현상", "원인", "대책"],
+              "rows": [
+                ["순간 전압강하", "고장, 대용량 기동", "UPS, DVR"],
+                ["고조파", "비선형 부하", "수동/능동 필터"],
+                ["불평형", "단상 부하 집중", "SVC, 부하 균등화"],
+                ["전압 변동", "변동성 부하", "OLTC, SVC"],
+                ["주파수 변동", "수급 불균형", "거버너, ESS"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-smart-grid",
+      "number": 12,
+      "title": "스마트 그리드와 신재생 에너지",
+      "subtitle": "Smart Grid and Renewable Energy",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "현대 전력 시스템",
+          "content": [
+            {
+              "type": "definition",
+              "term": "스마트 그리드 (Smart Grid)",
+              "body": "ICT 기술을 접목하여 양방향 통신·제어가 가능한 지능형 전력망. AMI(스마트 미터), 마이크로그리드, ESS, 수요 반응을 포함."
+            },
+            {
+              "type": "formula",
+              "name": "태양광 발전",
+              "latex": "P_{PV} = \\eta \\cdot A \\cdot G,\\quad G: \\text{일사량 [W/m}^2]",
+              "description": "η: 효율(18~22%), A: 면적. MPPT 제어로 최대 출력 추출."
+            },
+            {
+              "type": "formula",
+              "name": "풍력 발전",
+              "latex": "P_{wind} = \\frac{1}{2}C_p\\rho\\pi R^2 v^3",
+              "description": "Cp: 전력계수(Betz한계 0.593), ρ: 공기밀도, R: 블레이드 반경, v: 풍속"
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "전력 시스템의 미래",
+              "body": "• <b>VPP (가상 발전소):</b> 분산 자원 통합 제어<br>• <b>P2G (Power to Gas):</b> 잉여 전력 → 수소 저장<br>• <b>HVDC:</b> 장거리 대용량 직류 송전<br>• <b>V2G:</b> 전기차 배터리를 계통 저장으로 활용"
+            },
+            {
+              "type": "analogy",
+              "emoji": "🌐",
+              "title": "전력망은 에너지의 인터넷",
+              "body": "인터넷이 데이터를 전 세계로 연결하듯, 전력망은 에너지를 연결한다. 스마트 그리드는 전력망에 '두뇌'를 부여하여 수요와 공급을 실시간으로 최적화하는 에너지 인터넷을 구현한다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

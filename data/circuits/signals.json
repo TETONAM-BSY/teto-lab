@@ -1,0 +1,416 @@
+{
+  "id": "signals",
+  "title": "신호 및 시스템",
+  "subtitle": "Signals and Systems",
+  "chapters": [
+    {
+      "id": "ch01-signals",
+      "number": 1,
+      "title": "신호의 분류와 기본 신호",
+      "subtitle": "Signal Classification and Basic Signals",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "신호의 분류",
+          "content": [
+            {
+              "type": "table",
+              "title": "신호 분류",
+              "headers": ["분류 기준", "종류", "설명"],
+              "rows": [
+                ["시간", "연속시간 x(t)", "모든 t에서 정의"],
+                ["시간", "이산시간 x[n]", "정수 n에서만 정의"],
+                ["값", "아날로그", "연속적 진폭"],
+                ["값", "디지털", "이산적 진폭 (양자화)"],
+                ["주기성", "주기 신호", "x(t)=x(t+T) for all t"],
+                ["에너지", "에너지 신호", "총 에너지 유한"],
+                ["에너지", "전력 신호", "평균 전력 유한"]
+              ]
+            },
+            {
+              "type": "formula-grid",
+              "title": "에너지와 전력",
+              "cols": 2,
+              "items": [
+                {"name": "에너지", "latex": "E = \\int_{-\\infty}^{\\infty}|x(t)|^2\\,dt", "desc": "유한이면 에너지 신호"},
+                {"name": "전력", "latex": "P = \\lim_{T\\to\\infty}\\frac{1}{2T}\\int_{-T}^{T}|x(t)|^2\\,dt", "desc": "유한이면 전력 신호"}
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "기본 신호",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "기본 신호 함수",
+              "cols": 2,
+              "items": [
+                {"name": "단위 계단", "latex": "u(t)=\\begin{cases}1 & t\\geq0\\\\0 & t<0\\end{cases}", "desc": "Heaviside 함수"},
+                {"name": "단위 충격", "latex": "\\delta(t)=0\\;(t\\neq0),\\;\\int\\delta\\,dt=1", "desc": "디랙 델타"},
+                {"name": "단위 램프", "latex": "r(t)=t\\cdot u(t)", "desc": "선형 증가"},
+                {"name": "복소 지수", "latex": "x(t)=Ae^{(\\sigma+j\\omega)t}", "desc": "지수·정현파의 일반형"},
+                {"name": "sinc 함수", "latex": "\\text{sinc}(t)=\\frac{\\sin(\\pi t)}{\\pi t}", "desc": "LPF 임펄스 응답"},
+                {"name": "rect 함수", "latex": "\\text{rect}(t/\\tau)=u(t+\\tau/2)-u(t-\\tau/2)", "desc": "구형 펄스"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-systems",
+      "number": 2,
+      "title": "시스템의 성질",
+      "subtitle": "System Properties",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "LTI 시스템",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "시스템의 주요 성질",
+              "cols": 2,
+              "items": [
+                {"name": "선형성", "latex": "T[ax_1+bx_2]=aT[x_1]+bT[x_2]", "desc": "중첩 가능"},
+                {"name": "시불변성", "latex": "y(t-t_0)=T[x(t-t_0)]", "desc": "시간 이동에 불변"},
+                {"name": "인과성", "latex": "y(t)\\text{ depends only on }x(\\tau),\\tau\\leq t", "desc": "미래 입력 불필요"},
+                {"name": "안정성 (BIBO)", "latex": "|x(t)|\\leq M_x < \\infty \\Rightarrow |y(t)|\\leq M_y<\\infty", "desc": "유계 입력→유계 출력"},
+                {"name": "기억성", "latex": "y(t)\\text{ depends only on }x(t)", "desc": "현재 입력만 → 무기억"},
+                {"name": "가역성", "latex": "\\exists T^{-1}: T^{-1}[T[x]]=x", "desc": "역시스템 존재"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-convolution",
+      "number": 3,
+      "title": "합성곱과 임펄스 응답",
+      "subtitle": "Convolution and Impulse Response",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "연속시간 합성곱",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "LTI 시스템과 합성곱",
+              "statement": "LTI 시스템은 임펄스 응답 h(t)로 완전히 기술되며, 임의 입력 x(t)에 대한 출력은 합성곱으로 계산된다.",
+              "latex": "y(t) = x(t) * h(t) = \\int_{-\\infty}^{\\infty} x(\\tau)h(t-\\tau)\\,d\\tau"
+            },
+            {
+              "type": "formula-grid",
+              "title": "합성곱의 성질",
+              "cols": 2,
+              "items": [
+                {"name": "교환법칙", "latex": "x*h = h*x", "desc": "순서 무관"},
+                {"name": "결합법칙", "latex": "(x*h_1)*h_2 = x*(h_1*h_2)", "desc": "직렬 연결"},
+                {"name": "분배법칙", "latex": "x*(h_1+h_2)=x*h_1+x*h_2", "desc": "병렬 연결"},
+                {"name": "δ 합성곱", "latex": "x(t)*\\delta(t-t_0)=x(t-t_0)", "desc": "시간 이동"}
+              ]
+            },
+            {
+              "type": "example",
+              "title": "합성곱 계산",
+              "problem": "x(t)=u(t), h(t)=e^{-t}u(t)의 합성곱 계산",
+              "solution": "y(t)=∫₀ᵗ e^{-τ}dτ·u(t) = [-e^{-τ}]₀ᵗ·u(t)\n= (1-e^{-t})u(t)",
+              "answer": "y(t) = (1-e^{-t})u(t)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-fourier-ct",
+      "number": 4,
+      "title": "연속시간 푸리에 변환",
+      "subtitle": "Continuous-Time Fourier Transform",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "CTFT와 시스템 해석",
+          "content": [
+            {
+              "type": "formula",
+              "name": "주파수 응답",
+              "latex": "H(j\\omega) = \\mathcal{F}\\{h(t)\\} = \\int_{-\\infty}^{\\infty}h(t)e^{-j\\omega t}dt",
+              "description": "LTI 시스템의 주파수 응답. Y(jω)=H(jω)·X(jω)"
+            },
+            {
+              "type": "formula-grid",
+              "title": "CTFT 핵심 성질",
+              "cols": 2,
+              "items": [
+                {"name": "합성곱↔곱셈", "latex": "x*h \\overset{\\mathcal{F}}{\\leftrightarrow} X\\cdot H", "desc": "주파수 영역 핵심"},
+                {"name": "곱셈↔합성곱", "latex": "x\\cdot h \\overset{\\mathcal{F}}{\\leftrightarrow} \\frac{1}{2\\pi}X*H", "desc": "변조 정리"},
+                {"name": "파르스발", "latex": "\\int|x|^2dt=\\frac{1}{2\\pi}\\int|X|^2d\\omega", "desc": "에너지 보존"},
+                {"name": "이중성", "latex": "X(t) \\overset{\\mathcal{F}}{\\leftrightarrow} 2\\pi x(-\\omega)", "desc": "시간-주파수 대칭"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-laplace-system",
+      "number": 5,
+      "title": "라플라스 변환과 시스템",
+      "subtitle": "Laplace Transform and Systems",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "시스템 함수",
+          "content": [
+            {
+              "type": "formula",
+              "name": "시스템 함수 H(s)",
+              "latex": "H(s) = \\frac{Y(s)}{X(s)} = \\frac{b_m s^m + \\cdots + b_0}{a_n s^n + \\cdots + a_0}",
+              "description": "전달함수. 극점과 영점으로 완전히 특성화."
+            },
+            {
+              "type": "formula",
+              "name": "수렴역 (ROC)",
+              "latex": "\\text{인과 안정 시스템}: \\text{ROC는 가장 오른쪽 극점의 오른쪽}",
+              "description": "ROC가 허수축을 포함하면 BIBO 안정"
+            },
+            {
+              "type": "table",
+              "title": "극점 위치와 임펄스 응답",
+              "headers": ["극점 위치", "임펄스 응답 h(t)", "안정성"],
+              "rows": [
+                ["좌반평면 실수 극", "감쇠 지수 e^{σt} (σ<0)", "안정"],
+                ["원점 단순 극", "상수 (t≥0)", "임계 안정"],
+                ["우반평면 실수 극", "증가 지수 e^{σt} (σ>0)", "불안정"],
+                ["허수축 복소 극쌍", "지속 진동 cosωt", "임계 안정"],
+                ["좌반평면 복소 극쌍", "감쇠 진동 e^{σt}cosωt", "안정"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-dtft",
+      "number": 6,
+      "title": "이산시간 푸리에 변환",
+      "subtitle": "Discrete-Time Fourier Transform",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "DTFT",
+          "content": [
+            {
+              "type": "formula",
+              "name": "DTFT",
+              "latex": "X(e^{j\\Omega}) = \\sum_{n=-\\infty}^{\\infty}x[n]e^{-j\\Omega n}",
+              "description": "Ω: 이산 주파수 [rad/sample]. 주기 2π."
+            },
+            {
+              "type": "formula",
+              "name": "IDTFT",
+              "latex": "x[n] = \\frac{1}{2\\pi}\\int_{-\\pi}^{\\pi}X(e^{j\\Omega})e^{j\\Omega n}d\\Omega",
+              "description": "주파수 영역→시간 영역 복원"
+            },
+            {
+              "type": "formula",
+              "name": "이산 합성곱",
+              "latex": "y[n] = x[n]*h[n] = \\sum_{k=-\\infty}^{\\infty}x[k]h[n-k]",
+              "description": "LTI 이산 시스템. 주파수 영역: Y=H·X"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-z-transform",
+      "number": 7,
+      "title": "Z 변환",
+      "subtitle": "Z-Transform",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "Z 변환과 이산 시스템",
+          "content": [
+            {
+              "type": "formula",
+              "name": "Z 변환",
+              "latex": "X(z) = \\sum_{n=-\\infty}^{\\infty}x[n]z^{-n}",
+              "description": "이산 시스템의 라플라스 변환 대응. z=e^{sT}"
+            },
+            {
+              "type": "formula",
+              "name": "이산 시스템 함수",
+              "latex": "H(z) = \\frac{Y(z)}{X(z)} = \\frac{\\sum_{k=0}^{M}b_k z^{-k}}{1+\\sum_{k=1}^{N}a_k z^{-k}}",
+              "description": "FIR (all-zero) 또는 IIR (pole-zero) 필터"
+            },
+            {
+              "type": "formula",
+              "name": "안정성 조건",
+              "latex": "\\text{인과 안정}: \\text{모든 극점} |p_k| < 1 \\text{ (단위원 내부)}",
+              "description": "연속: 좌반평면 ↔ 이산: 단위원 내부"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-sampling",
+      "number": 8,
+      "title": "표본화와 재구성",
+      "subtitle": "Sampling and Reconstruction",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "표본화 정리와 앨리어싱",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "나이퀴스트-섀넌 정리",
+              "statement": "대역제한 신호 x(t) (최대 주파수 ωM)를 완전히 복원하려면 표본화 각주파수 ωs≥2ωM 이어야 한다.",
+              "latex": "\\omega_s \\geq 2\\omega_M = \\omega_N \\text{ (나이퀴스트 주파수)}"
+            },
+            {
+              "type": "formula",
+              "name": "이상적 재구성 필터",
+              "latex": "x(t) = \\sum_{n=-\\infty}^{\\infty} x[n]\\,\\text{sinc}\\!\\left(\\frac{t-nT_s}{T_s}\\right)",
+              "description": "표본값으로부터 연속 신호 완전 복원 (whittaker-shannon 보간)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-lti-description",
+      "number": 9,
+      "title": "LTI 시스템 기술",
+      "subtitle": "LTI System Description",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "차분방정식과 블록선도",
+          "content": [
+            {
+              "type": "formula",
+              "name": "LCCDE (선형 상수계수 차분방정식)",
+              "latex": "\\sum_{k=0}^{N}a_k y[n-k] = \\sum_{k=0}^{M}b_k x[n-k]",
+              "description": "이산 LTI 시스템의 일반 입출력 방정식"
+            },
+            {
+              "type": "formula",
+              "name": "LCCDE (연속시간)",
+              "latex": "\\sum_{k=0}^{N}a_k \\frac{d^k y}{dt^k} = \\sum_{k=0}^{M}b_k \\frac{d^k x}{dt^k}",
+              "description": "연속 LTI 시스템. 라플라스로 H(s) 유도 가능"
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "FIR vs IIR",
+              "body": "<b>FIR (Finite Impulse Response):</b> 극점 없음, 항상 안정, 선형 위상 가능, 고차 필요<br><b>IIR (Infinite Impulse Response):</b> 극점 존재, 안정성 확인 필요, 저차로 날카로운 특성 가능"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-state-space",
+      "number": 10,
+      "title": "상태 공간 표현",
+      "subtitle": "State Space Representation",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "상태 방정식",
+          "content": [
+            {
+              "type": "formula",
+              "name": "상태 공간 방정식",
+              "latex": "\\dot{\\mathbf{x}} = A\\mathbf{x}+B\\mathbf{u},\\quad \\mathbf{y}=C\\mathbf{x}+D\\mathbf{u}",
+              "description": "A: 시스템, B: 입력, C: 출력, D: 직달 행렬"
+            },
+            {
+              "type": "formula",
+              "name": "전달함수와 상태방정식 관계",
+              "latex": "H(s) = C(sI-A)^{-1}B + D",
+              "description": "상태공간 → 전달함수 변환"
+            },
+            {
+              "type": "formula",
+              "name": "상태 천이 행렬",
+              "latex": "\\mathbf{x}(t) = e^{At}\\mathbf{x}(0)+\\int_0^t e^{A(t-\\tau)}B\\mathbf{u}(\\tau)\\,d\\tau",
+              "description": "e^{At}: 행렬 지수함수 (상태 천이 행렬)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-correlation",
+      "number": 11,
+      "title": "상관과 스펙트럼 밀도",
+      "subtitle": "Correlation and Spectral Density",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "자기상관과 전력 스펙트럼",
+          "content": [
+            {
+              "type": "formula",
+              "name": "자기상관 함수",
+              "latex": "R_{xx}(\\tau) = \\int_{-\\infty}^{\\infty}x(t)x(t+\\tau)\\,dt",
+              "description": "신호의 자기 유사성. R_xx(0)=신호의 총 에너지."
+            },
+            {
+              "type": "formula",
+              "name": "전력 스펙트럼 밀도 (Wiener-Khinchin)",
+              "latex": "S_{xx}(\\omega) = \\mathcal{F}\\{R_{xx}(\\tau)\\}",
+              "description": "자기상관의 푸리에 변환 = 전력 스펙트럼 밀도"
+            },
+            {
+              "type": "formula",
+              "name": "교차상관",
+              "latex": "R_{xy}(\\tau) = \\int x(t)y(t+\\tau)\\,dt = x(-\\tau)*y(\\tau)",
+              "description": "두 신호의 유사성. 레이더, 소나, GPS에서 활용."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "통신·음성·이미지 처리",
+          "content": [
+            {
+              "type": "table",
+              "title": "신호 및 시스템 응용",
+              "headers": ["분야", "응용", "핵심 개념"],
+              "rows": [
+                ["통신", "AM/FM 변조·복조", "주파수 이동, 합성곱"],
+                ["음성처리", "잡음 제거, 음성 인식", "LTI 필터, STFT"],
+                ["이미지처리", "JPEG 압축, 에지 검출", "2D 합성곱, DCT"],
+                ["레이더", "물체 감지·거리 측정", "교차상관, 펄스 압축"],
+                ["의료", "ECG/EEG 분석", "LPF, 스펙트럼 분석"],
+                ["제어", "피드백 시스템", "전달함수, 주파수 응답"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "🎛️",
+              "title": "시스템은 신호를 가공하는 공장",
+              "body": "입력 신호(원재료)가 LTI 시스템(공장)을 통과하면 임펄스 응답(제조 공정)에 의해 출력 신호(제품)가 만들어진다. 합성곱은 그 가공 과정의 수학적 표현이며, 푸리에/라플라스/Z 변환은 다른 시각으로 같은 공정을 바라보는 도구다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

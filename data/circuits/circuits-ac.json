@@ -1,0 +1,423 @@
+{
+  "id": "circuits-ac",
+  "title": "교류 회로",
+  "subtitle": "AC Circuit Theory",
+  "chapters": [
+    {
+      "id": "ch01-sinusoids",
+      "number": 1,
+      "title": "정현파와 페이저",
+      "subtitle": "Sinusoids and Phasors",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "정현파 신호",
+          "content": [
+            {
+              "type": "formula",
+              "name": "정현파 전압",
+              "latex": "v(t) = V_m \\cos(\\omega t + \\phi)",
+              "description": "Vm: 진폭, ω=2πf: 각주파수[rad/s], φ: 위상각[rad]"
+            },
+            {
+              "type": "formula-grid",
+              "title": "정현파 관련 용어",
+              "cols": 2,
+              "items": [
+                {"name": "주기", "latex": "T = \\frac{1}{f} = \\frac{2\\pi}{\\omega}", "desc": "한 사이클 시간 [s]"},
+                {"name": "주파수", "latex": "f = \\frac{1}{T} = \\frac{\\omega}{2\\pi}", "desc": "[Hz: 헤르츠]"},
+                {"name": "RMS값", "latex": "V_{rms} = \\frac{V_m}{\\sqrt{2}}", "desc": "실효값. 전력 계산 기준"},
+                {"name": "위상차", "latex": "v_1 \\text{ leads } v_2 \\text{ by } (\\phi_1-\\phi_2)", "desc": "φ₁>φ₂: v₁이 앞섬"}
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch01-s02",
+          "title": "페이저 표현",
+          "content": [
+            {
+              "type": "definition",
+              "term": "페이저 (Phasor)",
+              "latex": "\\mathbf{V} = V_m\\angle\\phi = V_m e^{j\\phi} = V_m(\\cos\\phi + j\\sin\\phi)",
+              "body": "정현파를 복소수로 표현. 시간 도메인의 미분방정식이 주파수 도메인에서 대수방정식으로 변환된다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "소자의 페이저 관계",
+              "cols": 2,
+              "items": [
+                {"name": "저항 R", "latex": "\\mathbf{V} = R\\mathbf{I}", "desc": "동위상"},
+                {"name": "인덕터 L", "latex": "\\mathbf{V} = j\\omega L\\,\\mathbf{I}", "desc": "전압이 전류보다 90° 앞섬"},
+                {"name": "커패시터 C", "latex": "\\mathbf{V} = \\frac{1}{j\\omega C}\\mathbf{I}", "desc": "전압이 전류보다 90° 뒤짐"},
+                {"name": "임피던스", "latex": "\\mathbf{Z} = \\frac{\\mathbf{V}}{\\mathbf{I}} = R+jX", "desc": "X: 리액턴스 [Ω]"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-impedance",
+      "number": 2,
+      "title": "임피던스와 어드미턴스",
+      "subtitle": "Impedance and Admittance",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "임피던스 합성",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "소자별 임피던스",
+              "cols": 2,
+              "items": [
+                {"name": "저항", "latex": "Z_R = R", "desc": "순수 실수"},
+                {"name": "인덕터", "latex": "Z_L = j\\omega L = jX_L", "desc": "순허수 (양)"},
+                {"name": "커패시터", "latex": "Z_C = \\frac{1}{j\\omega C} = -j\\frac{1}{\\omega C} = -jX_C", "desc": "순허수 (음)"},
+                {"name": "직렬 합성", "latex": "Z_{eq} = Z_1+Z_2+\\cdots", "desc": "저항과 동일 규칙"}
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "임피던스와 어드미턴스",
+              "latex": "\\mathbf{Y} = \\frac{1}{\\mathbf{Z}} = G + jB,\\quad [\\text{S: 지멘스}]",
+              "description": "G: 컨덕턴스, B: 서셉턴스"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-ac-power",
+      "number": 3,
+      "title": "교류 전력",
+      "subtitle": "AC Power",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "순시 전력과 평균 전력",
+          "content": [
+            {
+              "type": "formula",
+              "name": "순시 전력",
+              "latex": "p(t) = v(t)i(t) = V_m I_m\\cos(\\omega t+\\theta_v)\\cos(\\omega t+\\theta_i)",
+              "description": "시간에 따라 변하는 순간 전력"
+            },
+            {
+              "type": "formula",
+              "name": "평균 전력 (유효 전력)",
+              "latex": "P = \\frac{1}{2}V_m I_m \\cos(\\theta_v-\\theta_i) = V_{rms}I_{rms}\\cos\\theta",
+              "description": "θ=θv-θi: 임피던스 위상각. [W]"
+            },
+            {
+              "type": "formula-grid",
+              "title": "전력의 종류",
+              "cols": 2,
+              "items": [
+                {"name": "유효 전력 P", "latex": "P = S\\cos\\theta = V_{rms}I_{rms}\\cos\\theta", "desc": "[W], 실제 소비 전력"},
+                {"name": "무효 전력 Q", "latex": "Q = S\\sin\\theta = V_{rms}I_{rms}\\sin\\theta", "desc": "[VAR], 에너지 저장·반환"},
+                {"name": "피상 전력 S", "latex": "S = V_{rms}I_{rms} = \\sqrt{P^2+Q^2}", "desc": "[VA], 전원 용량"},
+                {"name": "역률 PF", "latex": "\\text{PF} = \\cos\\theta = \\frac{P}{S}", "desc": "1에 가까울수록 효율적"}
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch03-s02",
+          "title": "복소 전력",
+          "content": [
+            {
+              "type": "formula",
+              "name": "복소 전력",
+              "latex": "\\mathbf{S} = \\mathbf{V}\\mathbf{I}^* = P + jQ = S\\angle\\theta",
+              "description": "I*: 전류의 켤레. 복소 전력의 실부=유효, 허부=무효 전력"
+            },
+            {
+              "type": "theorem",
+              "name": "전력 보존",
+              "statement": "회로 전체에서 공급되는 복소 전력의 합은 소비되는 복소 전력의 합과 같다.",
+              "latex": "\\sum_{\\text{sources}} \\mathbf{S}_k = \\sum_{\\text{loads}} \\mathbf{S}_k"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-resonance",
+      "number": 4,
+      "title": "공진",
+      "subtitle": "Resonance",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "직렬·병렬 공진",
+          "content": [
+            {
+              "type": "formula",
+              "name": "공진 주파수",
+              "latex": "\\omega_0 = \\frac{1}{\\sqrt{LC}},\\quad f_0 = \\frac{1}{2\\pi\\sqrt{LC}}",
+              "description": "XL=XC 조건. 직렬: 임피던스 최소, 병렬: 임피던스 최대"
+            },
+            {
+              "type": "formula-grid",
+              "title": "공진 회로 파라미터",
+              "cols": 2,
+              "items": [
+                {"name": "Q 팩터 (직렬)", "latex": "Q = \\frac{\\omega_0 L}{R} = \\frac{1}{\\omega_0 CR}", "desc": "선택도. Q↑ → 대역폭↓"},
+                {"name": "대역폭", "latex": "B = \\frac{\\omega_0}{Q} = \\frac{R}{L}", "desc": "반전력 주파수 간격"},
+                {"name": "반전력 주파수", "latex": "\\omega_{1,2} = \\omega_0 \\mp \\frac{B}{2}", "desc": "전력이 최대의 1/2되는 점"},
+                {"name": "전압 확대율 (직렬)", "latex": "V_{L}=V_{C}=QV_s \\text{ at } \\omega_0", "desc": "Q배 전압 증폭"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-frequency-response",
+      "number": 5,
+      "title": "주파수 응답",
+      "subtitle": "Frequency Response",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "전달함수와 보드선도",
+          "content": [
+            {
+              "type": "definition",
+              "term": "전달함수 (AC)",
+              "latex": "H(j\\omega) = \\frac{\\mathbf{Y}(j\\omega)}{\\mathbf{X}(j\\omega)}",
+              "body": "입력 X에 대한 출력 Y의 비. 복소 함수로 크기와 위상 정보를 모두 포함."
+            },
+            {
+              "type": "formula",
+              "name": "보드 크기선도",
+              "latex": "|H|_{dB} = 20\\log_{10}|H(j\\omega)|",
+              "description": "dB 스케일. 기울기: 1차 극점→-20dB/decade, 2차→-40dB/decade"
+            },
+            {
+              "type": "table",
+              "title": "기본 필터의 H(jω)",
+              "headers": ["필터", "전달함수", "특징"],
+              "rows": [
+                ["1차 LPF", "1/(1+jω/ωc)", "DC 통과, ω>ωc 감쇠"],
+                ["1차 HPF", "jω/ωc/(1+jω/ωc)", "ω>ωc 통과"],
+                ["BPF", "jω/ωc/((jω/ωc)²+jω/(Qωc)+1)", "ω₀ 부근 통과"],
+                ["2차 LPF", "ωn²/(s²+2ζωns+ωn²)", "Butterworth, Chebyshev 등"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-three-phase",
+      "number": 6,
+      "title": "3상 회로",
+      "subtitle": "Three-Phase Circuits",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "3상 전원과 부하",
+          "content": [
+            {
+              "type": "formula",
+              "name": "평형 3상 전압",
+              "latex": "V_a = V_p\\angle0°,\\quad V_b = V_p\\angle-120°,\\quad V_c = V_p\\angle-240°",
+              "description": "Vp: 상 전압 실효값. 평형 조건: Va+Vb+Vc=0"
+            },
+            {
+              "type": "formula-grid",
+              "title": "Y-Δ 전압·전류 관계",
+              "cols": 2,
+              "items": [
+                {"name": "Y결선 선간전압", "latex": "V_L = \\sqrt{3}V_P\\angle30°", "desc": "선간전압 = √3 × 상전압"},
+                {"name": "Δ결선 선전류", "latex": "I_L = \\sqrt{3}I_P\\angle-30°", "desc": "선전류 = √3 × 상전류"},
+                {"name": "3상 유효전력", "latex": "P = \\sqrt{3}V_L I_L\\cos\\theta", "desc": "평형 부하 기준"},
+                {"name": "3상 피상전력", "latex": "S = \\sqrt{3}V_L I_L", "desc": "[VA]"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-mutual-inductance",
+      "number": 7,
+      "title": "상호 인덕턴스와 변압기",
+      "subtitle": "Mutual Inductance and Transformers",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "상호 인덕턴스",
+          "content": [
+            {
+              "type": "formula",
+              "name": "상호 인덕턴스 (Mutual Inductance)",
+              "latex": "v_1 = L_1\\frac{di_1}{dt} \\pm M\\frac{di_2}{dt},\\quad M = k\\sqrt{L_1 L_2}",
+              "description": "k: 결합계수(0≤k≤1). ±: 권선 방향(점 규약)"
+            },
+            {
+              "type": "formula-grid",
+              "title": "이상적 변압기",
+              "cols": 2,
+              "items": [
+                {"name": "전압비", "latex": "\\frac{V_2}{V_1} = \\frac{N_2}{N_1} = n", "desc": "n: 권선비"},
+                {"name": "전류비", "latex": "\\frac{I_2}{I_1} = \\frac{N_1}{N_2} = \\frac{1}{n}", "desc": "전류는 역비"},
+                {"name": "임피던스 변환", "latex": "Z_{in} = \\frac{Z_L}{n^2}", "desc": "임피던스 정합에 활용"},
+                {"name": "전력 보존", "latex": "V_1 I_1 = V_2 I_2", "desc": "이상적 변압기"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-laplace-circuit",
+      "number": 8,
+      "title": "라플라스로 푸는 회로",
+      "subtitle": "Circuit Analysis via Laplace",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "s-영역 회로 해석",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "소자의 s-영역 임피던스",
+              "cols": 2,
+              "items": [
+                {"name": "저항", "latex": "Z_R(s) = R", "desc": "주파수 무관"},
+                {"name": "인덕터", "latex": "Z_L(s) = sL", "desc": "초기전류 I₀ → 전압원 LI₀"},
+                {"name": "커패시터", "latex": "Z_C(s) = \\frac{1}{sC}", "desc": "초기전압 V₀ → 전압원 V₀/s"},
+                {"name": "전달함수", "latex": "H(s) = \\frac{Y(s)}{X(s)}", "desc": "초기조건=0 가정"}
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "jω vs s",
+              "body": "정상 상태 AC 해석: s=jω 대입. 과도 응답 포함 전체 해석: s 영역 그대로 사용. 전달함수 H(s)에서 s=jω로 놓으면 주파수 응답 H(jω)를 얻는다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-fourier-circuit",
+      "number": 9,
+      "title": "푸리에 급수와 회로",
+      "subtitle": "Fourier Series in Circuits",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "비정현파 회로 해석",
+          "content": [
+            {
+              "type": "formula",
+              "name": "비정현파 전압의 RMS",
+              "latex": "V_{rms} = \\sqrt{V_{dc}^2 + \\sum_{n=1}^{\\infty}\\frac{V_{m,n}^2}{2}}",
+              "description": "각 고조파 성분의 RMS를 제곱합산"
+            },
+            {
+              "type": "formula",
+              "name": "THD (총 고조파 왜율)",
+              "latex": "\\text{THD} = \\frac{\\sqrt{\\sum_{n=2}^{\\infty}V_{m,n}^2/2}}{V_{m,1}/\\sqrt{2}}\\times100\\%",
+              "description": "신호 왜곡의 척도. 전력 시스템 품질 지표."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-filters",
+      "number": 10,
+      "title": "수동 필터 설계",
+      "subtitle": "Passive Filter Design",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "LC 필터",
+          "content": [
+            {
+              "type": "formula",
+              "name": "버터워스 필터 (n차)",
+              "latex": "|H(j\\omega)|^2 = \\frac{1}{1+(\\omega/\\omega_c)^{2n}}",
+              "description": "최대 평탄 특성. 차단 주파수에서 -3dB."
+            },
+            {
+              "type": "table",
+              "title": "필터 특성 비교",
+              "headers": ["필터", "통과대역", "천이대역", "특징"],
+              "rows": [
+                ["버터워스", "최대 평탄", "완만", "가장 일반적"],
+                ["체비쇼프 1형", "리플", "가파름", "같은 차수에서 더 가파른 롤오프"],
+                ["체비쇼프 2형", "평탄", "리플", "저지대역 리플"],
+                ["타원 (Cauer)", "리플", "리플", "최소 차수"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-network-functions",
+      "number": 11,
+      "title": "회로망 함수와 안정성",
+      "subtitle": "Network Functions and Stability",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "극점·영점과 안정성",
+          "content": [
+            {
+              "type": "definition",
+              "term": "극점과 영점",
+              "latex": "H(s) = K\\frac{(s-z_1)(s-z_2)\\cdots}{(s-p_1)(s-p_2)\\cdots}",
+              "body": "zₖ: 영점(H=0), pₖ: 극점(H=∞). s-평면에서의 위치로 회로 특성 결정."
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "안정성 조건",
+              "body": "모든 극점이 좌반 s-평면(Re(s)<0)에 있어야 안정. 허수축 극점: 지속 진동(임계 안정). 우반평면 극점: 발산(불안정)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "전력 계통·통신·계측",
+          "content": [
+            {
+              "type": "formula",
+              "name": "역률 개선",
+              "latex": "Q_C = P(\\tan\\theta_1 - \\tan\\theta_2),\\quad C = \\frac{Q_C}{\\omega V^2}",
+              "description": "커패시터 병렬 연결로 역률을 cosθ₁→cosθ₂로 개선"
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "교류 회로의 공학 응용",
+              "body": "• <b>전력 시스템:</b> 3상 배전, 역률 개선, 고조파 필터<br>• <b>통신:</b> RF 임피던스 정합, 대역통과 필터<br>• <b>계측:</b> AC 브릿지(맥스웰, 헤이), 임피던스 측정<br>• <b>모터 제어:</b> 인버터, 위상각 제어"
+            },
+            {
+              "type": "analogy",
+              "emoji": "⚡",
+              "title": "페이저의 힘",
+              "body": "AC 회로의 미분방정식을 페이저(복소수)로 변환하면 대수방정식이 된다. 마치 로그가 곱셈을 덧셈으로 바꾸듯, 페이저는 시간 영역의 복잡한 계산을 주파수 영역에서 단순화한다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
