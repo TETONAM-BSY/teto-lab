@@ -1,0 +1,1000 @@
+{
+  "id": "calculus",
+  "title": "미적분학",
+  "subtitle": "극한·미분·적분·급수·다변수·벡터미적분",
+  "chapters": [
+    {
+      "id": "ch1",
+      "number": "1",
+      "title": "극한과 연속",
+      "subtitle": "Limits & Continuity",
+      "sections": [
+        {
+          "id": "1.1",
+          "title": "극한의 엄밀한 정의",
+          "content": [
+            {
+              "type": "definition",
+              "term": "ε-δ 정의 (Epsilon-Delta Definition)",
+              "latex": "\\lim_{x \\to a} f(x) = L \\iff \\forall\\varepsilon>0,\\; \\exists\\delta>0 \\text{ s.t. } 0<|x-a|<\\delta \\Rightarrow |f(x)-L|<\\varepsilon",
+              "body": "x가 a에 아무리 가깝게 다가가도 f(x)가 L에 ε 이내로 들어온다. 공학에서는 직관적 이해로 충분하지만, 수치해석의 오차 분석에 이 개념이 핵심이다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "극한 계산 법칙",
+              "cols": 2,
+              "items": [
+                { "name": "합·차", "latex": "\\lim[f \\pm g] = \\lim f \\pm \\lim g" },
+                { "name": "곱", "latex": "\\lim[fg] = (\\lim f)(\\lim g)" },
+                { "name": "몫", "latex": "\\lim\\frac{f}{g} = \\frac{\\lim f}{\\lim g} \\;(\\lim g \\neq 0)" },
+                { "name": "스칼라 곱", "latex": "\\lim[cf] = c\\lim f" }
+              ]
+            },
+            {
+              "type": "formula-grid",
+              "title": "중요 극한 공식",
+              "cols": 2,
+              "items": [
+                { "name": "sinc 극한", "latex": "\\lim_{x \\to 0}\\frac{\\sin x}{x} = 1" },
+                { "name": "자연상수", "latex": "\\lim_{n \\to \\infty}\\left(1+\\frac{1}{n}\\right)^n = e" },
+                { "name": "지수 극한", "latex": "\\lim_{x \\to 0}\\frac{e^x - 1}{x} = 1" },
+                { "name": "로그 극한", "latex": "\\lim_{x \\to 0}\\frac{\\ln(1+x)}{x} = 1" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "title": "연속과 불연속",
+          "content": [
+            {
+              "type": "definition",
+              "term": "연속 (Continuity)",
+              "latex": "\\lim_{x \\to a} f(x) = f(a)",
+              "body": "세 조건: ① f(a) 정의됨, ② 극한 존재, ③ 극한 = 함수값. 세 가지 모두 만족해야 연속."
+            },
+            {
+              "type": "table",
+              "title": "불연속 종류",
+              "headers": ["종류", "특징", "예"],
+              "rows": [
+                ["제거가능 불연속", "극한은 존재, 함수값만 다름", "sin(x)/x at x=0"],
+                ["점프 불연속", "좌극한 ≠ 우극한", "계단함수 u(t)"],
+                ["무한 불연속", "극한이 ±∞", "1/x at x=0"],
+                ["진동 불연속", "극한이 진동하여 미존재", "sin(1/x) at x=0"]
+              ]
+            },
+            {
+              "type": "theorem",
+              "name": "중간값 정리 (Intermediate Value Theorem)",
+              "statement": "f가 [a,b]에서 연속이고 f(a) ≠ f(b)이면, f(a)와 f(b) 사이의 임의의 값 k에 대해 f(c) = k인 c가 (a,b)에 존재한다.",
+              "latex": "f(a) < k < f(b) \\Rightarrow \\exists c \\in (a,b) \\text{ s.t. } f(c) = k"
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "title": "로피탈 정리",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "로피탈 정리 (L'Hôpital's Rule)",
+              "statement": "0/0 또는 ∞/∞ 꼴의 부정형 극한에서 분자·분모를 각각 미분하여 극한을 구할 수 있다.",
+              "latex": "\\lim_{x \\to a}\\frac{f(x)}{g(x)} = \\lim_{x \\to a}\\frac{f'(x)}{g'(x)} \\quad \\left(\\frac{0}{0} \\text{ or } \\frac{\\infty}{\\infty}\\right)"
+            },
+            {
+              "type": "example",
+              "title": "로피탈 적용",
+              "problem": "\\(\\displaystyle\\lim_{x \\to 0}\\frac{e^x - 1 - x}{x^2}\\) 를 구하시오.",
+              "solution": "0/0 꼴. 분자 미분: eˣ - 1, 분모 미분: 2x → 다시 0/0. 한 번 더: eˣ / 2 → x=0 대입: e⁰/2 = 1/2",
+              "answer": "1/2"
+            },
+            {
+              "type": "warning",
+              "title": "로피탈 사용 주의",
+              "body": "반드시 0/0 또는 ∞/∞ 꼴인지 확인 후 적용. 그 외 꼴(0·∞, 1^∞ 등)은 변환 후 적용. 수렴하지 않는 경우에는 적용 불가."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "number": "2",
+      "title": "미분의 기초",
+      "subtitle": "Differentiation Fundamentals",
+      "sections": [
+        {
+          "id": "2.1",
+          "title": "미분의 정의와 기본 공식",
+          "content": [
+            {
+              "type": "definition",
+              "term": "미분 (Derivative)",
+              "latex": "f'(x) = \\lim_{h \\to 0}\\frac{f(x+h)-f(x)}{h} = \\frac{dy}{dx}",
+              "body": "함수의 순간변화율. 기하학적으로는 접선의 기울기. 물리적으로는 속도(위치의 미분), 가속도(속도의 미분)."
+            },
+            {
+              "type": "formula-grid",
+              "title": "기본 미분 공식",
+              "cols": 2,
+              "items": [
+                { "name": "상수", "latex": "\\frac{d}{dx}c = 0" },
+                { "name": "거듭제곱", "latex": "\\frac{d}{dx}x^n = nx^{n-1}" },
+                { "name": "지수함수", "latex": "\\frac{d}{dx}e^x = e^x" },
+                { "name": "자연로그", "latex": "\\frac{d}{dx}\\ln x = \\frac{1}{x}" },
+                { "name": "sin", "latex": "\\frac{d}{dx}\\sin x = \\cos x" },
+                { "name": "cos", "latex": "\\frac{d}{dx}\\cos x = -\\sin x" },
+                { "name": "tan", "latex": "\\frac{d}{dx}\\tan x = \\sec^2 x" },
+                { "name": "일반 지수", "latex": "\\frac{d}{dx}a^x = a^x \\ln a" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "title": "미분 법칙",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "미분 연산 법칙",
+              "cols": 2,
+              "items": [
+                { "name": "합·차의 법칙", "latex": "(f \\pm g)' = f' \\pm g'" },
+                { "name": "곱의 법칙", "latex": "(fg)' = f'g + fg'", "desc": "Product Rule" },
+                { "name": "몫의 법칙", "latex": "\\left(\\frac{f}{g}\\right)' = \\frac{f'g - fg'}{g^2}", "desc": "Quotient Rule" },
+                { "name": "연쇄 법칙", "latex": "\\frac{d}{dx}f(g(x)) = f'(g(x))\\cdot g'(x)", "desc": "Chain Rule" }
+              ]
+            },
+            {
+              "type": "example",
+              "title": "연쇄 법칙 적용",
+              "problem": "\\( y = \\sin(x^2 + 1) \\) 을 미분하시오.",
+              "solution": "바깥 함수: sin(u), 안쪽 함수: u = x²+1. dy/dx = cos(u)·2x = cos(x²+1)·2x",
+              "answer": "\\(2x\\cos(x^2+1)\\)"
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "공학 핵심",
+              "title": "RC 회로에서의 미분",
+              "body": "<p>커패시터 전류: \\(i_C = C\\dfrac{dv_C}{dt}\\)</p><p>인덕터 전압: \\(v_L = L\\dfrac{di_L}{dt}\\)</p><p>미분 연산이 회로 소자의 동작을 기술하는 핵심이다.</p>"
+            }
+          ]
+        },
+        {
+          "id": "2.3",
+          "title": "고계 미분과 음함수 미분",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "고계 미분 표기",
+              "cols": 2,
+              "items": [
+                { "name": "2계 미분", "latex": "f''(x) = \\frac{d^2y}{dx^2}" },
+                { "name": "n계 미분", "latex": "f^{(n)}(x) = \\frac{d^ny}{dx^n}" },
+                { "name": "eˣ의 n계", "latex": "\\frac{d^n}{dx^n}e^x = e^x" },
+                { "name": "sinx의 n계", "latex": "\\frac{d^n}{dx^n}\\sin x = \\sin\\!\\left(x+\\frac{n\\pi}{2}\\right)" }
+              ]
+            },
+            {
+              "type": "definition",
+              "term": "음함수 미분 (Implicit Differentiation)",
+              "latex": "\\frac{d}{dx}F(x,y) = 0 \\Rightarrow \\frac{dy}{dx} = -\\frac{F_x}{F_y}",
+              "body": "y를 x의 함수로 명시적으로 나타내지 않고 미분. 원, 타원 등 y = f(x) 형태로 쓸 수 없는 경우에 사용."
+            },
+            {
+              "type": "example",
+              "title": "음함수 미분 적용",
+              "problem": "\\( x^2 + y^2 = 25 \\) 에서 dy/dx를 구하시오.",
+              "solution": "양변을 x로 미분: 2x + 2y(dy/dx) = 0 → dy/dx = -x/y",
+              "answer": "\\(\\dfrac{dy}{dx} = -\\dfrac{x}{y}\\)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "number": "3",
+      "title": "미분의 응용",
+      "subtitle": "Applications of Differentiation",
+      "sections": [
+        {
+          "id": "3.1",
+          "title": "극값과 최적화",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "페르마 정리 (Fermat's Theorem)",
+              "statement": "f가 c에서 극값을 가지고 미분 가능하면 f'(c) = 0이다.",
+              "latex": "f'(c) = 0 \\Rightarrow c \\text{는 극값 후보 (임계점)}"
+            },
+            {
+              "type": "table",
+              "title": "극값 판정법",
+              "headers": ["방법", "조건", "판정"],
+              "rows": [
+                ["1차 도함수 판정", "f'가 +→- 변화", "극대"],
+                ["1차 도함수 판정", "f'가 -→+ 변화", "극소"],
+                ["2차 도함수 판정", "f'(c)=0, f''(c)<0", "극대"],
+                ["2차 도함수 판정", "f'(c)=0, f''(c)>0", "극소"],
+                ["2차 도함수 판정", "f'(c)=0, f''(c)=0", "판정 불가 (1차로 확인)"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "📡",
+              "title": "공학에서의 최적화",
+              "body": "안테나 설계에서 이득 최대화, 전력 전달 최대 조건(R_L = R_S), 필터 차단 주파수 최적화 등 모두 미분을 통한 극값 탐색이다."
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "title": "평균값 정리와 테일러 전개",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "평균값 정리 (Mean Value Theorem)",
+              "statement": "f가 [a,b]에서 연속이고 (a,b)에서 미분 가능하면, 접선의 기울기가 할선의 기울기와 같은 점 c가 존재한다.",
+              "latex": "\\exists c \\in (a,b) \\text{ s.t. } f'(c) = \\frac{f(b)-f(a)}{b-a}"
+            },
+            {
+              "type": "formula",
+              "name": "테일러 급수 (Taylor Series)",
+              "latex": "f(x) = \\sum_{n=0}^{\\infty}\\frac{f^{(n)}(a)}{n!}(x-a)^n",
+              "description": "함수를 다항식의 무한합으로 표현. 수치 계산·신호처리 근사에 필수."
+            },
+            {
+              "type": "table",
+              "title": "주요 매클로린 급수",
+              "headers": ["함수", "급수", "수렴범위"],
+              "rows": [
+                ["eˣ", "1 + x + x²/2! + x³/3! + …", "(-∞, ∞)"],
+                ["sin x", "x - x³/3! + x⁵/5! - …", "(-∞, ∞)"],
+                ["cos x", "1 - x²/2! + x⁴/4! - …", "(-∞, ∞)"],
+                ["ln(1+x)", "x - x²/2 + x³/3 - …", "(-1, 1]"],
+                ["1/(1-x)", "1 + x + x² + x³ + …", "(-1, 1)"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.3",
+          "title": "곡선의 개형과 오목·볼록",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "곡선 개형 분석",
+              "cols": 2,
+              "items": [
+                { "name": "증가 구간", "latex": "f'(x) > 0", "desc": "오른쪽으로 증가" },
+                { "name": "감소 구간", "latex": "f'(x) < 0", "desc": "오른쪽으로 감소" },
+                { "name": "오목 위 (Concave Up)", "latex": "f''(x) > 0", "desc": "접선이 아래쪽에" },
+                { "name": "오목 아래 (Concave Down)", "latex": "f''(x) < 0", "desc": "접선이 위쪽에" },
+                { "name": "변곡점", "latex": "f''(x) = 0 \\text{ 부호 변화}", "desc": "오목방향 바뀌는 점" }
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "점근선 (Asymptote)",
+              "body": "수직 점근선: lim x→a f(x) = ±∞ → x = a. 수평 점근선: lim x→±∞ f(x) = L → y = L. 사선 점근선: lim x→∞ [f(x) - (mx+b)] = 0."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "number": "4",
+      "title": "적분의 기초",
+      "subtitle": "Integration Fundamentals",
+      "sections": [
+        {
+          "id": "4.1",
+          "title": "부정적분과 기본 공식",
+          "content": [
+            {
+              "type": "definition",
+              "term": "부정적분 (Indefinite Integral)",
+              "latex": "\\int f(x)\\,dx = F(x) + C \\iff F'(x) = f(x)",
+              "body": "미분의 역연산. C는 적분 상수로 초기조건에 의해 결정된다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "기본 적분 공식",
+              "cols": 2,
+              "items": [
+                { "name": "거듭제곱", "latex": "\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C \\;(n\\neq -1)" },
+                { "name": "1/x", "latex": "\\int \\frac{1}{x}\\,dx = \\ln|x| + C" },
+                { "name": "eˣ", "latex": "\\int e^x\\,dx = e^x + C" },
+                { "name": "aˣ", "latex": "\\int a^x\\,dx = \\frac{a^x}{\\ln a} + C" },
+                { "name": "sin x", "latex": "\\int \\sin x\\,dx = -\\cos x + C" },
+                { "name": "cos x", "latex": "\\int \\cos x\\,dx = \\sin x + C" },
+                { "name": "sec²x", "latex": "\\int \\sec^2 x\\,dx = \\tan x + C" },
+                { "name": "1/(1+x²)", "latex": "\\int \\frac{1}{1+x^2}\\,dx = \\arctan x + C" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.2",
+          "title": "정적분과 미적분학의 기본정리",
+          "content": [
+            {
+              "type": "theorem",
+              "name": "미적분학의 기본정리 (Fundamental Theorem of Calculus)",
+              "statement": "f가 [a,b]에서 연속이고 F가 f의 역도함수이면 정적분은 F(b) - F(a)이다.",
+              "latex": "\\int_a^b f(x)\\,dx = F(b) - F(a) = \\Big[F(x)\\Big]_a^b"
+            },
+            {
+              "type": "formula-grid",
+              "title": "정적분 성질",
+              "cols": 2,
+              "items": [
+                { "name": "구간 반전", "latex": "\\int_a^b f\\,dx = -\\int_b^a f\\,dx" },
+                { "name": "구간 분할", "latex": "\\int_a^b f\\,dx = \\int_a^c f\\,dx + \\int_c^b f\\,dx" },
+                { "name": "우함수", "latex": "\\int_{-a}^{a} f\\,dx = 2\\int_0^a f\\,dx \\;(f \\text{ even})" },
+                { "name": "기함수", "latex": "\\int_{-a}^{a} f\\,dx = 0 \\;(f \\text{ odd})" }
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "⚡",
+              "title": "공학에서의 정적분",
+              "body": "전력량 W = ∫p(t)dt, 전하량 Q = ∫i(t)dt, 신호 에너지 E = ∫|x(t)|²dt. 적분은 '누적'을 계산하는 도구다."
+            }
+          ]
+        },
+        {
+          "id": "4.3",
+          "title": "치환 적분법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "치환 적분 (Substitution Rule)",
+              "latex": "\\int f(g(x))\\,g'(x)\\,dx = \\int f(u)\\,du \\quad (u = g(x))",
+              "description": "연쇄법칙의 역. 복잡한 합성함수의 적분을 단순화한다."
+            },
+            {
+              "type": "example",
+              "title": "치환 적분 예제",
+              "problem": "\\(\\displaystyle\\int 2x\\cos(x^2)\\,dx\\) 를 구하시오.",
+              "solution": "u = x²로 놓으면 du = 2x dx. ∫cos(u)du = sin(u) + C = sin(x²) + C",
+              "answer": "\\(\\sin(x^2) + C\\)"
+            },
+            {
+              "type": "table",
+              "title": "삼각 치환 가이드",
+              "headers": ["피적분함수 꼴", "치환", "이용 항등식"],
+              "rows": [
+                ["√(a²-x²)", "x = a sinθ", "1 - sin²θ = cos²θ"],
+                ["√(a²+x²)", "x = a tanθ", "1 + tan²θ = sec²θ"],
+                ["√(x²-a²)", "x = a secθ", "sec²θ - 1 = tan²θ"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch5",
+      "number": "5",
+      "title": "적분 기법",
+      "subtitle": "Integration Techniques",
+      "sections": [
+        {
+          "id": "5.1",
+          "title": "부분 적분법",
+          "content": [
+            {
+              "type": "formula",
+              "name": "부분 적분 (Integration by Parts)",
+              "latex": "\\int u\\,dv = uv - \\int v\\,du",
+              "description": "곱의 미분 법칙의 역. u와 dv의 선택이 핵심."
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "LIATE 법칙 — u 선택 우선순위",
+              "body": "L(로그) → I(역삼각) → A(대수/다항식) → T(삼각) → E(지수) 순서로 u를 선택하면 대부분 잘 풀린다."
+            },
+            {
+              "type": "example",
+              "title": "부분 적분 예제",
+              "problem": "\\(\\displaystyle\\int x e^x\\,dx\\) 를 구하시오.",
+              "solution": "u = x, dv = eˣdx → du = dx, v = eˣ. ∫xeˣdx = xeˣ - ∫eˣdx = xeˣ - eˣ + C",
+              "answer": "\\((x-1)e^x + C\\)"
+            }
+          ]
+        },
+        {
+          "id": "5.2",
+          "title": "부분분수 분해",
+          "content": [
+            {
+              "type": "formula",
+              "name": "부분분수 분해 (Partial Fractions)",
+              "latex": "\\frac{P(x)}{(x-a)(x-b)} = \\frac{A}{x-a} + \\frac{B}{x-b}",
+              "description": "유리함수의 적분을 단순화. 선형 인수, 반복 인수, 이차 인수 각각 형태가 다름."
+            },
+            {
+              "type": "table",
+              "title": "분모 인수에 따른 분해 형태",
+              "headers": ["분모 인수", "부분분수 형태"],
+              "rows": [
+                ["(x-a)", "A/(x-a)"],
+                ["(x-a)²", "A/(x-a) + B/(x-a)²"],
+                ["(x²+bx+c)", "(Ax+B)/(x²+bx+c)"],
+                ["(x-a)(x-b)", "A/(x-a) + B/(x-b)"]
+              ]
+            },
+            {
+              "type": "example",
+              "title": "부분분수 적분",
+              "problem": "\\(\\displaystyle\\int \\frac{1}{x^2-1}\\,dx\\) 를 구하시오.",
+              "solution": "1/((x-1)(x+1)) = A/(x-1) + B/(x+1). A=1/2, B=-1/2. 적분: (1/2)ln|x-1| - (1/2)ln|x+1| + C",
+              "answer": "\\(\\dfrac{1}{2}\\ln\\left|\\dfrac{x-1}{x+1}\\right| + C\\)"
+            }
+          ]
+        },
+        {
+          "id": "5.3",
+          "title": "이상 적분",
+          "content": [
+            {
+              "type": "definition",
+              "term": "이상 적분 (Improper Integral)",
+              "latex": "\\int_a^{\\infty} f(x)\\,dx = \\lim_{b \\to \\infty}\\int_a^b f(x)\\,dx",
+              "body": "적분 구간이 무한하거나 피적분함수가 특이점을 갖는 경우. 수렴·발산 판별이 중요."
+            },
+            {
+              "type": "formula-grid",
+              "title": "중요 이상 적분 결과",
+              "cols": 2,
+              "items": [
+                { "name": "지수감쇠", "latex": "\\int_0^{\\infty} e^{-ax}\\,dx = \\frac{1}{a} \\;(a>0)" },
+                { "name": "가우시안", "latex": "\\int_{-\\infty}^{\\infty} e^{-x^2}\\,dx = \\sqrt{\\pi}" },
+                { "name": "p-적분", "latex": "\\int_1^{\\infty}\\frac{1}{x^p}\\,dx \\text{ 수렴} \\iff p>1" },
+                { "name": "sinc 적분", "latex": "\\int_0^{\\infty}\\frac{\\sin x}{x}\\,dx = \\frac{\\pi}{2}" }
+              ]
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "신호처리 핵심",
+              "title": "라플라스 변환 = 이상 적분",
+              "body": "<p>\\(\\mathcal{L}\\{f(t)\\} = \\int_0^{\\infty} f(t)e^{-st}\\,dt\\)</p><p>e⁻ˢᵗ 인자가 수렴을 보장하는 '수렴 인자'이다. 라플라스 변환을 이해하려면 이상 적분이 필수다.</p>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch6",
+      "number": "6",
+      "title": "적분의 응용",
+      "subtitle": "Applications of Integration",
+      "sections": [
+        {
+          "id": "6.1",
+          "title": "넓이와 부피",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "넓이 계산",
+              "cols": 2,
+              "items": [
+                { "name": "x축과의 넓이", "latex": "A = \\int_a^b |f(x)|\\,dx" },
+                { "name": "두 곡선 사이", "latex": "A = \\int_a^b |f(x)-g(x)|\\,dx" }
+              ]
+            },
+            {
+              "type": "formula-grid",
+              "title": "회전체 부피",
+              "cols": 2,
+              "items": [
+                { "name": "원판법 (x축 회전)", "latex": "V = \\pi\\int_a^b [f(x)]^2\\,dx" },
+                { "name": "원통껍질법", "latex": "V = 2\\pi\\int_a^b x\\,f(x)\\,dx" },
+                { "name": "와셔법", "latex": "V = \\pi\\int_a^b \\left([f(x)]^2-[g(x)]^2\\right)dx" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.2",
+          "title": "호의 길이와 곡면적",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "호의 길이",
+              "cols": 2,
+              "items": [
+                { "name": "직교 좌표", "latex": "L = \\int_a^b \\sqrt{1+[f'(x)]^2}\\,dx" },
+                { "name": "매개변수", "latex": "L = \\int_{t_1}^{t_2}\\sqrt{\\left(\\frac{dx}{dt}\\right)^2+\\left(\\frac{dy}{dt}\\right)^2}\\,dt" }
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "회전 곡면적",
+              "latex": "S = 2\\pi\\int_a^b f(x)\\sqrt{1+[f'(x)]^2}\\,dx",
+              "description": "y = f(x)를 x축 둘레로 회전시킨 곡면의 넓이"
+            }
+          ]
+        },
+        {
+          "id": "6.3",
+          "title": "물리·공학 응용",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "물리량 계산",
+              "cols": 2,
+              "items": [
+                { "name": "일(Work)", "latex": "W = \\int_a^b F(x)\\,dx", "desc": "힘이 위치의 함수일 때" },
+                { "name": "무게중심 x̄", "latex": "\\bar{x} = \\frac{\\int_a^b x\\,f(x)\\,dx}{\\int_a^b f(x)\\,dx}" },
+                { "name": "RMS값", "latex": "f_{\\text{rms}} = \\sqrt{\\frac{1}{T}\\int_0^T [f(t)]^2\\,dt}", "desc": "교류 실효값" },
+                { "name": "평균값", "latex": "\\bar{f} = \\frac{1}{b-a}\\int_a^b f(x)\\,dx" }
+              ]
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "전기공학 핵심",
+              "title": "RMS(실효값) 계산",
+              "body": "<p>교류 전압 \\(v(t) = V_m\\sin(\\omega t)\\)의 실효값:</p><p>\\[V_{\\text{rms}} = \\sqrt{\\frac{1}{T}\\int_0^T V_m^2\\sin^2(\\omega t)\\,dt} = \\frac{V_m}{\\sqrt{2}} \\approx 0.707\\,V_m\\]</p><p>가정용 220V는 실효값, 최댓값은 약 311V이다.</p>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch7",
+      "number": "7",
+      "title": "급수와 수렴",
+      "subtitle": "Series & Convergence",
+      "sections": [
+        {
+          "id": "7.1",
+          "title": "수열의 극한과 급수",
+          "content": [
+            {
+              "type": "definition",
+              "term": "무한급수 (Infinite Series)",
+              "latex": "\\sum_{n=1}^{\\infty} a_n = \\lim_{N \\to \\infty} S_N = \\lim_{N \\to \\infty}\\sum_{n=1}^{N} a_n",
+              "body": "부분합의 수열이 수렴하면 급수가 수렴한다고 한다."
+            },
+            {
+              "type": "formula-grid",
+              "title": "중요 급수 결과",
+              "cols": 2,
+              "items": [
+                { "name": "기하급수", "latex": "\\sum_{n=0}^{\\infty} r^n = \\frac{1}{1-r} \\;(|r|<1)" },
+                { "name": "조화급수", "latex": "\\sum_{n=1}^{\\infty}\\frac{1}{n} = \\infty \\text{ (발산)}" },
+                { "name": "p-급수", "latex": "\\sum_{n=1}^{\\infty}\\frac{1}{n^p} \\text{ 수렴} \\iff p>1" },
+                { "name": "바젤 문제", "latex": "\\sum_{n=1}^{\\infty}\\frac{1}{n^2} = \\frac{\\pi^2}{6}" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.2",
+          "title": "수렴 판정법",
+          "content": [
+            {
+              "type": "table",
+              "title": "급수 수렴 판정법",
+              "headers": ["판정법", "조건", "결론"],
+              "rows": [
+                ["발산 판정법", "lim aₙ ≠ 0", "발산"],
+                ["비율 판정법", "lim|aₙ₊₁/aₙ| < 1", "수렴"],
+                ["비율 판정법", "lim|aₙ₊₁/aₙ| > 1", "발산"],
+                ["근 판정법", "lim|aₙ|^(1/n) < 1", "수렴"],
+                ["적분 판정법", "∫f(x)dx 수렴", "∑aₙ 수렴"],
+                ["교대급수 판정법", "|aₙ| 감소 → 0", "수렴"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.3",
+          "title": "멱급수와 수렴반경",
+          "content": [
+            {
+              "type": "definition",
+              "term": "멱급수 (Power Series)",
+              "latex": "\\sum_{n=0}^{\\infty} c_n(x-a)^n = c_0 + c_1(x-a) + c_2(x-a)^2 + \\cdots",
+              "body": "변수 x의 다항식 형태 무한급수. 함수 근사와 미분방정식 해법에 핵심."
+            },
+            {
+              "type": "formula",
+              "name": "수렴반경 (Radius of Convergence)",
+              "latex": "R = \\lim_{n \\to \\infty}\\left|\\frac{c_n}{c_{n+1}}\\right| = \\frac{1}{\\limsup_{n \\to \\infty}|c_n|^{1/n}}",
+              "description": "|x - a| < R이면 수렴, |x - a| > R이면 발산"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch8",
+      "number": "8",
+      "title": "편미분과 다변수 함수",
+      "subtitle": "Partial Derivatives & Multivariable Functions",
+      "sections": [
+        {
+          "id": "8.1",
+          "title": "편미분",
+          "content": [
+            {
+              "type": "definition",
+              "term": "편미분 (Partial Derivative)",
+              "latex": "\\frac{\\partial f}{\\partial x} = \\lim_{h \\to 0}\\frac{f(x+h,y)-f(x,y)}{h}",
+              "body": "다변수 함수에서 한 변수만 변화시킬 때의 순간변화율. 나머지 변수는 상수로 취급."
+            },
+            {
+              "type": "formula-grid",
+              "title": "편미분 표기와 고계",
+              "cols": 2,
+              "items": [
+                { "name": "x 편미분", "latex": "f_x = \\frac{\\partial f}{\\partial x}" },
+                { "name": "y 편미분", "latex": "f_y = \\frac{\\partial f}{\\partial y}" },
+                { "name": "2계 편미분", "latex": "f_{xx} = \\frac{\\partial^2 f}{\\partial x^2}" },
+                { "name": "혼합 편미분", "latex": "f_{xy} = \\frac{\\partial^2 f}{\\partial y\\,\\partial x}" }
+              ]
+            },
+            {
+              "type": "theorem",
+              "name": "클레로 정리 (Clairaut's Theorem)",
+              "statement": "f의 혼합 편미분이 연속이면 편미분 순서를 바꿔도 된다.",
+              "latex": "f_{xy} = f_{yx} \\quad (\\text{연속일 때})"
+            }
+          ]
+        },
+        {
+          "id": "8.2",
+          "title": "기울기 벡터와 방향 미분",
+          "content": [
+            {
+              "type": "definition",
+              "term": "기울기 벡터 (Gradient)",
+              "latex": "\\nabla f = \\text{grad}\\,f = \\frac{\\partial f}{\\partial x}\\hat{i} + \\frac{\\partial f}{\\partial y}\\hat{j} + \\frac{\\partial f}{\\partial z}\\hat{k}",
+              "body": "함수가 가장 빠르게 증가하는 방향과 증가율을 동시에 나타냄. 전기장 E = -∇V에서 직접 사용."
+            },
+            {
+              "type": "formula",
+              "name": "방향 미분 (Directional Derivative)",
+              "latex": "D_{\\hat{u}}f = \\nabla f \\cdot \\hat{u}",
+              "description": "단위벡터 û 방향으로의 순간변화율. 최댓값 = |∇f| (기울기 방향)"
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "전자기학 핵심",
+              "title": "전기장과 기울기",
+              "body": "<p>전위 V가 주어지면 전기장: \\(\\mathbf{E} = -\\nabla V\\)</p><p>기울기의 반대 방향 = 전위가 가장 빠르게 감소하는 방향 = 전기장 방향이다.</p>"
+            }
+          ]
+        },
+        {
+          "id": "8.3",
+          "title": "다변수 함수의 극값",
+          "content": [
+            {
+              "type": "formula",
+              "name": "임계점 조건",
+              "latex": "\\nabla f = \\mathbf{0} \\iff f_x = 0 \\text{ and } f_y = 0",
+              "description": "극값 후보점 (임계점)을 찾는 조건"
+            },
+            {
+              "type": "table",
+              "title": "2차 편미분 판정법 (Hessian)",
+              "headers": ["조건 (D = fₓₓfᵧᵧ - fₓᵧ²)", "판정"],
+              "rows": [
+                ["D > 0, fₓₓ > 0", "극소"],
+                ["D > 0, fₓₓ < 0", "극대"],
+                ["D < 0", "안장점(saddle point)"],
+                ["D = 0", "판정 불가"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch9",
+      "number": "9",
+      "title": "다중 적분",
+      "subtitle": "Multiple Integrals",
+      "sections": [
+        {
+          "id": "9.1",
+          "title": "이중 적분",
+          "content": [
+            {
+              "type": "definition",
+              "term": "이중 적분 (Double Integral)",
+              "latex": "\\iint_D f(x,y)\\,dA = \\int_a^b\\int_{g_1(x)}^{g_2(x)} f(x,y)\\,dy\\,dx",
+              "body": "평면 영역 D 위에서의 2차원 적분. 부피, 질량, 면적 등 계산에 사용."
+            },
+            {
+              "type": "theorem",
+              "name": "푸비니 정리 (Fubini's Theorem)",
+              "statement": "f가 직사각형 R = [a,b]×[c,d]에서 연속이면 적분 순서를 바꿔도 된다.",
+              "latex": "\\int_a^b\\int_c^d f(x,y)\\,dy\\,dx = \\int_c^d\\int_a^b f(x,y)\\,dx\\,dy"
+            },
+            {
+              "type": "formula",
+              "name": "극좌표 이중 적분",
+              "latex": "\\iint_D f(x,y)\\,dA = \\int_\\alpha^\\beta\\int_{r_1}^{r_2} f(r\\cos\\theta, r\\sin\\theta)\\,r\\,dr\\,d\\theta",
+              "description": "원형 대칭 영역에서는 극좌표로 변환하면 계산이 쉬워짐. r dr dθ에서 r을 꼭 포함."
+            }
+          ]
+        },
+        {
+          "id": "9.2",
+          "title": "삼중 적분과 좌표 변환",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "좌표계별 삼중 적분",
+              "cols": 2,
+              "items": [
+                { "name": "직교 좌표", "latex": "\\iiint_E f\\,dV = \\int\\int\\int f\\,dx\\,dy\\,dz" },
+                { "name": "원통 좌표", "latex": "\\iiint_E f\\,dV = \\int\\int\\int f\\,r\\,dr\\,d\\theta\\,dz" },
+                { "name": "구면 좌표", "latex": "\\iiint_E f\\,dV = \\int\\int\\int f\\,\\rho^2\\sin\\phi\\,d\\rho\\,d\\phi\\,d\\theta" }
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "야코비안 (Jacobian)",
+              "latex": "\\iint_D f(x,y)\\,dA = \\iint_{D'} f(x(u,v),y(u,v))\\left|\\frac{\\partial(x,y)}{\\partial(u,v)}\\right|du\\,dv",
+              "description": "일반 좌표 변환 시 면적 요소 변환에 야코비안을 곱해야 한다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10",
+      "number": "10",
+      "title": "벡터 미적분",
+      "subtitle": "Vector Calculus",
+      "sections": [
+        {
+          "id": "10.1",
+          "title": "벡터장과 선 적분",
+          "content": [
+            {
+              "type": "definition",
+              "term": "벡터장 (Vector Field)",
+              "latex": "\\mathbf{F}(x,y,z) = P(x,y,z)\\hat{i} + Q(x,y,z)\\hat{j} + R(x,y,z)\\hat{k}",
+              "body": "공간의 각 점에 벡터를 대응. 전기장, 자기장, 유체 속도장 등이 대표적인 벡터장."
+            },
+            {
+              "type": "formula",
+              "name": "선 적분 (Line Integral)",
+              "latex": "\\int_C \\mathbf{F}\\cdot d\\mathbf{r} = \\int_a^b \\mathbf{F}(\\mathbf{r}(t))\\cdot\\mathbf{r}'(t)\\,dt",
+              "description": "벡터장 F를 곡선 C를 따라 적분. 일(Work) = ∫F·dr"
+            }
+          ]
+        },
+        {
+          "id": "10.2",
+          "title": "발산, 회전, 라플라시안",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "벡터 미분 연산자 ∇",
+              "cols": 2,
+              "items": [
+                { "name": "기울기 (Gradient)", "latex": "\\nabla f = \\frac{\\partial f}{\\partial x}\\hat{i}+\\frac{\\partial f}{\\partial y}\\hat{j}+\\frac{\\partial f}{\\partial z}\\hat{k}" },
+                { "name": "발산 (Divergence)", "latex": "\\nabla \\cdot \\mathbf{F} = \\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}" },
+                { "name": "회전 (Curl)", "latex": "\\nabla \\times \\mathbf{F} = \\begin{vmatrix}\\hat{i}&\\hat{j}&\\hat{k}\\\\\\partial_x&\\partial_y&\\partial_z\\\\P&Q&R\\end{vmatrix}" },
+                { "name": "라플라시안", "latex": "\\nabla^2 f = \\frac{\\partial^2 f}{\\partial x^2}+\\frac{\\partial^2 f}{\\partial y^2}+\\frac{\\partial^2 f}{\\partial z^2}" }
+              ]
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "전자기학 핵심",
+              "title": "맥스웰 방정식과 벡터 미적분",
+              "body": "<p>가우스 법칙: \\(\\nabla \\cdot \\mathbf{E} = \\rho/\\varepsilon_0\\)</p><p>패러데이 법칙: \\(\\nabla \\times \\mathbf{E} = -\\dfrac{\\partial \\mathbf{B}}{\\partial t}\\)</p><p>발산과 회전을 이해해야 맥스웰 방정식을 읽을 수 있다.</p>"
+            }
+          ]
+        },
+        {
+          "id": "10.3",
+          "title": "그린·스토크스·발산 정리",
+          "content": [
+            {
+              "type": "formula",
+              "name": "그린 정리 (Green's Theorem)",
+              "latex": "\\oint_C P\\,dx + Q\\,dy = \\iint_D\\left(\\frac{\\partial Q}{\\partial x} - \\frac{\\partial P}{\\partial y}\\right)dA",
+              "description": "평면에서 선 적분 ↔ 이중 적분 변환"
+            },
+            {
+              "type": "formula",
+              "name": "스토크스 정리 (Stokes' Theorem)",
+              "latex": "\\oint_C \\mathbf{F}\\cdot d\\mathbf{r} = \\iint_S (\\nabla\\times\\mathbf{F})\\cdot d\\mathbf{S}",
+              "description": "3D에서 선 적분 ↔ 면 적분 변환. 패러데이 법칙의 수학적 토대."
+            },
+            {
+              "type": "formula",
+              "name": "발산 정리 (Divergence Theorem, Gauss)",
+              "latex": "\\oiint_S \\mathbf{F}\\cdot d\\mathbf{S} = \\iiint_E (\\nabla\\cdot\\mathbf{F})\\,dV",
+              "description": "면 적분 ↔ 체적 적분 변환. 가우스 법칙의 수학적 토대."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11",
+      "number": "11",
+      "title": "상미분방정식 입문",
+      "subtitle": "Introduction to ODEs",
+      "sections": [
+        {
+          "id": "11.1",
+          "title": "1계 미분방정식",
+          "content": [
+            {
+              "type": "definition",
+              "term": "1계 선형 ODE",
+              "latex": "\\frac{dy}{dx} + P(x)y = Q(x)",
+              "body": "표준형. 이 형태로 정리한 후 적분인자법으로 풀 수 있다."
+            },
+            {
+              "type": "formula",
+              "name": "적분인자법 (Integrating Factor)",
+              "latex": "\\mu(x) = e^{\\int P(x)\\,dx} \\Rightarrow y = \\frac{1}{\\mu}\\int \\mu Q\\,dx",
+              "description": "양변에 μ(x)를 곱하면 좌변이 (μy)'가 되어 바로 적분 가능."
+            },
+            {
+              "type": "example",
+              "title": "RC 회로 방정식 풀기",
+              "problem": "\\(RC\\dfrac{dv}{dt} + v = V_s\\) (직류 입력). v(0) = 0일 때 v(t)를 구하시오.",
+              "solution": "dv/dt + v/RC = Vs/RC. 적분인자 μ = e^(t/RC). 풀면 v(t) = Vs(1 - e^(-t/RC))",
+              "answer": "\\(v(t) = V_s\\left(1 - e^{-t/RC}\\right)\\)"
+            }
+          ]
+        },
+        {
+          "id": "11.2",
+          "title": "2계 선형 ODE",
+          "content": [
+            {
+              "type": "formula",
+              "name": "2계 동차 ODE (상수계수)",
+              "latex": "ay'' + by' + cy = 0 \\Rightarrow ar^2 + br + c = 0 \\text{ (특성방정식)}",
+              "description": "특성방정식의 근의 종류에 따라 해의 형태가 달라짐."
+            },
+            {
+              "type": "table",
+              "title": "특성근에 따른 일반해",
+              "headers": ["판별식", "근의 형태", "일반해"],
+              "rows": [
+                ["b²-4ac > 0", "서로 다른 실근 r₁, r₂", "y = C₁e^(r₁x) + C₂e^(r₂x)"],
+                ["b²-4ac = 0", "중근 r", "y = (C₁ + C₂x)e^(rx)"],
+                ["b²-4ac < 0", "켤레 복소근 α±βi", "y = e^(αx)(C₁cosβx + C₂sinβx)"]
+              ]
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "회로공학 핵심",
+              "title": "RLC 회로 = 2계 ODE",
+              "body": "<p>\\(L\\dfrac{d^2i}{dt^2} + R\\dfrac{di}{dt} + \\dfrac{i}{C} = 0\\)</p><p>판별식에 따라 과감쇠(over), 임계감쇠(critical), 부족감쇠(under) 세 동작 모드가 결정된다.</p>"
+            }
+          ]
+        },
+        {
+          "id": "11.3",
+          "title": "비동차 ODE와 특수해",
+          "content": [
+            {
+              "type": "definition",
+              "term": "비동차 ODE의 일반해",
+              "latex": "y = y_h + y_p",
+              "body": "동차 방정식의 일반해(yₕ) + 특수해(yₚ)의 합. yₚ는 미정계수법 또는 매개변수 변환법으로 구한다."
+            },
+            {
+              "type": "table",
+              "title": "미정계수법 — 특수해 추정 형태",
+              "headers": ["우변 f(x)", "추정 특수해 yₚ"],
+              "rows": [
+                ["kx^n", "Aₙxⁿ + … + A₁x + A₀"],
+                ["ke^(ax)", "Ae^(ax)"],
+                ["k cos(bx) 또는 k sin(bx)", "A cos(bx) + B sin(bx)"],
+                ["ke^(ax)cos(bx)", "e^(ax)(A cosbx + B sinbx)"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12",
+      "number": "12",
+      "title": "수치 미적분과 공학 응용",
+      "subtitle": "Numerical Methods & Engineering Applications",
+      "sections": [
+        {
+          "id": "12.1",
+          "title": "수치 미분",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "유한차분 미분 근사",
+              "cols": 2,
+              "items": [
+                { "name": "전진 차분", "latex": "f'(x) \\approx \\frac{f(x+h)-f(x)}{h}", "desc": "1차 정확도 O(h)" },
+                { "name": "후진 차분", "latex": "f'(x) \\approx \\frac{f(x)-f(x-h)}{h}", "desc": "1차 정확도 O(h)" },
+                { "name": "중앙 차분", "latex": "f'(x) \\approx \\frac{f(x+h)-f(x-h)}{2h}", "desc": "2차 정확도 O(h²)" },
+                { "name": "2계 중앙 차분", "latex": "f''(x) \\approx \\frac{f(x+h)-2f(x)+f(x-h)}{h^2}", "desc": "2차 정확도" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "12.2",
+          "title": "수치 적분",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "수치 적분 공식",
+              "cols": 2,
+              "items": [
+                { "name": "사다리꼴 공식", "latex": "\\int_a^b f\\,dx \\approx \\frac{h}{2}\\sum_{k=0}^{n-1}[f(x_k)+f(x_{k+1})]", "desc": "O(h²)" },
+                { "name": "심프슨 1/3 공식", "latex": "\\int_a^b f\\,dx \\approx \\frac{h}{3}[f_0+4f_1+2f_2+\\cdots+f_n]", "desc": "O(h⁴), n은 짝수" }
+              ]
+            },
+            {
+              "type": "table",
+              "title": "수치 적분법 비교",
+              "headers": ["방법", "오차 차수", "특징"],
+              "rows": [
+                ["사각형(직사각형)", "O(h)", "가장 단순"],
+                ["사다리꼴", "O(h²)", "균형잡힌 정확도"],
+                ["심프슨 1/3", "O(h⁴)", "포물선 근사, 정확"],
+                ["가우스 구적법", "매우 높음", "최적 적분점 선택"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "12.3",
+          "title": "푸리에 급수 — 미적분의 완성",
+          "content": [
+            {
+              "type": "formula",
+              "name": "푸리에 급수 (Fourier Series)",
+              "latex": "f(t) = \\frac{a_0}{2} + \\sum_{n=1}^{\\infty}\\left[a_n\\cos\\frac{n\\pi t}{L} + b_n\\sin\\frac{n\\pi t}{L}\\right]",
+              "description": "주기 2L인 함수를 삼각함수의 합으로 표현. 신호처리의 핵심 도구."
+            },
+            {
+              "type": "formula-grid",
+              "title": "푸리에 계수",
+              "cols": 2,
+              "items": [
+                { "name": "a₀ (직류성분)", "latex": "a_0 = \\frac{1}{L}\\int_{-L}^{L} f(t)\\,dt" },
+                { "name": "aₙ (cos 계수)", "latex": "a_n = \\frac{1}{L}\\int_{-L}^{L} f(t)\\cos\\frac{n\\pi t}{L}\\,dt" },
+                { "name": "bₙ (sin 계수)", "latex": "b_n = \\frac{1}{L}\\int_{-L}^{L} f(t)\\sin\\frac{n\\pi t}{L}\\,dt" }
+              ]
+            },
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "신호처리 완결",
+              "title": "미적분 → 푸리에 → 라플라스 → 시스템 해석",
+              "body": "<p>미적분학의 극한·미분·적분·급수가 모두 합쳐져 <strong>푸리에 급수</strong>가 된다.</p><p>푸리에 급수 → 푸리에 변환 → 라플라스 변환 → 전달함수 → 시스템 분석</p><p>이 흐름이 전기전자통신 공학 전체의 수학적 뼈대다.</p>"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
