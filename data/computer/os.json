@@ -1,0 +1,427 @@
+{
+  "id": "os",
+  "title": "운영체제",
+  "subtitle": "Operating Systems",
+  "chapters": [
+    {
+      "id": "ch01-intro",
+      "number": 1,
+      "title": "운영체제 개론",
+      "subtitle": "Introduction to Operating Systems",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "OS의 역할과 구조",
+          "content": [
+            {
+              "type": "definition",
+              "term": "운영체제 (Operating System)",
+              "body": "하드웨어와 응용 프로그램 사이의 중간 계층. 자원(CPU·메모리·I/O) 관리, 프로세스 추상화, 사용자 인터페이스 제공. 커널(핵심 서비스) + 시스템 호출(사용자-커널 인터페이스)."
+            },
+            {
+              "type": "table",
+              "title": "OS 구조 유형",
+              "headers": ["구조", "특징", "예"],
+              "rows": [
+                ["모놀리식", "커널 전체가 하나의 주소공간", "Linux, Unix"],
+                ["마이크로커널", "최소 커널 + 서버 프로세스", "Mach, QNX, MINIX"],
+                ["계층 구조", "기능별 계층 분리", "THE OS"],
+                ["하이브리드", "모놀리식 + 마이크로커널 요소", "Windows NT, macOS XNU"],
+                ["엑소커널", "하드웨어 직접 제어 라이브러리 OS", "MIT Exokernel"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-process",
+      "number": 2,
+      "title": "프로세스",
+      "subtitle": "Processes",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "프로세스 개념",
+          "content": [
+            {
+              "type": "definition",
+              "term": "프로세스 (Process)",
+              "body": "실행 중인 프로그램의 인스턴스. 코드(텍스트)·데이터·힙·스택 영역과 PCB(프로세스 제어 블록)으로 구성. 각 프로세스는 독립된 주소 공간 보유."
+            },
+            {
+              "type": "formula",
+              "name": "프로세스 상태 전이",
+              "latex": "\\text{New}\\xrightarrow{\\text{admitted}}\\text{Ready}\\xrightarrow{\\text{dispatch}}\\text{Running}\\xrightarrow{\\text{exit}}\\text{Terminated}",
+              "description": "Running→Ready: 타임아웃/선점. Running→Waiting: I/O 요청. Waiting→Ready: I/O 완료"
+            },
+            {
+              "type": "formula",
+              "name": "CPU 이용률과 응답 시간",
+              "latex": "\\text{CPU 이용률} = 1 - p^n\\quad (p: I/O 대기 비율,\\;n: 프로세스 수)",
+              "description": "다중 프로그래밍으로 CPU 이용률 향상"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-thread",
+      "number": 3,
+      "title": "스레드",
+      "subtitle": "Threads",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "멀티스레딩",
+          "content": [
+            {
+              "type": "definition",
+              "term": "스레드 (Thread)",
+              "body": "프로세스 내 실행 단위. 같은 프로세스의 스레드는 코드·데이터·힙 공유, 스택·레지스터는 별도. 컨텍스트 스위치 비용 낮음."
+            },
+            {
+              "type": "table",
+              "title": "스레드 모델",
+              "headers": ["모델", "매핑", "장점", "단점"],
+              "rows": [
+                ["다대일 (N:1)", "N 사용자→1 커널", "이식성 좋음", "하나 블록되면 전체"],
+                ["일대일 (1:1)", "1 사용자=1 커널", "진정한 병렬", "스레드 수 제한"],
+                ["다대다 (N:M)", "N 사용자↔M 커널", "유연, 균형", "구현 복잡"]
+              ]
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "Amdahl의 법칙",
+              "body": "S(n) = 1/[(1-p)+p/n]. p: 병렬화 가능 비율, n: 코어 수. p=0.9, n=∞이면 최대 10배 속도 향상. 직렬 부분이 성능을 제한함."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-scheduling",
+      "number": 4,
+      "title": "CPU 스케줄링",
+      "subtitle": "CPU Scheduling",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "스케줄링 알고리즘",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "스케줄링 성능 지표",
+              "cols": 2,
+              "items": [
+                {"name": "CPU 이용률", "latex": "\\frac{\\text{CPU 사용 시간}}{\\text{전체 시간}}\\times100\\%", "desc": "높을수록 좋음"},
+                {"name": "처리량", "latex": "\\frac{\\text{완료 프로세스 수}}{\\text{시간}}", "desc": "초당 완료 작업 수"},
+                {"name": "총처리 시간", "latex": "T_{turnaround}=T_{complete}-T_{arrive}", "desc": "제출부터 완료까지"},
+                {"name": "대기 시간", "latex": "T_{wait}=T_{turnaround}-T_{burst}", "desc": "실행되지 않고 기다린 시간"}
+              ]
+            },
+            {
+              "type": "table",
+              "title": "스케줄링 알고리즘 비교",
+              "headers": ["알고리즘", "선점", "특징", "문제점"],
+              "rows": [
+                ["FCFS", "비선점", "도착 순서 처리", "호위 효과(Convoy)"],
+                ["SJF", "비선점", "최단 작업 먼저", "기아(Starvation), 예측 필요"],
+                ["SRTF", "선점", "SJF 선점형", "기아 가능"],
+                ["Round Robin", "선점", "타임 퀀텀 순환", "퀀텀 크기 설정"],
+                ["우선순위", "선점/비선점", "우선순위 기반", "기아 → 에이징으로 해결"],
+                ["다단계 큐", "선점", "여러 큐 우선순위", "큐 간 이동 없음"],
+                ["다단계 피드백 큐", "선점", "동적 큐 이동", "구현 복잡, Linux CFS"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-synchronization",
+      "number": 5,
+      "title": "프로세스 동기화",
+      "subtitle": "Process Synchronization",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "임계 구역과 뮤텍스",
+          "content": [
+            {
+              "type": "definition",
+              "term": "임계 구역 문제 (Critical Section)",
+              "body": "공유 자원에 동시 접근 시 경쟁 조건(Race Condition) 발생. 해결 조건: ① 상호 배제(Mutual Exclusion) ② 진행(Progress) ③ 유한 대기(Bounded Waiting)."
+            },
+            {
+              "type": "table",
+              "title": "동기화 메커니즘",
+              "headers": ["메커니즘", "특징", "사용"],
+              "rows": [
+                ["뮤텍스 (Mutex)", "이진 잠금, 소유자 개념", "단순 상호 배제"],
+                ["세마포어", "정수 카운터, P/V 연산", "자원 개수 제한"],
+                ["모니터", "고수준 추상화, 조건 변수", "Java synchronized"],
+                ["스핀락", "바쁜 대기, 커널 임계구역", "짧은 임계구역"],
+                ["읽기-쓰기 락", "다수 읽기 or 단독 쓰기", "읽기 많은 자원"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch05-s02",
+          "title": "고전적 동기화 문제",
+          "content": [
+            {
+              "type": "table",
+              "title": "고전 동기화 문제",
+              "headers": ["문제", "설명", "해결"],
+              "rows": [
+                ["생산자-소비자", "공유 버퍼, 가득/비어있음 조건", "세마포어 3개 (mutex, empty, full)"],
+                ["독자-저자", "다수 읽기 or 단독 쓰기", "읽기-쓰기 락, 우선순위 정책"],
+                ["식사하는 철학자", "5명, 젓가락 2개 필요", "비대칭 해결, 타임아웃"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-deadlock",
+      "number": 6,
+      "title": "교착 상태",
+      "subtitle": "Deadlock",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "교착 상태 조건과 처리",
+          "content": [
+            {
+              "type": "definition",
+              "term": "교착 상태 4가지 조건 (Coffman)",
+              "body": "① 상호 배제(Mutual Exclusion) ② 점유 대기(Hold and Wait) ③ 비선점(No Preemption) ④ 순환 대기(Circular Wait). 4가지 모두 성립해야 교착 상태 발생."
+            },
+            {
+              "type": "table",
+              "title": "교착 상태 처리 방법",
+              "headers": ["방법", "전략", "오버헤드", "실용성"],
+              "rows": [
+                ["예방 (Prevention)", "4조건 중 하나 제거", "높음", "자원 낭비"],
+                ["회피 (Avoidance)", "은행원 알고리즘", "중간", "최대 자원 요구 사전 필요"],
+                ["탐지+복구", "자원 할당 그래프 탐지", "낮음", "Linux·Unix 채택"],
+                ["무시 (Ostrich)", "드물면 재부팅", "없음", "일반 PC OS"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "은행원 알고리즘 안전 조건",
+              "latex": "Need[i] = Max[i] - Allocation[i],\\quad Need[i] \\leq Available \\Rightarrow \\text{안전}",
+              "description": "안전 순서열이 존재하면 안전 상태. 자원 요청 전 시뮬레이션."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-memory",
+      "number": 7,
+      "title": "메모리 관리",
+      "subtitle": "Memory Management",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "주소 변환과 세그먼테이션",
+          "content": [
+            {
+              "type": "formula",
+              "name": "주소 바인딩",
+              "latex": "\\text{논리 주소}\\xrightarrow{\\text{MMU}}\\text{물리 주소}\\quad PA = BA + LA",
+              "description": "BA: 기준 레지스터(Base), LA: 논리 주소. 한계 레지스터로 범위 초과 검사."
+            },
+            {
+              "type": "table",
+              "title": "메모리 할당 방식",
+              "headers": ["방식", "특징", "단편화"],
+              "rows": [
+                ["연속 할당", "프로세스 연속 배치", "외부 단편화"],
+                ["세그먼테이션", "논리 단위 분리", "외부 단편화"],
+                ["페이징", "고정 크기 프레임/페이지", "내부 단편화만"],
+                ["세그-페이징", "세그먼트 내 페이징", "내부 단편화"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-virtual-memory",
+      "number": 8,
+      "title": "가상 메모리",
+      "subtitle": "Virtual Memory",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "페이징과 TLB",
+          "content": [
+            {
+              "type": "formula",
+              "name": "페이지 테이블 변환",
+              "latex": "PA = \\text{PTE}[\\text{VPN}].PFN\\cdot\\text{PageSize} + \\text{Offset}",
+              "description": "VPN: 가상 페이지 번호, PFN: 물리 프레임 번호, TLB로 변환 캐시."
+            },
+            {
+              "type": "formula",
+              "name": "유효 메모리 접근 시간 (TLB)",
+              "latex": "EAT = h(t_{TLB}+t_{mem}) + (1-h)(t_{TLB}+2t_{mem})",
+              "description": "h: TLB 적중률(~99%), tTLB: TLB 접근 시간, tmem: 메모리 접근 시간"
+            },
+            {
+              "type": "table",
+              "title": "페이지 교체 알고리즘",
+              "headers": ["알고리즘", "원리", "페이지 폴트", "구현"],
+              "rows": [
+                ["OPT (최적)", "미래 가장 늦게 쓸 페이지 교체", "최소 (하한)", "구현 불가(미래 모름)"],
+                ["FIFO", "가장 오래된 페이지 교체", "높음", "단순"],
+                ["LRU", "가장 오랫동안 안 쓴 페이지", "OPT에 근접", "하드웨어 지원 필요"],
+                ["Clock (2차 기회)", "참조 비트로 LRU 근사", "LRU 근사", "실용적(Linux)"],
+                ["LFU", "참조 횟수 최소 교체", "중간", "카운터 필요"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-filesystem",
+      "number": 9,
+      "title": "파일 시스템",
+      "subtitle": "File Systems",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "파일 구조와 디렉터리",
+          "content": [
+            {
+              "type": "definition",
+              "term": "파일 시스템",
+              "body": "파일 생성·삭제·읽기·쓰기, 디렉터리 구조, 물리 디스크 블록 매핑, 보안·일관성 제공. inode(Unix): 파일 메타데이터 + 블록 포인터."
+            },
+            {
+              "type": "table",
+              "title": "파일 시스템 비교",
+              "headers": ["파일 시스템", "OS", "최대 파일 크기", "특징"],
+              "rows": [
+                ["FAT32", "Windows", "4GB", "단순, 호환성"],
+                ["NTFS", "Windows", "16EB", "저널링, 암호화, 권한"],
+                ["ext4", "Linux", "16TB", "저널링, 대용량"],
+                ["XFS", "Linux", "8EB", "고성능, 병렬 I/O"],
+                ["ZFS", "FreeBSD/Linux", "16EB", "CoW, 체크섬, RAID"],
+                ["APFS", "macOS/iOS", "8EB", "SSD 최적화, CoW"],
+                ["Btrfs", "Linux", "16EB", "CoW, 스냅샷, RAID"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-io",
+      "number": 10,
+      "title": "I/O 시스템",
+      "subtitle": "I/O Systems",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "I/O 방식과 디스크 스케줄링",
+          "content": [
+            {
+              "type": "table",
+              "title": "I/O 방식",
+              "headers": ["방식", "원리", "CPU 부하", "특징"],
+              "rows": [
+                ["프로그램 I/O (폴링)", "CPU가 반복 확인", "100%", "단순, 비효율"],
+                ["인터럽트 기반", "I/O 완료 시 인터럽트", "중간", "CPU 활용 가능"],
+                ["DMA", "DMA 컨트롤러가 전송", "낮음", "대용량 전송 효율적"],
+                ["채널 I/O", "별도 프로세서", "최소", "메인프레임용"]
+              ]
+            },
+            {
+              "type": "table",
+              "title": "디스크 스케줄링",
+              "headers": ["알고리즘", "이동 방식", "특징"],
+              "rows": [
+                ["FCFS", "요청 순서", "공평, 비효율"],
+                ["SSTF", "현재 위치 최근접", "처리량 높음, 기아"],
+                ["SCAN (엘리베이터)", "한 방향 전체 후 역방향", "공평, 실용적"],
+                ["C-SCAN", "한 방향만, 끝에서 처음", "균일 대기, SSD에 부적합"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-security",
+      "number": 11,
+      "title": "OS 보안",
+      "subtitle": "OS Security",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "보안 메커니즘",
+          "content": [
+            {
+              "type": "definition",
+              "term": "보호 링 (Protection Ring)",
+              "body": "x86: Ring 0(커널), Ring 3(사용자). 권한 수준에 따라 명령어·자원 접근 제한. 하이퍼바이저: Ring -1(VMX root). ARM: EL0~EL3."
+            },
+            {
+              "type": "table",
+              "title": "OS 보안 기술",
+              "headers": ["기술", "원리", "보호 대상"],
+              "rows": [
+                ["ASLR", "주소 공간 무작위화", "버퍼 오버플로우"],
+                ["DEP/NX", "데이터 영역 실행 금지", "코드 주입 공격"],
+                ["Stack Canary", "스택 경계에 감지 값", "스택 오버플로우"],
+                ["CFI", "제어 흐름 무결성 검사", "ROP 공격"],
+                ["SELinux/AppArmor", "강제 접근 제어(MAC)", "권한 상승 공격"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "현대 OS 기술",
+          "content": [
+            {
+              "type": "table",
+              "title": "OS 응용 분야",
+              "headers": ["분야", "OS/기술", "핵심 기능"],
+              "rows": [
+                ["서버", "Linux (RHEL, Ubuntu)", "가상화, 컨테이너, 네트워크"],
+                ["모바일", "Android (Linux 기반), iOS", "배터리 최적화, 보안 샌드박스"],
+                ["임베디드/RTOS", "FreeRTOS, Zephyr, VxWorks", "결정론적 스케줄링, 소형"],
+                ["클라우드", "KVM, Xen, 컨테이너(Docker)", "가상화, 격리, 자원 관리"],
+                ["자율주행", "ROS 2, QNX", "실시간 처리, 안전 인증"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "🖥️",
+              "title": "OS는 컴퓨터의 정부",
+              "body": "OS는 CPU·메모리·I/O라는 자원을 여러 프로세스에 공평하게 배분하고, 규칙(보호·격리)을 강제하며, 충돌을 중재한다. 정부처럼 보이지 않을 때 가장 잘 작동하는 것이 훌륭한 OS의 증거다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

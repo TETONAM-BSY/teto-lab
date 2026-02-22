@@ -1,0 +1,387 @@
+{
+  "id": "analog-comm",
+  "title": "아날로그 통신",
+  "subtitle": "Analog Communications",
+  "chapters": [
+    {
+      "id": "ch01-intro",
+      "number": 1,
+      "title": "통신 시스템 개론",
+      "subtitle": "Introduction to Communication Systems",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "통신 시스템 구성",
+          "content": [
+            {
+              "type": "definition",
+              "term": "통신 시스템",
+              "body": "정보를 송신기 → 채널 → 수신기로 전달하는 시스템. 송신기: 정보 신호를 채널에 적합하게 변환(변조). 채널: 전송 매체(동축·광·무선). 수신기: 원래 정보 복원(복조)."
+            },
+            {
+              "type": "formula",
+              "name": "채넌 용량 (Shannon)",
+              "latex": "C = B\\log_2\\left(1+\\frac{S}{N}\\right)\\quad [\\text{bps}]",
+              "description": "B: 대역폭[Hz], S/N: 신호 대 잡음비. 이론적 최대 전송률."
+            },
+            {
+              "type": "table",
+              "title": "통신 시스템 성능 지표",
+              "headers": ["지표", "정의", "단위"],
+              "rows": [
+                ["SNR", "신호 전력 / 잡음 전력", "dB"],
+                ["대역폭 효율", "C/B = log₂(1+SNR)", "bps/Hz"],
+                ["오류율 BER", "비트 오류 수 / 전송 비트 수", "무차원"],
+                ["채널 용량 C", "최대 무오류 전송률", "bps"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-am",
+      "number": 2,
+      "title": "진폭 변조 (AM)",
+      "subtitle": "Amplitude Modulation",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "AM 변조",
+          "content": [
+            {
+              "type": "formula",
+              "name": "AM 신호",
+              "latex": "s(t) = A_c[1+k_a m(t)]\\cos(2\\pi f_c t)",
+              "description": "Ac: 반송파 진폭, ka: 진폭 감도, m(t): 메시지 신호"
+            },
+            {
+              "type": "formula",
+              "name": "변조 지수",
+              "latex": "m_a = k_a A_m \\leq 1 \\quad (\\text{과변조 방지})",
+              "description": "ma>1: 과변조 → 포락선 검파 불가, 왜곡 발생"
+            },
+            {
+              "type": "formula",
+              "name": "AM 전력 효율",
+              "latex": "\\eta_{AM} = \\frac{m_a^2/2}{1+m_a^2/2}\\times100\\%",
+              "description": "단음 변조 기준. ma=1일 때 η=33.3%. 반송파 전력이 낭비됨."
+            },
+            {
+              "type": "formula-grid",
+              "title": "AM 변종",
+              "cols": 2,
+              "items": [
+                {"name": "DSB-SC", "latex": "s(t)=A_c m(t)\\cos(2\\pi f_c t)", "desc": "반송파 억압. 효율 100%"},
+                {"name": "SSB-SC", "latex": "s(t)=\\frac{A_c}{2}m(t)\\cos-\\frac{A_c}{2}\\hat{m}(t)\\sin", "desc": "단측파대. 대역폭 절반"},
+                {"name": "VSB", "latex": "\\text{SSB}+\\text{일부 반대 측파대}", "desc": "TV 방송 등"},
+                {"name": "포락선 검파", "latex": "y(t)\\approx A_c[1+k_a m(t)]", "desc": "AM 복조. 간단, 저가"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-fm",
+      "number": 3,
+      "title": "주파수 변조 (FM)",
+      "subtitle": "Frequency Modulation",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "FM 변조",
+          "content": [
+            {
+              "type": "formula",
+              "name": "FM 신호",
+              "latex": "s(t) = A_c\\cos\\!\\left(2\\pi f_c t + 2\\pi k_f\\int_0^t m(\\tau)d\\tau\\right)",
+              "description": "kf: 주파수 감도[Hz/V]. 순시 주파수 fi(t)=fc+kf·m(t)"
+            },
+            {
+              "type": "formula",
+              "name": "FM 변조 지수",
+              "latex": "\\beta_f = \\frac{\\Delta f}{W} = \\frac{k_f A_m}{W}",
+              "description": "Δf: 최대 주파수 편이, W: 메시지 대역폭. β≫1: 광대역 FM"
+            },
+            {
+              "type": "formula",
+              "name": "카슨 규칙 (FM 대역폭)",
+              "latex": "B_T \\approx 2(\\Delta f + W) = 2W(\\beta_f+1)",
+              "description": "FM 방송: Δf=75kHz, W=15kHz → BT≈180kHz"
+            },
+            {
+              "type": "theorem",
+              "name": "FM SNR 개선 (광대역 FM)",
+              "statement": "광대역 FM은 AM에 비해 SNR을 3β²(β+1)배 개선한다. 대역폭을 넓히면 SNR이 향상된다.",
+              "latex": "\\left(\\frac{S}{N}\\right)_{FM} = 3\\beta_f^2(\\beta_f+1)\\cdot\\left(\\frac{S}{N}\\right)_{baseband}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-pm",
+      "number": 4,
+      "title": "위상 변조 (PM)",
+      "subtitle": "Phase Modulation",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "PM과 FM 비교",
+          "content": [
+            {
+              "type": "formula",
+              "name": "PM 신호",
+              "latex": "s(t) = A_c\\cos(2\\pi f_c t + k_p m(t))",
+              "description": "kp: 위상 감도[rad/V]. 순시 위상 φ(t)=2πfct+kp·m(t)"
+            },
+            {
+              "type": "table",
+              "title": "FM vs PM 비교",
+              "headers": ["구분", "FM", "PM"],
+              "rows": [
+                ["변조 파라미터", "순시 주파수", "순시 위상"],
+                ["변조 지수", "βf=Δf/W (W에 반비례)", "βp=kpAm (W와 무관)"],
+                ["대역폭", "2(Δf+W)", "2(kpAm+1)W"],
+                ["잡음 특성", "고역에서 증가", "균일"],
+                ["사전 강조", "m(t) 미분 후 FM 변조", "직접 PM"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-noise",
+      "number": 5,
+      "title": "잡음",
+      "subtitle": "Noise",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "열잡음과 잡음 지수",
+          "content": [
+            {
+              "type": "formula",
+              "name": "열잡음 (존슨 잡음)",
+              "latex": "N = kTB\\quad [\\text{W}],\\quad N_0 = kT = -174\\;\\text{dBm/Hz at 290K}",
+              "description": "k=1.38×10⁻²³ J/K: 볼츠만 상수, T: 절대온도, B: 대역폭"
+            },
+            {
+              "type": "formula",
+              "name": "잡음 지수 (Noise Figure)",
+              "latex": "NF = 10\\log_{10}F,\\quad F = \\frac{SNR_{in}}{SNR_{out}} = 1+\\frac{T_e}{T_0}",
+              "description": "F: 잡음 인수. NF=0dB(이상). Te: 등가 잡음 온도"
+            },
+            {
+              "type": "formula",
+              "name": "프리스 공식 (연쇄 잡음)",
+              "latex": "F_{total} = F_1 + \\frac{F_2-1}{G_1} + \\frac{F_3-1}{G_1 G_2}+\\cdots",
+              "description": "첫 번째 단(LNA)이 전체 잡음 지수를 지배 → LNA 설계 중요"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-am-snr",
+      "number": 6,
+      "title": "변조 방식별 SNR 분석",
+      "subtitle": "SNR Analysis",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "채널 잡음과 수신기 SNR",
+          "content": [
+            {
+              "type": "table",
+              "title": "변조 방식별 SNR 비교",
+              "headers": ["변조 방식", "출력 SNR", "대역폭", "비고"],
+              "rows": [
+                ["DSB-SC (동기 검파)", "SNRbase", "2W", "기준"],
+                ["AM (포락선 검파)", "ma²/(2+ma²)·SNRbase", "2W", "낮은 효율"],
+                ["SSB (동기 검파)", "SNRbase", "W", "대역폭 절반"],
+                ["FM (광대역, βf≫1)", "3βf³·SNRbase", "2(βf+1)W", "대역폭 확장으로 SNR 개선"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-superheterodyne",
+      "number": 7,
+      "title": "슈퍼헤테로다인 수신기",
+      "subtitle": "Superheterodyne Receiver",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "수신기 구조",
+          "content": [
+            {
+              "type": "definition",
+              "term": "슈퍼헤테로다인 수신기",
+              "body": "수신 신호를 고정된 중간 주파수(IF)로 변환하여 증폭·필터링하는 방식. AM 방송: IF=455kHz, FM: IF=10.7MHz. LNA → 혼합기(Mixer) → IF 필터·증폭 → 복조기."
+            },
+            {
+              "type": "formula",
+              "name": "혼합기 동작",
+              "latex": "f_{IF} = f_{RF} - f_{LO}\\quad (\\text{또는 } f_{LO}-f_{RF})",
+              "description": "image rejection 문제: fimage=fLO+fIF도 IF로 변환됨. 이미지 제거 필터 필요."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-multiplexing",
+      "number": 8,
+      "title": "다중화",
+      "subtitle": "Multiplexing",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "FDM·TDM",
+          "content": [
+            {
+              "type": "definition",
+              "term": "주파수 분할 다중화 (FDM)",
+              "body": "각 채널에 다른 반송파 주파수 할당. 동시 전송. 아날로그 전화, FM 방송 다중화. 가드 밴드로 채널 간 간섭 방지."
+            },
+            {
+              "type": "definition",
+              "term": "시간 분할 다중화 (TDM)",
+              "body": "각 채널에 다른 시간 슬롯 할당. 디지털 신호에 적합. PCM-TDM: 전화 T1(24채널), E1(30채널)."
+            },
+            {
+              "type": "formula",
+              "name": "FDM 총 대역폭",
+              "latex": "B_{total} = N\\cdot(B_{channel}+B_{guard})",
+              "description": "N: 채널 수. 가드 밴드가 스펙트럼 효율을 낮춤."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-sampling-pcm",
+      "number": 9,
+      "title": "표본화와 PCM",
+      "subtitle": "Sampling and PCM",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "펄스 변조",
+          "content": [
+            {
+              "type": "formula",
+              "name": "PCM 비트율",
+              "latex": "R_b = f_s \\cdot n = 2W\\cdot n\\quad [\\text{bps}]",
+              "description": "fs: 표본화율, n: 양자화 비트 수. 전화: fs=8kHz, n=8bit → Rb=64kbps"
+            },
+            {
+              "type": "formula",
+              "name": "양자화 SNR",
+              "latex": "SNR_q = 6.02n + 1.76\\;[\\text{dB}]\\quad (\\text{균일 양자화, 정현파})",
+              "description": "1비트 추가 시 약 6dB 개선. CD: n=16 → SNR≈98dB"
+            },
+            {
+              "type": "table",
+              "title": "펄스 변조 종류",
+              "headers": ["종류", "변조 파라미터", "아날로그/디지털"],
+              "rows": [
+                ["PAM", "펄스 진폭", "아날로그"],
+                ["PWM", "펄스 폭", "아날로그"],
+                ["PPM", "펄스 위치", "아날로그"],
+                ["PCM", "양자화 후 이진 코드", "디지털"],
+                ["DM (델타)", "1비트 증분 PCM", "디지털"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-demodulation",
+      "number": 10,
+      "title": "복조 방법",
+      "subtitle": "Demodulation Methods",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "동기 검파와 비동기 검파",
+          "content": [
+            {
+              "type": "definition",
+              "term": "동기 검파 (Coherent Detection)",
+              "body": "수신기에서 송신 반송파와 동기된 기준 신호를 생성하여 복조. 최적 성능이지만 위상 동기(PLL) 필요. DSB-SC, SSB, QPSK 등에 사용."
+            },
+            {
+              "type": "definition",
+              "term": "비동기 검파 (Non-Coherent)",
+              "body": "반송파 위상 정보 불필요. AM 포락선 검파, FM 주파수 판별기, FSK 등. 구조 단순하나 SNR 성능 열위."
+            },
+            {
+              "type": "formula",
+              "name": "PLL 동작",
+              "latex": "\\frac{d\\phi_e}{dt} = \\omega_i - \\omega_0 - K_0 K_d F(s)\\phi_e",
+              "description": "Kd: 위상 검파기 이득, Ko: VCO 이득, F(s): 루프 필터"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-broadcast",
+      "number": 11,
+      "title": "방송 시스템",
+      "subtitle": "Broadcasting Systems",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "AM·FM·TV 방송",
+          "content": [
+            {
+              "type": "table",
+              "title": "방송 시스템 표준",
+              "headers": ["방식", "주파수", "대역폭", "특징"],
+              "rows": [
+                ["AM 방송", "535~1605kHz", "10kHz", "원거리, 잡음 취약"],
+                ["FM 방송", "88~108MHz", "200kHz", "고품질 음성, 스테레오"],
+                ["아날로그 TV", "VHF/UHF", "6MHz (NTSC)", "영상+음성+동기"],
+                ["위성 방송", "Ku/Ka 대역", "수십 MHz", "광역 커버리지"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "아날로그 통신의 유산과 현재",
+          "content": [
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "아날로그 통신의 현재",
+              "body": "디지털 통신이 주류가 됐지만 아날로그 기술은 살아있다. ① RF 프론트엔드: 안테나 → LNA → 믹서는 여전히 아날로그. ② AM/FM 라디오: 전 세계 수십억 명 사용. ③ 위성 통신의 아날로그 링크 버짓 분석. ④ 도플러 레이더의 FM 신호 처리."
+            },
+            {
+              "type": "analogy",
+              "emoji": "📻",
+              "title": "아날로그 통신은 디지털의 뿌리",
+              "body": "FM 수신기의 PLL, 슈퍼헤테로다인 구조, 잡음 분석 방법론은 모두 현대 디지털 통신 수신기 설계에 그대로 살아 있다. 아날로그를 이해해야 RF 시스템을 진정으로 이해할 수 있다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

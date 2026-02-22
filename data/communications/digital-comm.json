@@ -1,0 +1,387 @@
+{
+  "id": "digital-comm",
+  "title": "디지털 통신",
+  "subtitle": "Digital Communications",
+  "chapters": [
+    {
+      "id": "ch01-baseband",
+      "number": 1,
+      "title": "기저대역 전송",
+      "subtitle": "Baseband Transmission",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "선 부호화",
+          "content": [
+            {
+              "type": "table",
+              "title": "선 부호화 방식",
+              "headers": ["방식", "특성", "장단점"],
+              "rows": [
+                ["NRZ-L", "1→높음, 0→낮음", "단순, DC 성분, 긴 런 문제"],
+                ["NRZ-I", "1: 전환, 0: 유지", "연속 0 문제 해결"],
+                ["Manchester", "비트 중간에서 전환", "자기 클럭, 대역폭 2배"],
+                ["AMI", "1: 교대 ±, 0: 0", "직류 없음, 오류 검출 가능"],
+                ["8B/10B", "8비트→10비트 매핑", "DC 균형, 클럭 동기"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "나이퀴스트 기저대역 용량",
+              "latex": "C = 2B\\log_2 M\\quad [\\text{bps}]",
+              "description": "B: 대역폭[Hz], M: 신호 레벨 수. 심볼 간 간섭(ISI) 없는 최대 전송률."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-digital-modulation",
+      "number": 2,
+      "title": "디지털 변조",
+      "subtitle": "Digital Modulation",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "ASK·FSK·PSK·QAM",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "기본 디지털 변조",
+              "cols": 2,
+              "items": [
+                {"name": "BPSK", "latex": "s(t)=A_c\\cos(2\\pi f_c t+\\pi d(t)),\\; d\\in\\{0,1\\}", "desc": "2위상. 가장 잡음 강인"},
+                {"name": "QPSK", "latex": "\\phi\\in\\{45°,135°,225°,315°\\}", "desc": "4위상, 2bps/Hz"},
+                {"name": "QAM-16", "latex": "s=A_I\\cos(\\omega_c t)-A_Q\\sin(\\omega_c t)", "desc": "16 성상점, 4bps/Hz"},
+                {"name": "QAM-64", "latex": "64\\text{개 성상점}", "desc": "6bps/Hz, 5G NR 기본"}
+              ]
+            },
+            {
+              "type": "table",
+              "title": "변조 방식별 스펙트럼 효율",
+              "headers": ["변조", "bps/Hz", "요구 SNR (BER=10⁻⁵)", "응용"],
+              "rows": [
+                ["BPSK", "1", "~10dB", "위성, 심우주"],
+                ["QPSK", "2", "~10dB", "LTE, 위성"],
+                ["16-QAM", "4", "~17dB", "LTE, Wi-Fi"],
+                ["64-QAM", "6", "~23dB", "5G NR, 케이블"],
+                ["256-QAM", "8", "~29dB", "5G 고정 무선"],
+                ["1024-QAM", "10", "~35dB", "5G Release 16+"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-ber",
+      "number": 3,
+      "title": "비트 오율 (BER) 분석",
+      "subtitle": "BER Analysis",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "AWGN 채널에서의 BER",
+          "content": [
+            {
+              "type": "formula",
+              "name": "BPSK BER",
+              "latex": "P_b = Q\\!\\left(\\sqrt{\\frac{2E_b}{N_0}}\\right) = \\frac{1}{2}\\text{erfc}\\!\\left(\\sqrt{\\frac{E_b}{N_0}}\\right)",
+              "description": "Eb/N0: 비트당 에너지 대 잡음 스펙트럼 밀도비"
+            },
+            {
+              "type": "formula",
+              "name": "Q 함수",
+              "latex": "Q(x) = \\frac{1}{\\sqrt{2\\pi}}\\int_x^{\\infty}e^{-t^2/2}dt = \\frac{1}{2}\\text{erfc}\\!\\left(\\frac{x}{\\sqrt{2}}\\right)",
+              "description": "가우시안 분포의 꼬리 확률. Q(3.7)≈10⁻⁴, Q(4.2)≈10⁻⁵"
+            },
+            {
+              "type": "table",
+              "title": "변조별 BER (AWGN, BER=10⁻⁵)",
+              "headers": ["변조", "Eb/N0 요구량", "스펙트럼 효율"],
+              "rows": [
+                ["BPSK", "9.6 dB", "1 bps/Hz"],
+                ["QPSK", "9.6 dB", "2 bps/Hz"],
+                ["8-PSK", "14.0 dB", "3 bps/Hz"],
+                ["16-QAM", "13.5 dB", "4 bps/Hz"],
+                ["64-QAM", "18.8 dB", "6 bps/Hz"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-channel-coding",
+      "number": 4,
+      "title": "채널 부호화",
+      "subtitle": "Channel Coding",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "오류 정정 부호",
+          "content": [
+            {
+              "type": "formula",
+              "name": "부호율 (Code Rate)",
+              "latex": "R_c = \\frac{k}{n}",
+              "description": "k: 정보 비트, n: 코드워드 비트. Rc 낮을수록 오류 정정 능력 강함."
+            },
+            {
+              "type": "table",
+              "title": "채널 부호 종류",
+              "headers": ["코드", "유형", "특징", "응용"],
+              "rows": [
+                ["해밍 코드", "블록 선형", "1비트 오류 정정", "메모리 ECC"],
+                ["BCH", "블록 선형", "다중 비트 정정", "저장장치"],
+                ["Reed-Solomon", "블록 비이진", "버스트 오류 강인", "DVD, QR 코드"],
+                ["컨볼루션", "구속장 메모리", "Viterbi 복호", "2G GSM, 위성"],
+                ["터보 코드", "병렬 컨볼루션", "Shannon 한계 근접", "3G, LTE"],
+                ["LDPC", "저밀도 패리티", "반복 복호, 고성능", "Wi-Fi, 5G"],
+                ["극부호 (Polar)", "채널 양극화", "이론적 Shannon 달성", "5G NR"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-ofdm",
+      "number": 5,
+      "title": "OFDM",
+      "subtitle": "Orthogonal Frequency Division Multiplexing",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "OFDM 원리",
+          "content": [
+            {
+              "type": "definition",
+              "term": "OFDM (직교 주파수 분할 다중화)",
+              "body": "고속 데이터를 N개의 저속 직교 부반송파로 나누어 병렬 전송. 각 부반송파 대역폭이 채널 코히런스 대역폭보다 좁아 주파수 선택 페이딩에 강함."
+            },
+            {
+              "type": "formula",
+              "name": "OFDM 신호",
+              "latex": "s(t) = \\sum_{k=0}^{N-1} X_k e^{j2\\pi k\\Delta f t},\\quad \\Delta f = \\frac{1}{T_s}",
+              "description": "Δf=1/Ts: 부반송파 간격. 직교성: 다른 부반송파 간 간섭=0"
+            },
+            {
+              "type": "formula",
+              "name": "IFFT/FFT 구현",
+              "latex": "s[n] = \\text{IFFT}\\{X[k]\\},\\quad X[k] = \\text{FFT}\\{s[n]\\}",
+              "description": "OFDM 변조=IFFT, 복조=FFT. 효율적 구현 가능."
+            },
+            {
+              "type": "formula",
+              "name": "순환 전위부 (CP)",
+              "latex": "T_{CP} \\geq \\tau_{max}\\quad (\\text{최대 지연 확산})",
+              "description": "심볼 간 간섭(ISI) 방지. CP 길이만큼 효율 감소: R·Ts/(Ts+TCP)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-mimo",
+      "number": 6,
+      "title": "MIMO",
+      "subtitle": "Multiple-Input Multiple-Output",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "MIMO 채널 용량",
+          "content": [
+            {
+              "type": "formula",
+              "name": "MIMO 채널 용량",
+              "latex": "C = \\log_2\\det\\!\\left(I + \\frac{SNR}{N_t}HH^H\\right)\\quad [\\text{bps/Hz}]",
+              "description": "H: Nt×Nr 채널 행렬. min(Nt,Nr)개의 독립 공간 스트림 지원."
+            },
+            {
+              "type": "table",
+              "title": "MIMO 활용 방식",
+              "headers": ["방식", "목적", "이득"],
+              "rows": [
+                ["공간 다이버시티", "신뢰성 향상", "SNR 이득. 페이딩 극복"],
+                ["공간 다중화 (SM)", "용량 증대", "min(Nt,Nr) × 전송률"],
+                ["빔포밍", "SNR 향상", "Nt배 어레이 이득"],
+                ["대규모 MIMO (Massive MIMO)", "동시 다중 사용자", "공간 효율 극대화"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-spread-spectrum",
+      "number": 7,
+      "title": "스프레드 스펙트럼",
+      "subtitle": "Spread Spectrum",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "CDMA·DSSS·FHSS",
+          "content": [
+            {
+              "type": "formula",
+              "name": "처리 이득",
+              "latex": "PG = \\frac{B_{spread}}{B_{signal}} = \\frac{f_{chip}}{R_b}\\quad [\\text{dB}]",
+              "description": "칩률/비트율. PG만큼 잡음·간섭에 강인. IS-95 CDMA: PG≈21dB"
+            },
+            {
+              "type": "table",
+              "title": "스프레드 스펙트럼 방식",
+              "headers": ["방식", "메커니즘", "장점", "응용"],
+              "rows": [
+                ["DSSS", "PN 코드로 직접 확산", "간섭 저항, 비밀성", "GPS, Wi-Fi, CDMA"],
+                ["FHSS", "주파수 도약", "재밍 저항, 멀티패스 회피", "블루투스, 군사"],
+                ["OFDM-CDMA", "주파수+코드 다중화", "두 방식 장점 결합", "4G LTE 연구"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-equalization",
+      "number": 8,
+      "title": "등화기",
+      "subtitle": "Equalization",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "ISI 제거",
+          "content": [
+            {
+              "type": "definition",
+              "term": "등화기 (Equalizer)",
+              "body": "다중 경로 채널에 의한 심볼 간 간섭(ISI)을 제거하는 필터. 채널의 역필터. LMS, RLS 알고리즘으로 적응적 갱신."
+            },
+            {
+              "type": "table",
+              "title": "등화기 종류",
+              "headers": ["종류", "원리", "복잡도", "특징"],
+              "rows": [
+                ["ZF (영 강제)", "H⁻¹로 역필터링", "낮음", "잡음 증폭 문제"],
+                ["MMSE", "잡음 고려 최소화", "중간", "ZF 개선"],
+                ["DFE (판정 귀환)", "이전 심볼로 ISI 제거", "중간", "인과적 ISI에 효과적"],
+                ["Viterbi (MLSE)", "최대 우도 시퀀스 추정", "높음", "최적 but 지수적 복잡도"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-synchronization",
+      "number": 9,
+      "title": "동기",
+      "subtitle": "Synchronization",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "주파수·타이밍 동기",
+          "content": [
+            {
+              "type": "formula",
+              "name": "반송파 주파수 오프셋",
+              "latex": "\\Delta f = \\frac{v}{c}f_c\\quad (\\text{도플러}),\\quad \\text{OFDM ISI}: \\Delta f > 0.1\\Delta f_{sc}",
+              "description": "Δfsc: 부반송파 간격. ICI 방지를 위해 CFO 추정·보정 필수."
+            },
+            {
+              "type": "formula",
+              "name": "PLL 기반 동기",
+              "latex": "\\hat{\\phi}(t) = \\text{LPF}\\{\\text{phase detector output}\\},\\quad \\hat{f}_c = f_0 + K_0\\hat{\\phi}",
+              "description": "위상 검파기 + LPF + VCO 루프로 수신 신호 위상 추적"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-link-budget",
+      "number": 10,
+      "title": "링크 버짓",
+      "subtitle": "Link Budget",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "링크 설계",
+          "content": [
+            {
+              "type": "formula",
+              "name": "링크 버짓",
+              "latex": "P_r[\\text{dBm}] = P_t[\\text{dBm}]+G_t[\\text{dBi}]-L_{path}[\\text{dB}]+G_r[\\text{dBi}]-L_{misc}",
+              "description": "수신 전력 = 송신 전력 + 이득 - 손실"
+            },
+            {
+              "type": "formula",
+              "name": "링크 마진",
+              "latex": "M = P_r - P_{r,min} = P_r - (N_0 B + NF + SNR_{req})",
+              "description": "M>0이면 링크 성립. 일반적으로 10~20dB 마진 확보."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-cellular",
+      "number": 11,
+      "title": "셀룰러 시스템",
+      "subtitle": "Cellular Systems",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "셀룰러 통신 발전",
+          "content": [
+            {
+              "type": "table",
+              "title": "이동통신 세대별 특성",
+              "headers": ["세대", "표준", "핵심 기술", "최대 속도"],
+              "rows": [
+                ["1G", "AMPS", "아날로그 FDMA", "~2.4kbps"],
+                ["2G", "GSM, IS-95", "TDMA, CDMA", "~384kbps"],
+                ["3G", "WCDMA, CDMA2000", "광대역 CDMA", "~42Mbps"],
+                ["4G", "LTE, LTE-A", "OFDMA, MIMO", "~1Gbps"],
+                ["5G", "NR", "mmWave, Massive MIMO", "~20Gbps"],
+                ["6G", "개발 중", "THz, AI 통합", "~1Tbps (예상)"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "디지털 통신 응용",
+          "content": [
+            {
+              "type": "table",
+              "title": "시스템별 디지털 통신 기술",
+              "headers": ["시스템", "변조", "채널 코딩", "다중화"],
+              "rows": [
+                ["5G NR", "최대 256-QAM", "LDPC, Polar", "OFDMA, Massive MIMO"],
+                ["Wi-Fi 6 (802.11ax)", "1024-QAM", "LDPC", "OFDMA, MU-MIMO"],
+                ["위성 인터넷", "QPSK~16-QAM", "터보, LDPC", "TDM, MF-TDMA"],
+                ["광통신", "16-QAM~64-QAM", "FEC (SD-FEC)", "WDM, PDM-OFDM"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "📶",
+              "title": "디지털 통신: 완벽에 가까운 복사",
+              "body": "아날로그 신호는 전송할수록 열화되지만, 디지털은 0과 1만 구별하면 원본과 동일하게 복원된다. 오류 정정 부호와 변조 기술의 발전으로 Shannon 한계에 점점 가까워지고 있으며, 5G는 이론 한계의 90% 이상에 도달했다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

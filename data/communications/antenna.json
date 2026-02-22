@@ -1,0 +1,365 @@
+{
+  "id": "antenna",
+  "title": "안테나 & 전파",
+  "subtitle": "Antennas and Radio Propagation",
+  "chapters": [
+    {
+      "id": "ch01-fundamentals",
+      "number": 1,
+      "title": "안테나 기초",
+      "subtitle": "Antenna Fundamentals",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "안테나 파라미터",
+          "content": [
+            {
+              "type": "formula-grid",
+              "title": "안테나 핵심 파라미터",
+              "cols": 2,
+              "items": [
+                {"name": "복사 저항", "latex": "R_{rad}=\\frac{2P_{rad}}{I_0^2}", "desc": "안테나가 방사하는 전력의 등가 저항"},
+                {"name": "지향성", "latex": "D=\\frac{4\\pi U_{max}}{P_{rad}}", "desc": "등방성 대비 최대 복사 강도 비율"},
+                {"name": "이득", "latex": "G=\\eta_{ant}\\cdot D", "desc": "η_ant: 방사 효율"},
+                {"name": "유효 길이", "latex": "l_{eff}=\\frac{1}{I_0}\\int_0^L I(z)dz", "desc": "전류 분포의 등가 길이"},
+                {"name": "유효 면적", "latex": "A_e=\\frac{G\\lambda^2}{4\\pi}", "desc": "수신 전력 = Ae × 입사 전력 밀도"},
+                {"name": "편파 정합 손실", "latex": "PLF=|\\hat{\\rho}_w\\cdot\\hat{\\rho}_a|^2", "desc": "송수신 편파가 다를 때 손실"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-dipole",
+      "number": 2,
+      "title": "다이폴 안테나",
+      "subtitle": "Dipole Antennas",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "헤르츠 다이폴과 반파 다이폴",
+          "content": [
+            {
+              "type": "formula",
+              "name": "헤르츠 다이폴 원거리 전기장",
+              "latex": "E_\\theta = j\\eta\\frac{I_0 l}{2\\lambda r}\\sin\\theta\\,e^{-j\\beta r}",
+              "description": "l≪λ. 토로이달 방사 패턴. 지향성 D=1.5"
+            },
+            {
+              "type": "formula",
+              "name": "반파 다이폴 (λ/2 dipole)",
+              "latex": "E_\\theta = j\\frac{60I_0}{r}\\frac{\\cos(\\pi/2\\cos\\theta)}{\\sin\\theta}e^{-j\\beta r}",
+              "description": "가장 기본적인 실용 안테나. Rrad=73.1Ω, D=1.64, 이득=2.15 dBi"
+            },
+            {
+              "type": "formula",
+              "name": "λ/4 모노폴",
+              "latex": "R_{rad}=36.5\\;\\Omega,\\quad D=3.28,\\quad G_{mono}=5.15\\;\\text{dBi}",
+              "description": "접지면 위의 λ/4 안테나. 다이폴 절반 구조. 자동차·핸드폰."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-antenna-arrays",
+      "number": 3,
+      "title": "안테나 어레이",
+      "subtitle": "Antenna Arrays",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "어레이 패턴",
+          "content": [
+            {
+              "type": "formula",
+              "name": "균일 선형 어레이 (ULA) 배열 인수",
+              "latex": "AF = \\sum_{n=0}^{N-1}e^{jn(kd\\cos\\theta+\\delta)}",
+              "description": "d: 소자 간격, δ: 위상 편이. 빔스티어링: δ=-kd·cosθ₀"
+            },
+            {
+              "type": "formula",
+              "name": "ULA 빔폭",
+              "latex": "\\theta_{HPBW} \\approx \\frac{0.886\\lambda}{Nd\\cos\\theta_0}\\;[\\text{rad}]",
+              "description": "N이 크면 빔폭 감소. 이득 = N배 증가."
+            },
+            {
+              "type": "formula",
+              "name": "위상 배열 안테나 (Phased Array)",
+              "latex": "\\delta_n = -nkd\\sin\\theta_0,\\quad \\theta_0: \\text{빔 조향 방향}",
+              "description": "각 소자의 위상을 전기적으로 제어하여 기계적 회전 없이 빔 조향."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-aperture-antenna",
+      "number": 4,
+      "title": "개구면 안테나",
+      "subtitle": "Aperture Antennas",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "파라볼릭 반사 안테나",
+          "content": [
+            {
+              "type": "formula",
+              "name": "파라볼릭 안테나 이득",
+              "latex": "G = \\eta\\left(\\frac{\\pi D}{\\lambda}\\right)^2",
+              "description": "η≈0.55~0.75: 조명 효율. D: 구경. 위성 안테나, 레이더 디쉬."
+            },
+            {
+              "type": "formula",
+              "name": "빔폭 (파라볼릭)",
+              "latex": "\\theta_{HPBW} \\approx 70°\\frac{\\lambda}{D}",
+              "description": "구경 클수록 빔폭 좁고 이득 높음"
+            },
+            {
+              "type": "table",
+              "title": "개구면 안테나 종류",
+              "headers": ["안테나", "이득", "용도"],
+              "rows": [
+                ["파라볼릭 (위성)", "30~50 dBi", "위성 통신·방송"],
+                ["혼 안테나", "10~25 dBi", "계측 기준, 급전기"],
+                ["슬롯 안테나", "2~8 dBi", "항공기, 레이더"],
+                ["마이크로스트립 패치", "5~8 dBi", "GPS, 스마트폰, 5G"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-yagi",
+      "number": 5,
+      "title": "야기·로그-주기 안테나",
+      "subtitle": "Yagi and Log-Periodic Antennas",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "지향성 안테나",
+          "content": [
+            {
+              "type": "definition",
+              "term": "야기-우다 안테나",
+              "body": "1개 능동 소자 + 1개 반사기 + N개 도파기로 구성. 도파기가 많을수록 이득↑(7~15 dBi), 빔폭↓. TV 수신, 아마추어 무선."
+            },
+            {
+              "type": "formula",
+              "name": "로그-주기 다이폴 어레이 (LPDA)",
+              "latex": "\\tau = \\frac{l_{n+1}}{l_n} = \\frac{d_{n+1}}{d_n}\\quad (0.7 < \\tau < 0.99)",
+              "description": "광대역 특성. 비율 τ로 기하학적 스케일링. 주파수비 최대 10:1."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-propagation-models",
+      "number": 6,
+      "title": "전파 전파 모델",
+      "subtitle": "Propagation Models",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "경로 손실 모델",
+          "content": [
+            {
+              "type": "formula",
+              "name": "자유 공간 경로 손실",
+              "latex": "PL_{fs}(d) = 20\\log_{10}\\!\\left(\\frac{4\\pi d}{\\lambda}\\right) = 20\\log_{10}(d)+20\\log_{10}(f)+92.4",
+              "description": "d[km], f[GHz]. 이상적 환경. 실제는 지형·건물로 추가 손실."
+            },
+            {
+              "type": "table",
+              "title": "경로 손실 모델",
+              "headers": ["모델", "환경", "수식"],
+              "rows": [
+                ["자유공간", "LOS 이상", "PL∝d²"],
+                ["옥외 2선 (2-ray)", "지면 반사 포함", "PL∝d⁴ (원거리)"],
+                ["오쿠무라-하타", "도시 셀룰러", "로그-거리 경험식"],
+                ["COST-231", "1800MHz 셀룰러", "도시·교외 구분"],
+                ["3GPP UMa/UMi", "5G NR", "LOS/NLOS 확률 포함"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-smart-antenna",
+      "number": 7,
+      "title": "스마트 안테나",
+      "subtitle": "Smart Antennas",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "빔포밍과 MIMO",
+          "content": [
+            {
+              "type": "formula",
+              "name": "디지털 빔포밍",
+              "latex": "y = \\mathbf{w}^H\\mathbf{x},\\quad \\mathbf{w}_{MRC} = \\mathbf{h}/\\|\\mathbf{h}\\|",
+              "description": "w: 빔포밍 벡터, h: 채널 벡터. MRC: 최대 비율 결합"
+            },
+            {
+              "type": "formula",
+              "name": "대규모 MIMO 이득",
+              "latex": "G_{massive} = N_t \\cdot (SNR_{array}),\\quad N_t: \\text{기지국 안테나 수}",
+              "description": "Massive MIMO (64~256 안테나): 공간 다중화 + 빔포밍 동시. 5G NR 핵심."
+            },
+            {
+              "type": "callout",
+              "variant": "info",
+              "title": "5G 안테나 기술",
+              "body": "Sub-6GHz: 64T64R 능동 안테나 유닛(AAU), Massive MIMO. mmWave(28/39GHz): 256~1024 소자 위상 배열 안테나. 하이브리드 빔포밍(아날로그+디지털)으로 전력·비용·성능 균형."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-satellite",
+      "number": 8,
+      "title": "위성 통신",
+      "subtitle": "Satellite Communications",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "위성 궤도와 링크",
+          "content": [
+            {
+              "type": "table",
+              "title": "위성 궤도 종류",
+              "headers": ["궤도", "고도", "지연", "응용"],
+              "rows": [
+                ["GEO", "35,786 km", "~270ms", "방송, VSAT"],
+                ["MEO", "2,000~35,786 km", "~70ms", "GPS, Galileo"],
+                ["LEO", "200~2,000 km", "~5ms", "Starlink, OneWeb"],
+                ["HEO (몰니야)", "타원 궤도", "가변", "고위도 커버리지"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "위성 G/T (수신 품질 지수)",
+              "latex": "\\frac{G}{T} = G_r - 10\\log_{10}T_{sys}\\quad [\\text{dB/K}]",
+              "description": "G/T 높을수록 수신 품질 좋음. Tsys: 시스템 잡음 온도"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-measurement",
+      "number": 9,
+      "title": "안테나 측정",
+      "subtitle": "Antenna Measurement",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "방사 패턴 측정",
+          "content": [
+            {
+              "type": "definition",
+              "term": "원거리 (Fraunhofer) 조건",
+              "latex": "R \\geq \\frac{2D^2}{\\lambda}",
+              "body": "안테나 구경 D, 측정 거리 R. 원거리장 조건. 야외 측정장(OTA) 또는 전파 무반향실 사용."
+            },
+            {
+              "type": "formula",
+              "name": "컴팩트 안테나 측정 범위 (CATR)",
+              "latex": "D_{CATR} = \\frac{\\lambda F}{D_{reflector}}",
+              "description": "반사판으로 근거리에서 평면파 생성. 대형 안테나·위성 측정에 사용."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-mimo-antenna",
+      "number": 10,
+      "title": "MIMO 안테나 설계",
+      "subtitle": "MIMO Antenna Design",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "소형 다중 안테나",
+          "content": [
+            {
+              "type": "formula",
+              "name": "봉투 상관 계수 (ECC)",
+              "latex": "ECC = \\frac{|\\int\\int F_1(\\theta,\\phi)\\cdot F_2^*(\\theta,\\phi)d\\Omega|^2}{\\int\\int|F_1|^2 d\\Omega\\int\\int|F_2|^2 d\\Omega}",
+              "description": "ECC<0.5: 양호한 MIMO. 안테나 간 상관을 낮게 설계 필요."
+            },
+            {
+              "type": "formula",
+              "name": "채널 용량 저하 (상관 있을 때)",
+              "latex": "C = \\log_2\\det\\left(I+\\frac{SNR}{N_t}R_R H H^H R_T\\right)",
+              "description": "RT, RR: 송수신 안테나 상관 행렬. 상관 높으면 용량 감소."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-iot-antenna",
+      "number": 11,
+      "title": "IoT·5G 안테나",
+      "subtitle": "IoT and 5G Antennas",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "소형·내장 안테나",
+          "content": [
+            {
+              "type": "table",
+              "title": "IoT/5G 안테나 유형",
+              "headers": ["유형", "특성", "응용"],
+              "rows": [
+                ["PIFA", "단락판 평판 역F형, 소형", "스마트폰, 태블릿"],
+                ["칩 안테나", "세라믹 소형", "블루투스, 지그비, Wi-Fi"],
+                ["루프 안테나", "소형, 저주파에 유리", "NFC, RFID"],
+                ["mmWave 배열", "FPCB·모듈형 배열", "5G mmWave 스마트폰"],
+                ["재구성 안테나", "주파수·패턴 가변", "5G 다밴드 지원"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "안테나·전파 응용",
+          "content": [
+            {
+              "type": "table",
+              "title": "분야별 안테나 응용",
+              "headers": ["분야", "안테나", "핵심 요구사항"],
+              "rows": [
+                ["5G 기지국", "Massive MIMO AAU", "고이득, 다빔, 광대역"],
+                ["스마트폰", "PIFA, 다이폴, 다중 안테나", "소형, 다밴드, MIMO"],
+                ["자동차 레이더", "77GHz 배열", "광각 SRR, 고분해능 LRR"],
+                ["위성 지구국", "파라볼릭 디쉬", "고이득, 정밀 추적"],
+                ["GPS 수신기", "헬리컬, RHCP 패치", "반구 패턴, 원형 편파"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "📡",
+              "title": "안테나는 전자기파와 회로의 접점",
+              "body": "안테나는 회로의 전기 신호를 공간의 전자기파로(송신), 또는 공간의 파를 회로의 신호로(수신) 변환하는 변환기다. 맥스웰 방정식이 예측한 전자기파가 마르코니의 실험으로 실증되고, 오늘날 수십억 개의 안테나가 지구를 감싸고 있다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
