@@ -556,16 +556,60 @@
     .error-msg { color: var(--ink-2); font-size: 0.9rem; line-height: 1.6; }
     .btn-primary { padding: 10px 24px; background: var(--accent-2); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; font-size: 0.85rem; }
 
+    /* ── 모바일 상단 헤더 ── */
+    #mobile-header {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      #mobile-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: var(--ink);
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+      #mobile-menu-btn {
+        background: none; border: none; color: rgba(255,255,255,0.8);
+        font-size: 1.3rem; cursor: pointer; padding: 4px 6px;
+        border-radius: 6px; line-height: 1;
+        transition: all var(--transition);
+      }
+      #mobile-menu-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+      #mobile-header-title { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.05em; }
+      #mobile-header-dot { color: var(--accent-2); }
+    }
+
     /* ── 반응형 ── */
     @media (max-width: 768px) {
       #app-wrap { grid-template-columns: 0 1fr; }
       #app-wrap.sidebar-open { grid-template-columns: var(--sidebar-w) 1fr; }
-      #sidebar { position: fixed; left: 0; top: 0; transform: translateX(-100%); transition: transform var(--transition); }
+      #main-content { grid-column: 2; }  /* ← 핵심: 항상 2번째 컬럼 차지 */
+      #sidebar {
+        position: fixed; left: 0; top: 0; height: 100%;
+        transform: translateX(-100%);
+        transition: transform var(--transition);
+        z-index: 300;
+        width: var(--sidebar-w);
+      }
       #app-wrap.sidebar-open #sidebar { transform: translateX(0); }
-      .chapter-wrap { grid-template-columns: 1fr; padding: 20px; }
+      /* 오버레이 */
+      #app-wrap.sidebar-open::before {
+        content: '';
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 299;
+      }
+      .chapter-wrap { grid-template-columns: 1fr; padding: 20px 16px; }
       .chapter-toc { display: none; }
-      .home-wrap, .subject-wrap { padding: 24px 16px; }
+      .home-wrap, .subject-wrap { padding: 20px 16px; }
       .formula-grid.cols-2, .formula-grid.cols-3 { grid-template-columns: 1fr; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .compare-divider { display: none; }
     }
 
     /* ── 프린트 ── */
@@ -594,6 +638,11 @@
 
   <!-- 메인 콘텐츠 -->
   <main id="main-content">
+    <!-- 모바일 전용 상단 헤더 -->
+    <div id="mobile-header">
+      <button id="mobile-menu-btn" aria-label="메뉴 열기">☰</button>
+      <span id="mobile-header-title">ENG<span id="mobile-header-dot">·</span>WIKI</span>
+    </div>
     <!-- app.js가 채워줌 -->
   </main>
 </div>
@@ -604,3 +653,33 @@
 
 </body>
 </html>
+<script>
+  // 모바일 사이드바 토글
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const appWrap = document.getElementById('app-wrap');
+    const sidebar = document.getElementById('sidebar');
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
+        appWrap.classList.toggle('sidebar-open');
+      });
+    }
+
+    // 오버레이(배경) 클릭 시 사이드바 닫기
+    appWrap.addEventListener('click', (e) => {
+      if (appWrap.classList.contains('sidebar-open')) {
+        if (!sidebar.contains(e.target) && e.target !== mobileMenuBtn && !mobileMenuBtn.contains(e.target)) {
+          appWrap.classList.remove('sidebar-open');
+        }
+      }
+    });
+
+    // 사이드바 내 항목 클릭 시 모바일에서 자동 닫기
+    sidebar.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768 && e.target.closest('a, .subject-link, .home-link')) {
+        appWrap.classList.remove('sidebar-open');
+      }
+    });
+  });
+</script>
