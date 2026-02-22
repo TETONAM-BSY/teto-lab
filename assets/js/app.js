@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// ENG·WIKI v4.0 — App Core
+// TETO·LAB v4.0 — App Core
 // SPA 라우팅, 데이터 로딩, 상태 관리
 // ═══════════════════════════════════════════════════════
 
@@ -62,13 +62,13 @@ const App = (() => {
 
     let html = `
       <div class="sidebar-header">
-        <div class="sidebar-logo">
+        <a class="sidebar-logo" href="#" id="logo-home-btn" style="text-decoration:none; cursor:pointer;">
           <span class="logo-icon">∑</span>
           <div>
-            <div class="logo-title">ENG·WIKI</div>
+            <div class="logo-title">TETO·LAB</div>
             <div class="logo-sub">v${meta.version}</div>
           </div>
-        </div>
+        </a>
         <button class="sidebar-toggle" id="sidebar-toggle" title="사이드바 접기">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M2 2h12v1.5H2zm0 5.25h12v1.5H2zm0 5.25h12v1.5H2z"/>
@@ -134,6 +134,13 @@ const App = (() => {
     // 이벤트
     document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
 
+    document.getElementById('logo-home-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      renderHome();
+      setActiveNav(null);
+      window.location.hash = '#';
+    });
+
     document.querySelectorAll('.sidebar-category').forEach(el => {
       el.addEventListener('click', () => {
         const catId = el.dataset.cat;
@@ -197,7 +204,7 @@ const App = (() => {
       <div class="home-wrap">
         <div class="home-hero">
           <div class="home-hero-badge">Engineering Knowledge Base</div>
-          <h1 class="home-title">ENG<span class="dot">·</span>WIKI</h1>
+          <h1 class="home-title">TETO<span class="dot">·</span>LAB</h1>
           <p class="home-desc">${meta.description}</p>
           <div class="home-stats">
             <div class="stat-item"><span class="stat-num">${meta.totalSubjects}</span><span class="stat-label">과목</span></div>
@@ -416,7 +423,7 @@ const App = (() => {
       <div id="mobile-header">
         <button id="mobile-menu-btn" aria-label="메뉴 열기"
           onclick="document.getElementById('app-wrap').classList.toggle('sidebar-open')">☰</button>
-        <span id="mobile-header-title">ENG<span id="mobile-header-dot">·</span>WIKI</span>
+        <span id="mobile-header-title" onclick="App.renderHome(); App.setActiveNav && App.setActiveNav(null); window.location.hash='#';" style="cursor:pointer;">TETO<span id="mobile-header-dot">·</span>LAB</span>
       </div>
     `;
   }
@@ -484,7 +491,7 @@ const App = (() => {
   }
 
   // ── Public API ───────────────────────────────────────
-  return { init, renderHome, navigateTo };
+  return { init, renderHome, navigateTo, setActiveNav };
 
 })();
 

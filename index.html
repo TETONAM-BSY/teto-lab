@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ENG·WIKI — 전기전자통신 기초공학</title>
+  <title>TETO·LAB — 전기전자통신 기초공학</title>
   <meta name="description" content="중학교 수학 수준에서 출발하여 맥스웰 방정식, 라플라스 변환, 푸리에 해석까지. 전기전자통신공학 완전 정복 학습 노트.">
 
   <!-- MathJax -->
@@ -192,7 +192,7 @@
     #main-content {
       min-height: 100vh;
       background: var(--bg-2);
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     /* ── 로딩 ── */
@@ -348,6 +348,18 @@
 
     /* 섹션 */
     .section-block { margin-bottom: 40px; }
+    /* MathJax 수식 가로 스크롤 */
+    .MJX-TEX, mjx-container, .mjx-chtml {
+      overflow-x: auto; overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+    }
+    /* 수식이 들어가는 모든 블록 */
+    .formula-box, .definition-block, .theorem-block,
+    .note-card, .example-block, .proof-block, .callout-block {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     .section-title {
       font-size: 1.1rem; font-weight: 700; color: var(--ink);
       border-left: 3px solid var(--accent-2);
@@ -413,6 +425,7 @@
       background: linear-gradient(135deg, #f0f4ff 0%, #e8f4f8 100%);
       border: 1px solid #c8d8f0; border-radius: var(--radius-lg);
       padding: 24px 28px; margin-bottom: 18px; text-align: center;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
     }
     .formula-name { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent-2); text-transform: uppercase; margin-bottom: 12px; }
     .formula-display { font-size: 1.1rem; margin: 8px 0; }
@@ -488,6 +501,7 @@
       background: linear-gradient(135deg, #eff6ff, #e0f2fe);
       border: 1px solid #bae6fd; border-radius: var(--radius-lg);
       padding: 22px 24px; margin-bottom: 18px;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
     }
     .def-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #0369a1; margin-bottom: 8px; text-transform: uppercase; }
     .def-term { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
@@ -497,6 +511,7 @@
     .theorem-block {
       background: #fefce8; border: 1px solid #fde68a;
       border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 18px;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
     }
     .theorem-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; color: #92400e; text-transform: uppercase; margin-bottom: 8px; }
     .theorem-statement { font-size: 0.87rem; color: var(--ink); line-height: 1.7; margin-bottom: 8px; }
@@ -641,7 +656,7 @@
     <!-- 모바일 전용 상단 헤더 -->
     <div id="mobile-header">
       <button id="mobile-menu-btn" aria-label="메뉴 열기">☰</button>
-      <span id="mobile-header-title">ENG<span id="mobile-header-dot">·</span>WIKI</span>
+      <span id="mobile-header-title">TETO<span id="mobile-header-dot">·</span>LAB</span>
     </div>
     <!-- app.js가 채워줌 -->
   </main>
