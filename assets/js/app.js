@@ -146,6 +146,9 @@ const App = (() => {
     document.querySelectorAll('.subject-link').forEach(el => {
       el.addEventListener('click', async (e) => {
         e.preventDefault();
+        if (window.innerWidth <= 768) {
+          document.getElementById('app-wrap').classList.remove('sidebar-open');
+        }
         const id = el.dataset.subject;
         const file = el.dataset.file;
         await navigateTo(id, file);
@@ -190,7 +193,7 @@ const App = (() => {
       `;
     }).join('');
 
-    main.innerHTML = `
+    main.innerHTML = mobileHeaderHTML() + `
       <div class="home-wrap">
         <div class="home-hero">
           <div class="home-hero-badge">Engineering Knowledge Base</div>
@@ -221,6 +224,8 @@ const App = (() => {
         await navigateTo(el.dataset.subject, el.dataset.file);
       });
     });
+
+    bindMobileHeader();
 
     // 홈 검색
     document.getElementById('home-search').addEventListener('keydown', (e) => {
@@ -263,7 +268,7 @@ const App = (() => {
       </div>
     `).join('');
 
-    main.innerHTML = `
+    main.innerHTML = mobileHeaderHTML() + `
       <div class="subject-wrap">
         <div class="subject-header">
           <a class="back-btn" href="#" id="back-home">← 홈으로</a>
@@ -277,6 +282,8 @@ const App = (() => {
         </div>
       </div>
     `;
+
+    bindMobileHeader();
 
     document.getElementById('back-home').addEventListener('click', (e) => {
       e.preventDefault(); renderHome(); setActiveNav(null);
@@ -315,7 +322,7 @@ const App = (() => {
       <li><a class="toc-link" href="#sec-${chapterIdx}-${si}">${sec.id} ${sec.title}</a></li>
     `).join('');
 
-    main.innerHTML = `
+    main.innerHTML = mobileHeaderHTML() + `
       <div class="chapter-wrap">
         <div class="chapter-content">
           <div class="chapter-breadcrumb">
@@ -350,6 +357,8 @@ const App = (() => {
         </aside>
       </div>
     `;
+
+    bindMobileHeader();
 
     document.getElementById('back-subject').addEventListener('click', (e) => {
       e.preventDefault(); renderSubjectPage(data);
@@ -401,11 +410,34 @@ const App = (() => {
     alert(`검색: "${query}"\n(전체 검색은 모든 과목 데이터 로드 후 사용 가능합니다)`);
   }
 
+  // ── 모바일 헤더 HTML ─────────────────────────────────
+  function mobileHeaderHTML() {
+    return `
+      <div id="mobile-header">
+        <button id="mobile-menu-btn" aria-label="메뉴 열기">☰</button>
+        <span id="mobile-header-title">ENG<span id="mobile-header-dot">·</span>WIKI</span>
+      </div>
+    `;
+  }
+
+  function bindMobileHeader() {
+    const btn = document.getElementById('mobile-menu-btn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      document.getElementById('app-wrap').classList.toggle('sidebar-open');
+    });
+  }
+
   // ── 사이드바 토글 ────────────────────────────────────
   function toggleSidebar() {
     const wrap = document.getElementById('app-wrap');
-    state.sidebarOpen = !state.sidebarOpen;
-    wrap.classList.toggle('sidebar-collapsed', !state.sidebarOpen);
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      wrap.classList.toggle('sidebar-open');
+    } else {
+      state.sidebarOpen = !state.sidebarOpen;
+      wrap.classList.toggle('sidebar-collapsed', !state.sidebarOpen);
+    }
   }
 
   // ── 진도 관리 ────────────────────────────────────────
