@@ -414,18 +414,15 @@ const App = (() => {
   function mobileHeaderHTML() {
     return `
       <div id="mobile-header">
-        <button id="mobile-menu-btn" aria-label="메뉴 열기">☰</button>
+        <button id="mobile-menu-btn" aria-label="메뉴 열기"
+          onclick="document.getElementById('app-wrap').classList.toggle('sidebar-open')">☰</button>
         <span id="mobile-header-title">ENG<span id="mobile-header-dot">·</span>WIKI</span>
       </div>
     `;
   }
 
   function bindMobileHeader() {
-    const btn = document.getElementById('mobile-menu-btn');
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-      document.getElementById('app-wrap').classList.toggle('sidebar-open');
-    });
+    // onclick 인라인으로 처리되므로 추가 바인딩 불필요
   }
 
   // ── 사이드바 토글 ────────────────────────────────────
