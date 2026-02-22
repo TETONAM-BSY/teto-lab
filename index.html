@@ -651,35 +651,20 @@
 <script src="assets/js/render.js"></script>
 <script src="assets/js/app.js"></script>
 
-</body>
-</html>
 <script>
-  // 모바일 사이드바 토글
-  document.addEventListener('DOMContentLoaded', () => {
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const appWrap = document.getElementById('app-wrap');
+  // 오버레이(배경) 클릭 시 사이드바 닫기
+  // app-wrap에 위임 — mobile-menu-btn은 app.js의 onclick으로 처리
+  document.getElementById('app-wrap').addEventListener('click', (e) => {
+    const wrap = document.getElementById('app-wrap');
+    if (!wrap.classList.contains('sidebar-open')) return;
     const sidebar = document.getElementById('sidebar');
-
-    if (mobileMenuBtn) {
-      mobileMenuBtn.addEventListener('click', () => {
-        appWrap.classList.toggle('sidebar-open');
-      });
-    }
-
-    // 오버레이(배경) 클릭 시 사이드바 닫기
-    appWrap.addEventListener('click', (e) => {
-      if (appWrap.classList.contains('sidebar-open')) {
-        if (!sidebar.contains(e.target) && e.target !== mobileMenuBtn && !mobileMenuBtn.contains(e.target)) {
-          appWrap.classList.remove('sidebar-open');
-        }
-      }
-    });
-
-    // 사이드바 내 항목 클릭 시 모바일에서 자동 닫기
-    sidebar.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768 && e.target.closest('a, .subject-link, .home-link')) {
-        appWrap.classList.remove('sidebar-open');
-      }
-    });
+    const btn = document.getElementById('mobile-menu-btn');
+    // 사이드바 안 클릭이거나 햄버거 버튼 클릭이면 무시
+    if (sidebar && sidebar.contains(e.target)) return;
+    if (btn && btn.contains(e.target)) return;
+    wrap.classList.remove('sidebar-open');
   });
 </script>
+
+</body>
+</html>
