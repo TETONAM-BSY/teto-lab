@@ -1,0 +1,471 @@
+{
+  "id": "microprocessor",
+  "title": "마이크로프로세서",
+  "subtitle": "Microprocessors and Embedded Systems",
+  "chapters": [
+    {
+      "id": "ch01-intro",
+      "number": 1,
+      "title": "마이크로프로세서 개론",
+      "subtitle": "Introduction to Microprocessors",
+      "sections": [
+        {
+          "id": "ch01-s01",
+          "title": "마이크로프로세서 구조",
+          "content": [
+            {
+              "type": "definition",
+              "term": "마이크로프로세서 (Microprocessor)",
+              "body": "CPU 기능을 단일 IC 칩에 집적한 소자. ALU(산술논리장치)·레지스터·제어장치·버스 인터페이스 포함. 마이크로컨트롤러(MCU)는 CPU+메모리+주변장치 통합."
+            },
+            {
+              "type": "table",
+              "title": "마이크로프로세서 vs 마이크로컨트롤러",
+              "headers": ["구분", "마이크로프로세서", "마이크로컨트롤러"],
+              "rows": [
+                ["구성", "CPU만", "CPU+RAM+Flash+주변장치"],
+                ["외부 소자", "많이 필요", "최소"],
+                ["성능", "높음", "중간"],
+                ["전력", "높음", "낮음"],
+                ["응용", "PC, 서버, 스마트폰", "가전, 자동차, IoT"],
+                ["예시", "Intel Core, ARM Cortex-A", "STM32, ATmega, ESP32"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch02-isa",
+      "number": 2,
+      "title": "명령어 집합 구조 (ISA)",
+      "subtitle": "Instruction Set Architecture",
+      "sections": [
+        {
+          "id": "ch02-s01",
+          "title": "CISC vs RISC",
+          "content": [
+            {
+              "type": "table",
+              "title": "CISC vs RISC 비교",
+              "headers": ["항목", "CISC", "RISC"],
+              "rows": [
+                ["명령어 수", "수백~수천", "수십~100개"],
+                ["명령어 길이", "가변", "고정 (4바이트)"],
+                ["메모리 접근", "여러 방식", "Load/Store만"],
+                ["레지스터", "적음", "많음 (32개)"],
+                ["클럭/명령어", "1~수십", "1 (파이프라인)"],
+                ["예시", "x86, x86-64 (Intel, AMD)", "ARM, RISC-V, MIPS"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "CPU 성능",
+              "latex": "\\text{실행 시간} = \\text{명령어 수}\\times CPI \\times T_{clk}",
+              "description": "CPI: 명령어당 클럭 수. RISC: CPI≈1 목표. 클럭 주기 Tclk=1/fclk"
+            }
+          ]
+        },
+        {
+          "id": "ch02-s02",
+          "title": "명령어 형식",
+          "content": [
+            {
+              "type": "formula",
+              "name": "ARM Thumb-2 명령어 형식 (32비트)",
+              "latex": "\\underbrace{\\text{Cond}}_{4}\\underbrace{\\text{Op}}_{3}\\underbrace{\\text{Rn}}_{4}\\underbrace{\\text{Rd}}_{4}\\underbrace{\\text{Imm/Operand2}}_{12}\\underbrace{\\text{Flags}}_{5}",
+              "description": "조건 코드(4bit) + 연산코드 + 레지스터 필드 + 피연산자"
+            },
+            {
+              "type": "table",
+              "title": "주소 지정 방식",
+              "headers": ["방식", "주소 계산", "예"],
+              "rows": [
+                ["즉치 (Immediate)", "피연산자=명령어 내 상수", "MOV R0, #10"],
+                ["레지스터", "피연산자=레지스터 값", "ADD R0, R1, R2"],
+                ["직접 (Direct)", "EA=명령어 내 주소", "LDR R0, [0x2000]"],
+                ["레지스터 간접", "EA=레지스터 값", "LDR R0, [R1]"],
+                ["베이스+오프셋", "EA=Rbase+offset", "LDR R0, [R1, #4]"],
+                ["PC 상대", "EA=PC+offset", "B label"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch03-pipeline",
+      "number": 3,
+      "title": "파이프라인",
+      "subtitle": "Pipeline",
+      "sections": [
+        {
+          "id": "ch03-s01",
+          "title": "파이프라인 구조",
+          "content": [
+            {
+              "type": "formula",
+              "name": "파이프라인 처리율",
+              "latex": "\\text{Throughput} = \\frac{1}{\\max(t_i)},\\quad \\text{이상 속도 향상} = n\\text{단계}",
+              "description": "n단계 파이프라인 → 이론상 n배 향상. 단계 균형이 중요."
+            },
+            {
+              "type": "table",
+              "title": "파이프라인 해저드 (Hazard)",
+              "headers": ["종류", "원인", "해결"],
+              "rows": [
+                ["구조적 해저드", "자원 충돌 (메모리, 레지스터)", "자원 이중화, 스톨"],
+                ["데이터 해저드 (RAW)", "이전 명령 결과 미완성", "전방전달(Forwarding), 스톨"],
+                ["데이터 해저드 (WAR/WAW)", "순서 문제", "레지스터 재명명"],
+                ["제어 해저드", "분기 예측 실패", "분기 예측기, 지연 슬롯"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "분기 예측 성능",
+              "latex": "\\text{CPI}_{eff} = \\text{CPI}_{ideal} + p_{miss}\\times\\text{penalty}",
+              "description": "현대 CPU 분기 예측 정확도 >95%. 오예측 시 파이프라인 플러시."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch04-memory-hierarchy",
+      "number": 4,
+      "title": "메모리 계층",
+      "subtitle": "Memory Hierarchy",
+      "sections": [
+        {
+          "id": "ch04-s01",
+          "title": "캐시 메모리",
+          "content": [
+            {
+              "type": "formula",
+              "name": "유효 메모리 접근 시간",
+              "latex": "T_{avg} = h\\cdot T_{cache} + (1-h)\\cdot T_{mem}",
+              "description": "h: 캐시 적중률(hit rate). L1 캐시 적중률 ~95%, L2 ~99%"
+            },
+            {
+              "type": "table",
+              "title": "메모리 계층 특성",
+              "headers": ["계층", "용량", "접근 시간", "대역폭"],
+              "rows": [
+                ["레지스터", "수십 바이트", "< 1 ns", "매우 높음"],
+                ["L1 캐시", "32~64 KB", "1~4 ns", "수 TB/s"],
+                ["L2 캐시", "256KB~1MB", "5~15 ns", "수백 GB/s"],
+                ["L3 캐시", "4~64 MB", "20~50 ns", "수십 GB/s"],
+                ["DRAM", "GB 단위", "50~100 ns", "수십 GB/s"],
+                ["SSD", "TB 단위", "수십 μs", "수 GB/s"],
+                ["HDD", "TB 단위", "수 ms", "수백 MB/s"]
+              ]
+            },
+            {
+              "type": "formula-grid",
+              "title": "캐시 매핑 방식",
+              "cols": 2,
+              "items": [
+                {"name": "직접 매핑", "latex": "\\text{index} = \\text{address}\\bmod N_{sets}", "desc": "단순, 충돌 미스 많음"},
+                {"name": "완전 연관", "latex": "\\text{임의 위치 매핑}", "desc": "미스 최소, 하드웨어 복잡"},
+                {"name": "n-way 집합 연관", "latex": "\\text{집합 내 n개 위치}", "desc": "타협안. L1: 4-way, L2: 8-way"},
+                {"name": "LRU 교체 정책", "latex": "\\text{가장 오래된 미사용 교체}", "desc": "최적에 근접, 실용적"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch05-arm",
+      "number": 5,
+      "title": "ARM 아키텍처",
+      "subtitle": "ARM Architecture",
+      "sections": [
+        {
+          "id": "ch05-s01",
+          "title": "ARM 레지스터와 명령어",
+          "content": [
+            {
+              "type": "definition",
+              "term": "ARM Cortex 계열",
+              "body": "Cortex-A: 응용 프로세서(스마트폰, 태블릿). Cortex-R: 실시간(자동차, SSD 컨트롤러). Cortex-M: 마이크로컨트롤러(IoT, 임베디드). ARMv8-A부터 64비트(AArch64) 지원."
+            },
+            {
+              "type": "formula",
+              "name": "ARM 레지스터 구성",
+              "latex": "R0\\sim R12: \\text{범용},\\quad R13(SP): \\text{스택 포인터},\\quad R14(LR): \\text{링크 레지스터},\\quad R15(PC): \\text{프로그램 카운터}",
+              "description": "CPSR: 프로그램 상태 레지스터 (N, Z, C, V 플래그). 동작 모드별 뱅크 레지스터."
+            },
+            {
+              "type": "table",
+              "title": "ARM 주요 명령어",
+              "headers": ["명령어", "동작", "예시"],
+              "rows": [
+                ["MOV", "레지스터 이동/로드", "MOV R0, #5"],
+                ["LDR/STR", "메모리 읽기/쓰기", "LDR R0, [R1]"],
+                ["ADD/SUB", "덧셈/뺄셈", "ADD R0, R1, R2"],
+                ["AND/ORR/EOR", "논리 연산", "AND R0, R1, #0xFF"],
+                ["LSL/LSR/ASR", "비트 시프트", "LSL R0, R1, #2"],
+                ["B/BL/BX", "분기/서브루틴 호출", "BL function"],
+                ["CMP/TST", "비교 (플래그만 갱신)", "CMP R0, #0"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch06-interrupt",
+      "number": 6,
+      "title": "인터럽트와 예외",
+      "subtitle": "Interrupts and Exceptions",
+      "sections": [
+        {
+          "id": "ch06-s01",
+          "title": "인터럽트 처리",
+          "content": [
+            {
+              "type": "definition",
+              "term": "인터럽트 (Interrupt)",
+              "body": "외부 이벤트가 CPU 실행을 중단시키고 ISR(인터럽트 서비스 루틴)로 분기하는 메커니즘. 폴링 대비 CPU 효율 극대화."
+            },
+            {
+              "type": "formula",
+              "name": "인터럽트 응답 시간 (Latency)",
+              "latex": "T_{latency} = T_{save\\_context} + T_{vector\\_fetch} + T_{ISR\\_entry}",
+              "description": "ARM Cortex-M: 12~16 클럭 인터럽트 지연. FPU 사용 시 추가."
+            },
+            {
+              "type": "table",
+              "title": "ARM Cortex-M NVIC",
+              "headers": ["항목", "설명"],
+              "rows": [
+                ["우선순위 레벨", "0~255 (낮은 숫자=높은 우선순위)"],
+                ["중첩 인터럽트", "높은 우선순위가 낮은 것 선점 가능"],
+                ["테일 체이닝", "연속 인터럽트 시 컨텍스트 저장 생략"],
+                ["레이트 도착", "컨텍스트 저장 중 더 높은 우선순위 처리"],
+                ["벡터 테이블", "플래시 시작 주소에 위치, 재배치 가능"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch07-peripheral",
+      "number": 7,
+      "title": "주변장치 인터페이스",
+      "subtitle": "Peripheral Interfaces",
+      "sections": [
+        {
+          "id": "ch07-s01",
+          "title": "통신 인터페이스",
+          "content": [
+            {
+              "type": "table",
+              "title": "마이크로컨트롤러 통신 인터페이스",
+              "headers": ["인터페이스", "방식", "속도", "선 수", "응용"],
+              "rows": [
+                ["UART", "비동기 직렬", "115.2kbps~수Mbps", "2 (TX,RX)", "디버그, GPS, BT"],
+                ["SPI", "동기 직렬, 전이중", "수십 Mbps", "4 (MOSI,MISO,CLK,CS)", "플래시, 디스플레이"],
+                ["I²C", "동기 직렬, 다중 슬레이브", "100k/400k/3.4Mbps", "2 (SDA,SCL)", "센서, EEPROM"],
+                ["CAN", "차동 직렬, 멀티마스터", "1Mbps (CAN-FD 8Mbps)", "2 (H,L)", "자동차 ECU"],
+                ["USB", "차동, 호스트-디바이스", "12M/480M/5~40Gbps", "4+", "PC 주변장치"],
+                ["Ethernet", "패킷, 전이중", "10M~10Gbps", "4쌍 (UTP)", "산업, IoT"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch07-s02",
+          "title": "타이머·ADC·PWM",
+          "content": [
+            {
+              "type": "formula",
+              "name": "타이머 오버플로우 주기",
+              "latex": "T_{overflow} = \\frac{(2^N - \\text{초기값})}{f_{clk}/\\text{분주비}}",
+              "description": "N: 타이머 비트 수(8/16/32), 분주비: 프리스케일러 설정값"
+            },
+            {
+              "type": "formula",
+              "name": "ADC 변환 시간",
+              "latex": "T_{conv} = \\frac{N_{sample} + N_{bits}}{f_{ADC}},\\quad V_{in} = \\frac{\\text{ADC}_{result}}{2^N}\\times V_{ref}",
+              "description": "STM32 ADC: 12비트, 최대 5MSPS. 입력 임피던스와 샘플링 시간 주의."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch08-rtos",
+      "number": 8,
+      "title": "실시간 운영체제 (RTOS)",
+      "subtitle": "Real-Time Operating System",
+      "sections": [
+        {
+          "id": "ch08-s01",
+          "title": "RTOS 개념",
+          "content": [
+            {
+              "type": "definition",
+              "term": "RTOS (Real-Time OS)",
+              "body": "정해진 시간(데드라인) 내에 작업 완료를 보장하는 OS. 경성(Hard) RTOS: 데드라인 초과=시스템 실패(항공·의료). 연성(Soft) RTOS: 데드라인 초과=성능 저하(멀티미디어)."
+            },
+            {
+              "type": "table",
+              "title": "RTOS 스케줄링",
+              "headers": ["방식", "특징", "응용"],
+              "rows": [
+                ["선점 우선순위", "항상 최고 우선순위 실행", "FreeRTOS 기본"],
+                ["RMS (Rate Monotonic)", "주기 짧은 것이 높은 우선순위", "이론적 최적"],
+                ["EDF (Earliest Deadline First)", "마감 가장 가까운 것 먼저", "최적 스케줄링"],
+                ["협력적 스케줄링", "태스크가 자발적 양보", "단순 임베디드"]
+              ]
+            },
+            {
+              "type": "formula",
+              "name": "Liu & Layland 스케줄 가능성",
+              "latex": "U = \\sum_{i=1}^{n}\\frac{C_i}{T_i} \\leq n(2^{1/n}-1) \\xrightarrow{n\\to\\infty} \\ln 2 \\approx 0.693",
+              "description": "RMS: CPU 이용률 ≤69.3%이면 스케줄 가능. Ci: 실행시간, Ti: 주기"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch09-memory-map",
+      "number": 9,
+      "title": "메모리 맵과 부트로더",
+      "subtitle": "Memory Map and Bootloader",
+      "sections": [
+        {
+          "id": "ch09-s01",
+          "title": "임베디드 메모리 구성",
+          "content": [
+            {
+              "type": "definition",
+              "term": "STM32 메모리 맵 (예시)",
+              "body": "0x0800_0000: Flash (코드, 상수). 0x2000_0000: SRAM (스택, 힙, 전역변수). 0x4000_0000: 주변장치 레지스터. 0xE000_0000: Cortex-M 내부 주변장치(NVIC, SysTick 등)."
+            },
+            {
+              "type": "formula",
+              "name": "링커 스크립트 섹션",
+              "latex": "\\text{.text(코드)} \\to \\text{Flash},\\quad \\text{.data(초기화 전역)} \\to \\text{SRAM (Flash에서 복사)},\\quad \\text{.bss(미초기화)} \\to \\text{SRAM (0으로 초기화)}",
+              "description": "스타트업 코드가 .data 복사와 .bss 초기화 수행 후 main() 진입"
+            },
+            {
+              "type": "callout",
+              "variant": "tip",
+              "title": "부트로더",
+              "body": "전원 인가 시 실행되는 첫 번째 코드. ① 하드웨어 초기화 ② 메모리 검사 ③ 애플리케이션 유효성 확인 ④ 점프. OTA(Over-The-Air) 업데이트, 안전 부팅(Secure Boot) 구현에 핵심."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch10-low-power",
+      "number": 10,
+      "title": "저전력 설계",
+      "subtitle": "Low Power Design",
+      "sections": [
+        {
+          "id": "ch10-s01",
+          "title": "전력 최적화",
+          "content": [
+            {
+              "type": "formula",
+              "name": "동적 전력 소비",
+              "latex": "P_{dynamic} = \\alpha C V_{DD}^2 f,\\quad P_{static} = V_{DD}\\cdot I_{leak}",
+              "description": "VDD 감소가 가장 효과적 (제곱 비례). 주파수 절반→전력 절반."
+            },
+            {
+              "type": "table",
+              "title": "저전력 모드 (STM32 예시)",
+              "headers": ["모드", "CPU", "주변장치", "소비전류", "복귀 시간"],
+              "rows": [
+                ["Run", "동작", "동작", "수십 mA", "-"],
+                ["Sleep", "정지", "동작", "수 mA", "수 클럭"],
+                ["Stop", "정지", "일부", "수십 μA", "수 μs"],
+                ["Standby", "정지", "최소", "수 μA", "수 ms (리셋)"],
+                ["Shutdown", "정지", "없음", "수백 nA", "리셋"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch11-embedded-sw",
+      "number": 11,
+      "title": "임베디드 소프트웨어",
+      "subtitle": "Embedded Software",
+      "sections": [
+        {
+          "id": "ch11-s01",
+          "title": "임베디드 C 프로그래밍",
+          "content": [
+            {
+              "type": "note-card",
+              "class": "proof",
+              "label": "임베디드 C",
+              "title": "GPIO 레지스터 직접 제어 예시",
+              "body": "<code>// 레지스터 직접 접근<br>#define GPIOA_ODR (*((volatile uint32_t*)0x40020014))<br>GPIOA_ODR |= (1 &lt;&lt; 5);  // PA5 HIGH<br><br>// HAL 라이브러리 사용<br>HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);</code>"
+            },
+            {
+              "type": "formula",
+              "name": "volatile 키워드",
+              "latex": "\\texttt{volatile uint32\\_t* reg = (uint32\\_t*)0x40020014;}",
+              "description": "컴파일러 최적화 방지. 하드웨어 레지스터, 인터럽트 공유 변수, DMA 버퍼에 필수."
+            },
+            {
+              "type": "table",
+              "title": "임베디드 프레임워크",
+              "headers": ["프레임워크", "대상 MCU", "특징"],
+              "rows": [
+                ["STM32 HAL/LL", "STM32", "ST 공식, HAL(쉬움)/LL(빠름)"],
+                ["Arduino", "AVR, ESP32, STM32", "초보 친화, 큰 라이브러리"],
+                ["Zephyr RTOS", "ARM, RISC-V", "오픈소스, IoT 표준"],
+                ["ESP-IDF", "ESP32", "Wi-Fi·BT 통합, FreeRTOS"],
+                ["mbed", "ARM Cortex-M", "ARM 공식 플랫폼"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch12-applications",
+      "number": 12,
+      "title": "공학 응용",
+      "subtitle": "Engineering Applications",
+      "sections": [
+        {
+          "id": "ch12-s01",
+          "title": "마이크로프로세서 응용",
+          "content": [
+            {
+              "type": "table",
+              "title": "분야별 마이크로프로세서 응용",
+              "headers": ["분야", "MCU/MPU", "핵심 기능"],
+              "rows": [
+                ["자동차 ECU", "Infineon TC3xx, NXP S32K", "CAN, 실시간 제어, 기능 안전(ISO 26262)"],
+                ["IoT 기기", "ESP32, nRF52840", "Wi-Fi/BT, 저전력, OTA 업데이트"],
+                ["의료 기기", "STM32L, Nordic nRF", "저전력, 신뢰성, 인증(IEC 60601)"],
+                ["산업 자동화", "STM32, TI C2000", "Modbus, EtherCAT, 모터 제어"],
+                ["드론·로봇", "STM32F4, Cortex-M7", "IMU 센서 퓨전, PWM 모터 제어"],
+                ["스마트홈", "ESP8266, Raspberry Pi", "Wi-Fi, MQTT, 클라우드 연동"]
+              ]
+            },
+            {
+              "type": "analogy",
+              "emoji": "🤖",
+              "title": "마이크로컨트롤러는 세상을 움직이는 숨은 뇌",
+              "body": "스마트폰에는 1개의 고성능 AP가 있지만, 자동차 한 대에는 100개 이상의 MCU가 들어간다. 에어백, 엔진, 변속기, 창문, 열선 시트—모든 것을 수십~수백 MHz의 MCU가 실시간으로 제어한다. 마이크로프로세서를 이해하는 엔지니어가 진짜 세상을 설계한다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
